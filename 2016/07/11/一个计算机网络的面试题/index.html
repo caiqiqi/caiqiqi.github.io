@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="network," />
 
 
 
@@ -84,19 +84,28 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="来自林沛满的《WIreshark网络分析就这么简单》
+###问题
+###抓包与分析分析一下：A: 192.168.26.129/24 B: 192.168.26.3/27 
+那问题是：B能ping通A吗？咋一看都是192.168.26.*,好像应该能ping通，但是看看子网掩码呢？A的掩码：255.255.255.0，挺熟悉的，平常用的路由器或者从PC发出来的热点不就是这样的形式吗？然而B的掩码跟">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/hello-world/index.html">
+<meta property="og:title" content="一个计算机网络的面试题">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/一个计算机网络的面试题/index.html">
 <meta property="og:site_name" content="蔡奇奇的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta property="og:description" content="来自林沛满的《WIreshark网络分析就这么简单》
+###问题
+###抓包与分析分析一下：A: 192.168.26.129/24 B: 192.168.26.3/27 
+那问题是：B能ping通A吗？咋一看都是192.168.26.*,好像应该能ping通，但是看看子网掩码呢？A的掩码：255.255.255.0，挺熟悉的，平常用的路由器或者从PC发出来的热点不就是这样的形式吗？然而B的掩码跟">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/b0a7c3b6gw1f2t4h26er3j21301mhn8a.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/b0a7c3b6gw1f2t6wbut7aj210u469hce.jpg">
 <meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="一个计算机网络的面试题">
+<meta name="twitter:description" content="来自林沛满的《WIreshark网络分析就这么简单》
+###问题
+###抓包与分析分析一下：A: 192.168.26.129/24 B: 192.168.26.3/27 
+那问题是：B能ping通A吗？咋一看都是192.168.26.*,好像应该能ping通，但是看看子网掩码呢？A的掩码：255.255.255.0，挺熟悉的，平常用的路由器或者从PC发出来的热点不就是这样的形式吗？然而B的掩码跟">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/mw690/b0a7c3b6gw1f2t4h26er3j21301mhn8a.jpg">
 
 
 
@@ -117,9 +126,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/hello-world/"/>
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/一个计算机网络的面试题/"/>
 
-  <title> Hello World | 蔡奇奇的博客 </title>
+  <title> 一个计算机网络的面试题 | 蔡奇奇的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
@@ -239,7 +248,7 @@ Quick">
             
             
               
-                Hello World
+                一个计算机网络的面试题
               
             
           </h1>
@@ -251,7 +260,7 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T04:23:21+08:00" content="2016-07-11">
+            <time itemprop="dateCreated" datetime="2016-07-11T02:13:10+08:00" content="2016-07-11">
               2016-07-11
             </time>
           </span>
@@ -279,15 +288,10 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>来自林沛满的《WIreshark网络分析就这么简单》</p>
+<p>###问题<br><img src="http://ww4.sinaimg.cn/mw690/b0a7c3b6gw1f2t4h26er3j21301mhn8a.jpg" alt="这里写图片描述"></p>
+<p>###抓包与分析<br><img src="http://ww3.sinaimg.cn/mw690/b0a7c3b6gw1f2t6wbut7aj210u469hce.jpg" alt="这里写图片描述"><br>分析一下：<br><br>A: <code>192.168.26.129/24</code> <br><br>B: <code>192.168.26.3/27</code> <br></p>
+<p>那问题是：B能ping通A吗？咋一看都是<code>192.168.26.*</code>,好像应该能ping通，但是看看子网掩码呢？A的掩码：255.255.255.0，挺熟悉的，平常用的路由器或者从PC发出来的热点不就是这样的形式吗？然而B的掩码跟A不一样！蒙逼了！好啦，认真分析一下，是谁ping谁？B要ping A。作为B来说，由B的掩码可看出B所在的网络是192.168.26.0/27。前27位是网络号，后面的位可分配给主机号，即<code>2的(32-27)次方-1=31</code>个主机号(<strong>192.168.26.1~31</strong>)，显然A的IP ：192.168.26.129不在其列，即对B来说，A不属于B所在的子网，于是B想出本子网去找A就得交给B所在子网的网关(192.168.26.2)来处理。而要跟网关通信，就得先知道网关的MAC地址，也就是要ARP一下。于是网关向B回复了网关的MAC地址，这样B就可以跟网关通信了。于是B向A发出一个ping包，这里说向A发出ping包的意思是A发出的网络层的包的包头指定目标IP为A的IP。而其数据链路层的帧的目标MAC地址是网关的MAC地址。于是网关收到这个帧之后，发现网络层包中的目标IP为A的IP，于是转发这个包给A。A收到这个包之后，发现源IP是B(192.168.26.3)。而对A来说，B属于A的子网，因为A属于192.168.26.0/24这个网段，即<strong>192.168.26.1~255</strong>，包含B的IP(192.168.26.129)。于是A回复B的ARP请求，将自己的MAC地址告诉A，而不用经过网关的转发了。</p>
 
       
     </div>
@@ -308,18 +312,28 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/network/" rel="tag">#network</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/《大明王朝的七张面孔》——海瑞/" rel="next" title="《大明王朝的七张面孔》——海瑞">
-                <i class="fa fa-chevron-left"></i> 《大明王朝的七张面孔》——海瑞
+              <a href="/2016/07/11/强大的Burp-Suite/" rel="next" title="强大的Burp Suite">
+                <i class="fa fa-chevron-left"></i> 强大的Burp Suite
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/强大的网站测试工具viewDNS-info记/" rel="prev" title="强大的网站测试工具viewDNS.info记">
+                强大的网站测试工具viewDNS.info记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +469,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

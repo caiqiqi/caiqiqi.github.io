@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="SDN,ns3,C++," />
 
 
 
@@ -84,19 +84,32 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="##Linksns-3的API：https://www.nsnam.org/docs/release/3.17/doxygen/一些学习的视频：ns3 overview
+ns3share’s channeltutorial-ns3 Building Simple Network Topologies p2 
+##Main——————7月8日更新———————————–我拿着这个bug在网上半天找不">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/hello-world/index.html">
+<meta property="og:title" content="ns3笔记">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/ns3笔记/index.html">
 <meta property="og:site_name" content="蔡奇奇的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta property="og:description" content="##Linksns-3的API：https://www.nsnam.org/docs/release/3.17/doxygen/一些学习的视频：ns3 overview
+ns3share’s channeltutorial-ns3 Building Simple Network Topologies p2 
+##Main——————7月8日更新———————————–我拿着这个bug在网上半天找不">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708161817935">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708161313568">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708161329148">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708163046328">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703030536433">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703030709762">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703030854602">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703031135826">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703031336717">
 <meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="ns3笔记">
+<meta name="twitter:description" content="##Linksns-3的API：https://www.nsnam.org/docs/release/3.17/doxygen/一些学习的视频：ns3 overview
+ns3share’s channeltutorial-ns3 Building Simple Network Topologies p2 
+##Main——————7月8日更新———————————–我拿着这个bug在网上半天找不">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160708161817935">
 
 
 
@@ -117,9 +130,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/hello-world/"/>
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/ns3笔记/"/>
 
-  <title> Hello World | 蔡奇奇的博客 </title>
+  <title> ns3笔记 | 蔡奇奇的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
@@ -239,7 +252,7 @@ Quick">
             
             
               
-                Hello World
+                ns3笔记
               
             
           </h1>
@@ -251,7 +264,7 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T04:23:21+08:00" content="2016-07-11">
+            <time itemprop="dateCreated" datetime="2016-07-11T03:04:37+08:00" content="2016-07-11">
               2016-07-11
             </time>
           </span>
@@ -279,15 +292,11 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>##Links<br>ns-3的API：<br><br><a href="https://www.nsnam.org/docs/release/3.17/doxygen/" target="_blank" rel="external">https://www.nsnam.org/docs/release/3.17/doxygen/</a><br>一些学习的视频：<br><br><a href="https://www.youtube.com/watch?v=FFNvFzSmgIg" target="_blank" rel="external">ns3 overview</a><br></p>
+<p><a href="https://www.youtube.com/user/ns3share/videos" target="_blank" rel="external">ns3share’s channel</a><br><br><a href="https://www.youtube.com/watch?v=AU7ZjBvQaBk" target="_blank" rel="external">tutorial-ns3</a><br><br><div class="video-container"><iframe src="//www.youtube.com/embed/AU7ZjBvQaBk" frameborder="0" allowfullscreen></iframe></div> <br><br><a href="https://www.youtube.com/watch?v=dZKz1J1ZZRU&amp;list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&amp;index=1" target="_blank" rel="external">Building Simple Network Topologies p2</a> <br><br><div class="video-container"><iframe src="//www.youtube.com/embed/dZKz1J1ZZRU&list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&index=1" frameborder="0" allowfullscreen></iframe></div><br><br></p>
+<p>##Main<br>——————7月8日更新———————————–<br>我拿着这个bug在网上半天找不到答案，突然找到一个Google Group里面的回答，发现跟我之前装ns3的方式不一样。于是在之前ns3的兄弟目录装了一个他们说的那种版本的ns3.<br><a href="http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html" target="_blank" rel="external">http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html</a><br><br>并按照这里面的内容改了一下几个文件(其实就是在一个.cc文件里面include了某个头文件，而在另一个文件.h里取消了include那个头文件，然后改了一下wscript)。<br><img src="http://img.blog.csdn.net/20160708161817935" alt="这里写图片描述"><br>编译这两千个.cc文件也是不简单给ubuntu的2.2G内存用完了，结果还碰到一个g++编译器的问题，得用swap，于是在本来就不多的硬盘上给了1G用作swap，<code>sudo dd if=/dev/zero of=/swapfile bs=64M count=16</code> ，<code>sudo mkswap /swapfile
+sudo swapon /swapfile</code> 。编译完成之后删除<code>sudo swapoff /swapfile
+sudo rm /swapfile</code>。其实就是在『bindings/ns3module.cc』这个文件编译的时候超级吃内存(感觉得要2G)，这种文件编译完了立马内存就释放了。<br><a href="http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/" target="_blank" rel="external">http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/</a><br><img src="http://img.blog.csdn.net/20160708161313568" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160708161329148" alt="这里写图片描述"><br><br>OK,在这种下载ns3的方式下，编译成功了。<br><br><img src="http://img.blog.csdn.net/20160708163046328" alt="这里写图片描述"><br>————————-我是分割线——————————–<br>最近准备建一些混杂的拓扑(有WIFI，有点对点，有CSMA以太网)，但是OpenNet这个库是刚出来的，有一些小bug，不太好用，于是跟Gilani交流后，他说ns-3可以做，于是我上网找了一些视频开始学习。<br>看视频里面的代码的一个示例：tutorial4.cc <br><br><img src="http://img.blog.csdn.net/20160703030536433" alt="这里写图片描述"><br>这里是要建立的拓扑：<br><br><img src="http://img.blog.csdn.net/20160703030709762" alt="这里写图片描述"><br>实际上每个节点(由<code>NodeDeviceContainer</code>建立的)是按照创建顺序然后依次排入一个<code>NodeList</code>中，用来为没个节点建立数字索引。<br><br><img src="http://img.blog.csdn.net/20160703030854602" alt="这里写图片描述"><br>每个网卡(API里面叫<code>NetDevice</code>，比如回环网卡<code>LoopbackNetDevice</code>, 点对点网卡<code>PointToPointNetDevice</code>等)<br><br><br><img src="http://img.blog.csdn.net/20160703031135826" alt="这里写图片描述"><br>一个物理的网络设备可以有安装多个网卡<br><br><img src="http://img.blog.csdn.net/20160703031336717" alt="这里写图片描述"></p>
 
       
     </div>
@@ -308,18 +317,32 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/SDN/" rel="tag">#SDN</a>
+          
+            <a href="/tags/ns3/" rel="tag">#ns3</a>
+          
+            <a href="/tags/C/" rel="tag">#C++</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/《大明王朝的七张面孔》——海瑞/" rel="next" title="《大明王朝的七张面孔》——海瑞">
-                <i class="fa fa-chevron-left"></i> 《大明王朝的七张面孔》——海瑞
+              <a href="/2016/07/11/mininet实战2/" rel="next" title="mininet实战2">
+                <i class="fa fa-chevron-left"></i> mininet实战2
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/Python实现学校学生管理系统的自动登录/" rel="prev" title="Python实现学校学生管理系统的自动登录">
+                Python实现学校学生管理系统的自动登录 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +478,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

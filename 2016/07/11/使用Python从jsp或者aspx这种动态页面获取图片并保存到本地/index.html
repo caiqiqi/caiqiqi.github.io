@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Python,Web," />
 
 
 
@@ -84,19 +84,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="有些登录页面中的验证码图片是从这样的动态页面url：http://cer.nju.edu.cn/amserver/verify/image.jsphttp://gs.cqupt.edu.cn:8080/Public/ValidateCode.aspx 中获取的。这时不能这样：123456def save_img_from_url(imageUrl, filename):	u = urllib2.u">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/hello-world/index.html">
+<meta property="og:title" content="使用Python从jsp或者aspx这种动态页面获取图片并保存到本地">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/使用Python从jsp或者aspx这种动态页面获取图片并保存到本地/index.html">
 <meta property="og:site_name" content="蔡奇奇的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta property="og:description" content="有些登录页面中的验证码图片是从这样的动态页面url：http://cer.nju.edu.cn/amserver/verify/image.jsphttp://gs.cqupt.edu.cn:8080/Public/ValidateCode.aspx 中获取的。这时不能这样：123456def save_img_from_url(imageUrl, filename):	u = urllib2.u">
+<meta property="og:image" content="http://img.blog.csdn.net/20160311194509843">
 <meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="使用Python从jsp或者aspx这种动态页面获取图片并保存到本地">
+<meta name="twitter:description" content="有些登录页面中的验证码图片是从这样的动态页面url：http://cer.nju.edu.cn/amserver/verify/image.jsphttp://gs.cqupt.edu.cn:8080/Public/ValidateCode.aspx 中获取的。这时不能这样：123456def save_img_from_url(imageUrl, filename):	u = urllib2.u">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160311194509843">
 
 
 
@@ -117,9 +116,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/hello-world/"/>
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/使用Python从jsp或者aspx这种动态页面获取图片并保存到本地/"/>
 
-  <title> Hello World | 蔡奇奇的博客 </title>
+  <title> 使用Python从jsp或者aspx这种动态页面获取图片并保存到本地 | 蔡奇奇的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
@@ -239,7 +238,7 @@ Quick">
             
             
               
-                Hello World
+                使用Python从jsp或者aspx这种动态页面获取图片并保存到本地
               
             
           </h1>
@@ -251,7 +250,7 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T04:23:21+08:00" content="2016-07-11">
+            <time itemprop="dateCreated" datetime="2016-07-11T03:27:14+08:00" content="2016-07-11">
               2016-07-11
             </time>
           </span>
@@ -279,15 +278,8 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>有些登录页面中的验证码图片是从这样的动态页面url：<br><br><a href="http://cer.nju.edu.cn/amserver/verify/image.jsp" target="_blank" rel="external">http://cer.nju.edu.cn/amserver/verify/image.jsp</a><br><br><a href="http://gs.cqupt.edu.cn:8080/Public/ValidateCode.aspx" target="_blank" rel="external">http://gs.cqupt.edu.cn:8080/Public/ValidateCode.aspx</a> <br><br>中获取的。这时不能这样：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_img_from_url</span><span class="params">(imageUrl, filename)</span>:</span></div><div class="line">	u = urllib2.urlopen(imageUrl)</div><div class="line">	data = u.read()</div><div class="line">	f = open(filename, <span class="string">'wb'</span>)</div><div class="line">	f.write(data)</div><div class="line">	f.close()</div></pre></td></tr></table></figure></p>
+<p>因为得到的是一个html页面，查看其源代码如下：<br><img src="http://img.blog.csdn.net/20160311194509843" alt="这里写图片描述"><br>而应该用：<br>哦不是，上面那样可以。。。。</p>
 
       
     </div>
@@ -308,18 +300,30 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/Web/" rel="tag">#Web</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/《大明王朝的七张面孔》——海瑞/" rel="next" title="《大明王朝的七张面孔》——海瑞">
-                <i class="fa fa-chevron-left"></i> 《大明王朝的七张面孔》——海瑞
+              <a href="/2016/07/11/译-Android开发规范与架构/" rel="next" title="[译]Android开发规范与架构">
+                <i class="fa fa-chevron-left"></i> [译]Android开发规范与架构
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/OSX从系统自带python改为Homebrew版python/" rel="prev" title=" OSX从系统自带python改为Homebrew版python">
+                 OSX从系统自带python改为Homebrew版python <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +459,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

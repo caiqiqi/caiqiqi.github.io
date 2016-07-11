@@ -1,0 +1,627 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="web,HTTP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="##主页面http://gs.cqupt.edu.cn:8080/Gstudent/Default.aspx
+在浏览器中输入…Default.aspx之后从Chrome的调试工具中可以看到，先加载default.aspx，然后如果之前有缓存过的js,css,图片等资源时，就从缓存中读取这些缓存的资源，注意Referer都是 http://gs.cqupt.edu.cn:8080/gstudent/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="研究生管理系统前端代码和HTTP通信过程分析">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/研究生管理系统前端代码和HTTP通信过程/index.html">
+<meta property="og:site_name" content="蔡奇奇的博客">
+<meta property="og:description" content="##主页面http://gs.cqupt.edu.cn:8080/Gstudent/Default.aspx
+在浏览器中输入…Default.aspx之后从Chrome的调试工具中可以看到，先加载default.aspx，然后如果之前有缓存过的js,css,图片等资源时，就从缓存中读取这些缓存的资源，注意Referer都是 http://gs.cqupt.edu.cn:8080/gstudent/">
+<meta property="og:image" content="http://img.blog.csdn.net/20160309165759223">
+<meta property="og:image" content="http://img.blog.csdn.net/20160312114722380">
+<meta property="og:image" content="http://img.blog.csdn.net/20160312115014585">
+<meta property="og:image" content="http://img.blog.csdn.net/20160309165927895">
+<meta property="og:image" content="http://img.blog.csdn.net/20160311212300107">
+<meta property="og:image" content="http://img.blog.csdn.net/20160311212150871">
+<meta property="og:image" content="http://www.jeasyui.com/documentation/linkbutton.php">
+<meta property="og:image" content="http://www.cnblogs.com/haogj/archive/2013/05/13/3074461.html">
+<meta property="og:image" content="http://img.blog.csdn.net/20160313230126150">
+<meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="研究生管理系统前端代码和HTTP通信过程分析">
+<meta name="twitter:description" content="##主页面http://gs.cqupt.edu.cn:8080/Gstudent/Default.aspx
+在浏览器中输入…Default.aspx之后从Chrome的调试工具中可以看到，先加载default.aspx，然后如果之前有缓存过的js,css,图片等资源时，就从缓存中读取这些缓存的资源，注意Referer都是 http://gs.cqupt.edu.cn:8080/gstudent/">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160309165759223">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/研究生管理系统前端代码和HTTP通信过程/"/>
+
+  <title> 研究生管理系统前端代码和HTTP通信过程分析 | 蔡奇奇的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡奇奇的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                研究生管理系统前端代码和HTTP通信过程分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-11T03:20:12+08:00" content="2016-07-11">
+              2016-07-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##主页面<br><a href="http://gs.cqupt.edu.cn:8080/Gstudent/Default.aspx" target="_blank" rel="external">http://gs.cqupt.edu.cn:8080/Gstudent/Default.aspx</a><br><img src="http://img.blog.csdn.net/20160309165759223" alt="这里写图片描述"></p>
+<h3 id="在浏览器中输入…Default-aspx之后"><a href="#在浏览器中输入…Default-aspx之后" class="headerlink" title="在浏览器中输入…Default.aspx之后"></a>在浏览器中输入…Default.aspx之后</h3><p>从Chrome的调试工具中可以看到，先加载default.aspx，然后如果之前有缓存过的js,css,图片等资源时，就从缓存中读取这些缓存的资源，<br><img src="http://img.blog.csdn.net/20160312114722380" alt="这里写图片描述"><br>注意Referer都是 <a href="http://gs.cqupt.edu.cn:8080/gstudent/default.aspx" target="_blank" rel="external">http://gs.cqupt.edu.cn:8080/gstudent/default.aspx</a><br><img src="http://img.blog.csdn.net/20160312115014585" alt="这里写图片描述"></p>
+<p>##登录页面<br><a href="http://gs.cqupt.edu.cn:8080/Gstudent/Relogin.aspx" target="_blank" rel="external">http://gs.cqupt.edu.cn:8080/Gstudent/Relogin.aspx</a><br>或者<br><a href="http://gs.cqupt.edu.cn:8080/gstudent/ReLogin.aspx?ReturnUrl=/Gstudent/loging.aspx" target="_blank" rel="external">http://gs.cqupt.edu.cn:8080/gstudent/ReLogin.aspx?ReturnUrl=/Gstudent/loging.aspx</a><br><img src="http://img.blog.csdn.net/20160309165927895" alt="这里写图片描述"></p>
+<p>发现在：<br><br>第一次载入<code>Relogin.aspx</code>页面的时候，request里面是<strong>没有sessionId的</strong>。而在response里Set-Cookie里面设置里cookie的SeesionId字段。<br><br><img src="http://img.blog.csdn.net/20160311212300107" alt="这里写图片描述"><br>然后在<br><br>第二次请求的时候，request中的cookie会带上这个SeesionId字段，保存着之前的SessionId值<br><br><img src="http://img.blog.csdn.net/20160311212150871" alt="这里写图片描述"><br>由此想到可以请求一次（带上随便的几个参数然后post上去就得意获取最新生成的SessionId）</p>
+<h2 id="退出按钮"><a href="#退出按钮" class="headerlink" title="退出按钮"></a>退出按钮</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a id=&quot;DataList1_ctl05_hykMenu&quot; class=&quot;none&quot; onclick=&quot;if(confirm(&apos;确定要退出系统吗?&apos;))&#123;parent.location.href =&apos;../UserLogin.aspx?exit=1&apos;&#125;&quot; href=&quot;javascript:void(0)&quot;&gt;退出&lt;/a&gt;</div></pre></td></tr></table></figure>
+<h2 id="课程查询页面"><a href="#课程查询页面" class="headerlink" title="课程查询页面"></a>课程查询页面</h2><p><code>gs.cqupt.edu.cn:8080/Gstudent/Course/CourseSelFull.aspx</code><br>先找<code>登录</code>按钮<br>登录按钮对应的<code>span</code>标签：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"ctl00_contentParent_UpdatePanel2"</span>&gt;</span> <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"l-btn"</span> <span class="attr">id</span>=<span class="string">"btLogin"</span> <span class="attr">tabindex</span>=<span class="string">"4"</span> <span class="attr">title</span>=<span class="string">"登录系统"</span> <span class="attr">href</span>=<span class="string">'javascript:WebForm_DoPostBackWithOptions(new%20WebForm_PostBackOptions("ctl00$contentParent$btLogin",%20"",%20true,%20"",%20"",%20false,%20true))'</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"l-btn-left"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"l-btn-text"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>即，其id为<code>btLogin</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"Form1"</span> <span class="attr">name</span>=<span class="string">"Form1"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"./ReLogin.aspx"</span> </span></div><div class="line">    <span class="attr">onsubmit</span>=<span class="string">"javascript:return WebForm_OnSubmit();"</span> </div><div class="line">    <span class="attr">onkeypress</span>=<span class="string">"javascript:return WebForm_FireDefaultButton(event, 'btLogin')"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>关于<code>WebForm_OnSubmit</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">//&lt;![CDATA[</div><div class="line">function WebForm_OnSubmit() &#123;</div><div class="line">if (typeof(ValidatorOnSubmit) == &quot;function&quot; &amp;&amp; ValidatorOnSubmit() == false) return false;</div><div class="line">return true;</div><div class="line">&#125;</div><div class="line">//]]&gt;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">function ValidatorOnSubmit() &#123;</div><div class="line">    if (Page_ValidationActive) &#123;</div><div class="line">        return ValidatorCommonOnSubmit();</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>请求到时候会包含这几个脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;/WebResource.axd?d=5d5KGRMAyLvBqg6D0Z6Xhj3Bik0iH8Qt5h7ZqLwbqRWMcG_QNGx9uHHYTzhIEQhPxWH_P8u88WPt72kX0&amp;amp;t=635793306349294682&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</div><div class="line"></div><div class="line"></div><div class="line">&lt;script src=&quot;/ScriptResource.axd?d=AckwrukOP9WZOQlm3XXq4YcrzYbdSQ2KhWkywbSm1aGoDT_FKtbRYITwBp3NhSjhrizBahjqDw84LDkin5GAuA35K9SQhCDJ08MfQmfH_dkIfL6Ri2ppB1doY17oRpPfe_KiLMv-Dc3ioc5o0&amp;amp;t=fffffffffa488f4d&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;/ScriptResource.axd?d=a8XuVJe3RPmNNezBCV4fnhmFCTQPZUJuIVB1PICLRIFB0h0iFOT51is_Q9pzVzBg5YWBLBKS1CWtbSPylPaRTjWmvnSuN_4Vp_BgSDtPqcL64afEn05pWbSSNySR9Mydpi-0VtLHKkLXQpp5CBE1Sm7fImxVdYLGKHFTJg2&amp;amp;t=72e85ccd&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="xml"></span></div><div class="line">//&lt;![CDATA[</div><div class="line">var theForm = document.forms['Form1'];</div><div class="line">if (!theForm) &#123;</div><div class="line">    theForm = document.Form1;</div><div class="line">&#125;</div><div class="line">//前台调用后台aspx的代码</div><div class="line">function __doPostBack(eventTarget, eventArgument) &#123;</div><div class="line">    if (!theForm.onsubmit || (theForm.onsubmit() != false)) &#123;</div><div class="line">        theForm.__EVENTTARGET.value = eventTarget;</div><div class="line">        theForm.__EVENTARGUMENT.value = eventArgument;</div><div class="line">        theForm.submit();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//]]&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>注：<code>document.forms[&#39;formname&#39;]</code>得到以<code>formname</code>为名的表单<br>initForm()函数定义：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--initForm() 函数定义--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">        function initForm() &#123;</div><div class="line">            $('#btLogin').linkbutton();</div><div class="line">        &#125;      </div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注：<code>$(&#39;#btlogin&#39;)</code>的意思是通过jQuery找到 id 为<code>btLogin</code>的元素。然后<code>.linkbutton()</code>这里是使用了<img src="http://www.jeasyui.com/documentation/linkbutton.php" alt="EasyUI">这个框架的API。其作用是创建一个超链接按钮，表示普通的a标签。按钮可为图标＋文本或图标或文本。宽度可修改。关于<code>$(&quot;#btn&quot;).linkbutton()</code>的作用，详见<img src="http://www.cnblogs.com/haogj/archive/2013/05/13/3074461.html" alt="这篇文章"><br>即，可以把那个按钮变成特殊的效果，和加上<code>class ＝ easyui-linkbutton</code> 的作用是一样的。<br>Create a linkbutton from markup is more easily. </p>
+<p><code>&lt;a id=&quot;btn&quot; href=&quot;#&quot; class=&quot;easyui-linkbutton&quot; data-options=&quot;iconCls:&#39;icon-search&#39;&quot;&gt;easyui&lt;/a&gt;</code><br>Create a linkbutton programmatically is also allowed. </p>
+<p>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a id=&quot;btn&quot; href=&quot;#&quot;&gt;easyui&lt;/a&gt;</div></pre></td></tr></table></figure>
+<p>然后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&apos;#btn&apos;).linkbutton(&#123;</div><div class="line">    iconCls: &apos;icon-search&apos;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined">      </span></div><div class="line">         $(document).ready(function () &#123;if(typeof (initForm)=="function")&#123; initForm()&#125;&#125;)</div><div class="line">         $(document).ready(function () &#123; if (typeof (reload) == "function") &#123; reload() &#125; &#125;)   </div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>注：</p>
+<ul>
+<li>js中<code>typeof</code> 可以用来检测给定变量的数据类型。</li>
+<li><code>$(document).ready(function(){...})</code> 表示页面加载之后开始运行。</li>
+</ul>
+<p>从上面可以看出，过程如下：<br>页面加载之后，执行<code>initForm()</code>,然后是<code>reload()</code></p>
+<p>关于几个隐藏的 input<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;</div><div class="line">&lt;input name=&quot;__EVENTTARGET&quot; id=&quot;__EVENTTARGET&quot; value=&quot;&quot; type=&quot;hidden&quot;&gt;</div><div class="line">&lt;input name=&quot;__EVENTARGUMENT&quot; id=&quot;__EVENTARGUMENT&quot; value=&quot;&quot; type=&quot;hidden&quot;&gt;</div><div class="line">&lt;input name=&quot;__VIEWSTATE&quot; id=&quot;__VIEWSTATE&quot; value=&quot;/wEPDwUKMTA4ODc5NDc0OA9kFgJmD2QWAgIDD2QWAgIDD2QWAgILD2QWAmYPZBYCAgEPDxYCHghJbWFnZVVybAUrfi9QdWJsaWMvVmFsaWRhdGVDb2RlLmFzcHg/aW1hZ2U9MTEyNjY2NzY2OGRkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBSFjdGwwMCRjb250ZW50UGFyZW50JFZhbGlkYXRlSW1hZ2U=&quot; type=&quot;hidden&quot;&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>等前面都加载完之后，再在script里面加载三个aspx页面。<br><img src="http://img.blog.csdn.net/20160313230126150" alt="这里写图片描述"><br>于是有了后面的三个请求，然而这里的<code>uid</code>未被赋值，所以几个请求都是<code>.aspx?undefined</code></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag">#web</a>
+          
+            <a href="/tags/HTTP/" rel="tag">#HTTP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/11/windows平台的route命令/" rel="next" title="windows平台的route命令 ">
+                <i class="fa fa-chevron-left"></i> windows平台的route命令 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/在Activity中创建Handler发送消息以及接受消息过程浅析/" rel="prev" title="在Activity中创建Handler发送消息以及接受消息过程浅析">
+                在Activity中创建Handler发送消息以及接受消息过程浅析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cai Qiqi" />
+          <p class="site-author-name" itemprop="name">Cai Qiqi</p>
+          <p class="site-description motion-element" itemprop="description">陛下，您真是一位老太太</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://caiqiqi.github.io" target="_blank" title="Homepage">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Homepage
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2963784630" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/caiqiqi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在浏览器中输入…Default-aspx之后"><span class="nav-number">1.</span> <span class="nav-text">在浏览器中输入…Default.aspx之后</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#退出按钮"><span class="nav-number"></span> <span class="nav-text">退出按钮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课程查询页面"><span class="nav-number"></span> <span class="nav-text">课程查询页面</span></a></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai Qiqi</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="linux,虚拟机," />
 
 
 
@@ -84,19 +84,25 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="在得在虚拟机管理设置界面里面增加一块磁盘空间(得先关闭虚拟机系统)。
+为新的磁盘空间选择文件系统用sudo fdisk /dev/sda命令。按照这篇文章操作完之后重启。
+选择文件系统格式化分区sudo mkfs -t ext4 /dev/sda2或者sudo mkfs.ext4 /dev/sda2
+创建挂载点(挂载路径)一般不会直接在根目录上挂载，因为根目录之前已经被挂载了，而且卸载不了，所以一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/hello-world/index.html">
+<meta property="og:title" content="虚拟机中新增磁盘空间并开机自动挂载">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/虚拟机中新增磁盘空间并开机自动挂载/index.html">
 <meta property="og:site_name" content="蔡奇奇的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta property="og:description" content="在得在虚拟机管理设置界面里面增加一块磁盘空间(得先关闭虚拟机系统)。
+为新的磁盘空间选择文件系统用sudo fdisk /dev/sda命令。按照这篇文章操作完之后重启。
+选择文件系统格式化分区sudo mkfs -t ext4 /dev/sda2或者sudo mkfs.ext4 /dev/sda2
+创建挂载点(挂载路径)一般不会直接在根目录上挂载，因为根目录之前已经被挂载了，而且卸载不了，所以一">
 <meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="虚拟机中新增磁盘空间并开机自动挂载">
+<meta name="twitter:description" content="在得在虚拟机管理设置界面里面增加一块磁盘空间(得先关闭虚拟机系统)。
+为新的磁盘空间选择文件系统用sudo fdisk /dev/sda命令。按照这篇文章操作完之后重启。
+选择文件系统格式化分区sudo mkfs -t ext4 /dev/sda2或者sudo mkfs.ext4 /dev/sda2
+创建挂载点(挂载路径)一般不会直接在根目录上挂载，因为根目录之前已经被挂载了，而且卸载不了，所以一">
 
 
 
@@ -117,9 +123,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/hello-world/"/>
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/虚拟机中新增磁盘空间并开机自动挂载/"/>
 
-  <title> Hello World | 蔡奇奇的博客 </title>
+  <title> 虚拟机中新增磁盘空间并开机自动挂载 | 蔡奇奇的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
@@ -239,7 +245,7 @@ Quick">
             
             
               
-                Hello World
+                虚拟机中新增磁盘空间并开机自动挂载
               
             
           </h1>
@@ -251,7 +257,7 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T04:23:21+08:00" content="2016-07-11">
+            <time itemprop="dateCreated" datetime="2016-07-11T02:13:12+08:00" content="2016-07-11">
               2016-07-11
             </time>
           </span>
@@ -279,15 +285,12 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>在得在虚拟机管理设置界面里面增加一块磁盘空间(得先关闭虚拟机系统)。</p>
+<h2 id="为新的磁盘空间选择文件系统"><a href="#为新的磁盘空间选择文件系统" class="headerlink" title="为新的磁盘空间选择文件系统"></a>为新的磁盘空间选择文件系统</h2><p>用<code>sudo fdisk /dev/sda</code>命令。<br><br>按照<a href="http://blog.csdn.net/luckymelina/article/details/16797519" target="_blank" rel="external">这篇文章</a>操作完之后重启。</p>
+<h2 id="选择文件系统格式化分区"><a href="#选择文件系统格式化分区" class="headerlink" title="选择文件系统格式化分区"></a>选择文件系统格式化分区</h2><p><code>sudo mkfs -t ext4 /dev/sda2</code><br><br>或者<br><br><code>sudo mkfs.ext4 /dev/sda2</code></p>
+<h2 id="创建挂载点-挂载路径"><a href="#创建挂载点-挂载路径" class="headerlink" title="创建挂载点(挂载路径)"></a>创建挂载点(挂载路径)</h2><p>一般不会直接在根目录上挂载，因为根目录之前已经被挂载了，而且卸载不了，所以一般还是挂载到比如说 <code>/home/cqq</code>这样的路径。<br><code>sudo mkdir /home/cqq</code>。<br><code>sudo mount /dev/sda2 /home/cqq</code></p>
+<h2 id="设置开机自动挂载"><a href="#设置开机自动挂载" class="headerlink" title="设置开机自动挂载"></a>设置开机自动挂载</h2><p>编辑文件 <code>sudo vi /etc/fstab</code> <br><br>加入<br><code>/dev/sda2  /home/cqq ext4      defaults         0       2</code> <br></p>
+<p>###参考：<br><br><a href="http://blog.csdn.net/luckymelina/article/details/16797519" target="_blank" rel="external">http://blog.csdn.net/luckymelina/article/details/16797519</a></p>
 
       
     </div>
@@ -308,18 +311,30 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/虚拟机/" rel="tag">#虚拟机</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/《大明王朝的七张面孔》——海瑞/" rel="next" title="《大明王朝的七张面孔》——海瑞">
-                <i class="fa fa-chevron-left"></i> 《大明王朝的七张面孔》——海瑞
+              <a href="/2016/07/11/再玩树莓派/" rel="next" title="再玩树莓派">
+                <i class="fa fa-chevron-left"></i> 再玩树莓派
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/OSX上开启X11/" rel="prev" title="OSX上开启X11">
+                OSX上开启X11 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +470,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为新的磁盘空间选择文件系统"><span class="nav-number">1.</span> <span class="nav-text">为新的磁盘空间选择文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择文件系统格式化分区"><span class="nav-number">2.</span> <span class="nav-text">选择文件系统格式化分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建挂载点-挂载路径"><span class="nav-number">3.</span> <span class="nav-text">创建挂载点(挂载路径)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置开机自动挂载"><span class="nav-number">4.</span> <span class="nav-text">设置开机自动挂载</span></a></li></ol></div>
             
           </div>
         </section>
