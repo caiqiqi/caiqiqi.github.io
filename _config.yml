@@ -70,7 +70,7 @@ theme: hexo-theme-next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: "git@github.com:caiqiqi/caiqiqi.github.io.git"
+  repo: "https://github.com/caiqiqi/caiqiqi.github.io"
   branch: master
 
 # social links
