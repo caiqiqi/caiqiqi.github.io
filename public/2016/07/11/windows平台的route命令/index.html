@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="windows,路由," />
 
 
 
@@ -84,19 +84,20 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="直接route print之后看到只有一条永久路由：说明：这是一条”默认路径“、表示，当该主机发送数据包时，如果在路由表内找不到其他可以用来发送此数据包的路径时，该数据包会通过这条”默认路径“来发送这是在输入route print -4 172*之后得到的路由信息说明：”在链路上“表示直接发送给目标，而不需要经过路由器（在应该指定网关地址的地方没有指定，说明这条路由不需要经过网关转发）说明：该路径">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/hello-world/index.html">
+<meta property="og:title" content="windows平台的route命令 ">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/windows平台的route命令/index.html">
 <meta property="og:site_name" content="蔡奇奇的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta property="og:description" content="直接route print之后看到只有一条永久路由：说明：这是一条”默认路径“、表示，当该主机发送数据包时，如果在路由表内找不到其他可以用来发送此数据包的路径时，该数据包会通过这条”默认路径“来发送这是在输入route print -4 172*之后得到的路由信息说明：”在链路上“表示直接发送给目标，而不需要经过路由器（在应该指定网关地址的地方没有指定，说明这条路由不需要经过网关转发）说明：该路径">
+<meta property="og:image" content="http://img.blog.csdn.net/20160324181334551">
+<meta property="og:image" content="http://img.blog.csdn.net/20160324180953882">
+<meta property="og:image" content="http://img.blog.csdn.net/20160324182143305">
 <meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="windows平台的route命令 ">
+<meta name="twitter:description" content="直接route print之后看到只有一条永久路由：说明：这是一条”默认路径“、表示，当该主机发送数据包时，如果在路由表内找不到其他可以用来发送此数据包的路径时，该数据包会通过这条”默认路径“来发送这是在输入route print -4 172*之后得到的路由信息说明：”在链路上“表示直接发送给目标，而不需要经过路由器（在应该指定网关地址的地方没有指定，说明这条路由不需要经过网关转发）说明：该路径">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160324181334551">
 
 
 
@@ -117,9 +118,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/hello-world/"/>
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/windows平台的route命令/"/>
 
-  <title> Hello World | 蔡奇奇的博客 </title>
+  <title> windows平台的route命令  | 蔡奇奇的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
@@ -239,7 +240,7 @@ Quick">
             
             
               
-                Hello World
+                windows平台的route命令 
               
             
           </h1>
@@ -251,7 +252,7 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T04:23:21+08:00" content="2016-07-11">
+            <time itemprop="dateCreated" datetime="2016-07-11T03:17:37+08:00" content="2016-07-11">
               2016-07-11
             </time>
           </span>
@@ -279,15 +280,8 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>直接<code>route print</code>之后看到只有一条永久路由：<br><img src="http://img.blog.csdn.net/20160324181334551" alt="这里写图片描述"><br>说明：这是一条”默认路径“、表示，当该主机发送数据包时，如果在路由表内找不到其他可以用来发送此数据包的路径时，该数据包会通过这条”默认路径“来发送<br>这是在输入<code>route print -4 172*</code>之后得到的路由信息<br><img src="http://img.blog.csdn.net/20160324180953882" alt="这里写图片描述"><br>说明：”在链路上“表示直接发送给目标，而不需要经过路由器（在应该指定网关地址的地方没有指定，说明这条路由不需要经过网关转发）<br><img src="http://img.blog.csdn.net/20160324182143305" alt="这里写图片描述"><br>说明：该路径是”有限广播路径“。它表示当该主机要发送广播数据包到255.255.255.255（有限广播地址）时，该数据包会通过图示ip发出，由于”在链路上“说明也不需要经过路由器。</p>
+<p>参考：<br><br><a href="http://www.groad.net/bbs/thread-8080-1-1.html" target="_blank" rel="external">http://www.groad.net/bbs/thread-8080-1-1.html</a></p>
 
       
     </div>
@@ -308,18 +302,30 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/windows/" rel="tag">#windows</a>
+          
+            <a href="/tags/路由/" rel="tag">#路由</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/《大明王朝的七张面孔》——海瑞/" rel="next" title="《大明王朝的七张面孔》——海瑞">
-                <i class="fa fa-chevron-left"></i> 《大明王朝的七张面孔》——海瑞
+              <a href="/2016/07/11/Python实现学校学生管理系统的自动登录/" rel="next" title="Python实现学校学生管理系统的自动登录">
+                <i class="fa fa-chevron-left"></i> Python实现学校学生管理系统的自动登录
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/研究生管理系统前端代码和HTTP通信过程/" rel="prev" title="研究生管理系统前端代码和HTTP通信过程分析">
+                研究生管理系统前端代码和HTTP通信过程分析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +461,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

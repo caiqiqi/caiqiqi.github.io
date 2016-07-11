@@ -1,0 +1,656 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="摘要
+使用Gradle和它推荐的工程目录
+使用 Maven依赖而不是导入jar包
+把密码和敏感数据放在gradle.properties
+使用Fragment来呈现UI视图
+使用Activity只是用来管理Fragment的
+使用多个style文件以避免单一的大style文件
+使用WebView时避免在客户端做处理HTML工作，当心内存泄露
+总是用ProGuard和DexGuard来混淆项目
+不要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译]Android开发规范与架构">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/译-Android开发规范与架构/index.html">
+<meta property="og:site_name" content="蔡奇奇的博客">
+<meta property="og:description" content="摘要
+使用Gradle和它推荐的工程目录
+使用 Maven依赖而不是导入jar包
+把密码和敏感数据放在gradle.properties
+使用Fragment来呈现UI视图
+使用Activity只是用来管理Fragment的
+使用多个style文件以避免单一的大style文件
+使用WebView时避免在客户端做处理HTML工作，当心内存泄露
+总是用ProGuard和DexGuard来混淆项目
+不要">
+<meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[译]Android开发规范与架构">
+<meta name="twitter:description" content="摘要
+使用Gradle和它推荐的工程目录
+使用 Maven依赖而不是导入jar包
+把密码和敏感数据放在gradle.properties
+使用Fragment来呈现UI视图
+使用Activity只是用来管理Fragment的
+使用多个style文件以避免单一的大style文件
+使用WebView时避免在客户端做处理HTML工作，当心内存泄露
+总是用ProGuard和DexGuard来混淆项目
+不要">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/译-Android开发规范与架构/"/>
+
+  <title> [译]Android开发规范与架构 | 蔡奇奇的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡奇奇的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [译]Android开发规范与架构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-11T03:25:29+08:00" content="2016-07-11">
+              2016-07-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><ul>
+<li>使用Gradle和它推荐的工程目录</li>
+<li>使用 Maven依赖而不是导入jar包</li>
+<li>把密码和敏感数据放在<code>gradle.properties</code></li>
+<li>使用<code>Fragment</code>来呈现UI视图</li>
+<li>使用<code>Activity</code>只是用来管理<code>Fragment</code>的</li>
+<li>使用多个<code>style</code>文件以避免单一的大style文件</li>
+<li>使用<code>WebView</code>时避免在客户端做处理HTML工作，当心内存泄露</li>
+<li>总是用ProGuard和DexGuard来混淆项目</li>
+<li>不要自己写HTTP客户端，使用Volley或者OKHttp库</li>
+</ul>
+<h2 id="Android-SDK存放路径"><a href="#Android-SDK存放路径" class="headerlink" title="Android SDK存放路径"></a>Android SDK存放路径</h2><p>将你的Android SDK放在你的home目录或其他应用程序无关的位置。当安装有些包含SDK的IDE的时候，可能会将SDK放在IDE同一目录下，当你需要升级（或重新安装）IDE或更换的IDE时，会非常麻烦。</p>
+<h2 id="构建系统"><a href="#构建系统" class="headerlink" title="构建系统"></a>构建系统</h2><p>你的默认编译环境应该是Gradle。因为Ant 有很多限制，也很冗余。<a href="http://tools.android.com/tech-docs/new-build-system/user-guide" target="_blank" rel="external">使用Gradle</a>，<strong>管理和下载依赖很方便</strong>。</p>
+<h2 id="工程结构"><a href="#工程结构" class="headerlink" title="工程结构"></a>工程结构</h2><p>不要用老的<code>Ant&amp; Eclipse ADT</code>工程结构：<br>├─ assets<br>├─ libs<br>├─ res<br>├─ src<br>│  └─ com/futurice/project<br>├─ AndroidManifest.xml<br>├─ build.gradle<br>├─ project.properties<br>└─ proguard-rules.pro</p>
+<p>而用新的<code>Gradle&amp; Android Studio</code>工程结构：<br>├─ library-foobar<br>├─ app<br>│  ├─ libs<br>│  ├─ src<br>│  │  ├─ androidTest<br>│  │  │  └─ java<br>│  │  │     └─ com/futurice/project<br>│  │  └─ main<br>│  │     ├─ java<br>│  │     │  └─ com/futurice/project<br>│  │     ├─ res<br>│  │     └─ AndroidManifest.xml<br>│  ├─ build.gradle<br>│  └─ proguard-rules.pro<br>├─ build.gradle<br>└─ settings.gradle</p>
+<p>你的项目引用第三方项目库时（例如，library-foobar），拥有一个顶级包名app从第三方库项目区分你的应用程序是非常有用的。</p>
+<p>下载jar包，然后更新它们是很繁琐的，这个问题Maven很好的解决了，这在Android Gradle构建中也是推荐的方法。你可以指定版本的一个范围，如2.1.+,然后Maven会自动升级到制定的最新版本，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile &apos;com.netflix.rxjava:rxjava-core:0.19.+&apos;</div><div class="line">    compile &apos;com.netflix.rxjava:rxjava-android:0.19.+&apos;</div><div class="line">    compile &apos;com.fasterxml.jackson.core:jackson-databind:2.4.+&apos;</div><div class="line">    compile &apos;com.fasterxml.jackson.core:jackson-core:2.4.+&apos;</div><div class="line">    compile &apos;com.fasterxml.jackson.core:jackson-annotations:2.4.+&apos;</div><div class="line">    compile &apos;com.squareup.okhttp:okhttp:2.0.+&apos;</div><div class="line">    compile &apos;com.squareup.okhttp:okhttp-urlconnection:2.0.+&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Activities与Fragments"><a href="#Activities与Fragments" class="headerlink" title="Activities与Fragments"></a>Activities与Fragments</h2><p>Fragments应该作为你实现UI界面默认选择。你可以重复使用Fragments来组合成你的应用。我们强烈推荐使用Fragments而不是Activity来呈现UI界面，理由如下：</p>
+<ul>
+<li><strong>屏幕间数据通信</strong>  从一个Activity发送复杂数据(例如Java对象)到另外一个Activity时，Android的API并没有提供合适的方法。不过使用Fragment，你可以使用一个Activity实例作为这个Activity的子Fragments之间的通信通道。这样比Activity与Activity间的通信好。</li>
+<li><strong>提供多窗格布局解决方案</strong>  Fragments 的引入主要是为了将手机应用延伸到平板电脑，所以在平板电脑上你可能有A、B两个窗格，但是在手机应用上A、B可能分别充满整个屏幕。如果你的应用在最初就使用了Fragments，那么以后将你的应用适配到其他不同尺寸屏幕就会非常简单。</li>
+<li>Fragments 一般通用的不只有UI 你可以有一个没有界面的fragment作为Activity提供后台工作。进一步你可以使用这个特性来创建一个<a href="http://stackoverflow.com/questions/12363790/how-many-activities-vs-fragments/12528434#12528434" target="_blank" rel="external">fragment 包含改变其它fragment的逻辑</a>，而不是把这个逻辑放在Activity中。</li>
+</ul>
+<h2 id="Java-包结构"><a href="#Java-包结构" class="headerlink" title="Java 包结构"></a>Java 包结构</h2><p>Android 应用程序在架构上大致是Java中的Model-View-Controller结构。在Android 中 Fragment和Activity通常上是控制器类(<a href="http://www.informit.com/articles/article.aspx?p=2126865).换句话说，他们是用户接口的部分，同样也是Views视图的部分。" target="_blank" rel="external">http://www.informit.com/articles/article.aspx?p=2126865).换句话说，他们是用户接口的部分，同样也是Views视图的部分。</a><br>正是因为如此，才很难严格的将fragments (或者 activities) 严格的划分成 控制器controlloers还是视图 views。最还是将它们放在自己单独的 fragments 包中。只要你遵循之前提到的建议，Activities 则可以放在顶级目录下。如果你规划有2到3个以上的activity，那么还是同样新建一个activities包吧。<br>然而，这种架构可以看做是另一种形式的MVC，包含要被解析API响应的JSON数据，来填充的POJO的models包中。和一个views包来包含你的自定义视图、通知、导航视图，widgets等等。适配器Adapter是在数据和视图之间。然而他们通常需要通过getView()方法来导出一些视图，所以你可以将adapters包放在views包里面。<br>一些控制器角色的类是应用程序级别的，同时是接近系统的。这些类放在managers包下面。一些繁杂的数据处理类，比如说”DateUtils”,放在utils包下面。与后端交互负责网络处理类，放在network包下面。</p>
+<p>总而言之，以最接近用户而不是最接近后端去安排他们。<br>com.futurice.project<br>├─ network<br>├─ models<br>├─ managers<br>├─ utils<br>├─ fragments<br>└─ views<br>   ├─ adapters<br>   ├─ actionbar<br>   ├─ widgets<br>   └─ notifications</p>
+<h2 id="资源文件命名"><a href="#资源文件命名" class="headerlink" title="资源文件命名"></a>资源文件命名</h2><p>遵循<code>前缀表明类型</code>的习惯，形如type_foo_bar.xml。例如：<code>fragment_contact_details.xml</code>,<br><code>view_primary_button.xml</code><br>,<code>activity_main.xml</code><br>.</p>
+<h2 id="组织布局文件"><a href="#组织布局文件" class="headerlink" title="组织布局文件"></a>组织布局文件</h2><p>若果你不确定如何排版一个布局文件，遵循以下下规则可能会有帮助。</p>
+<ul>
+<li>每一个属性一行，缩进4个空格</li>
+<li>android:id 总是作为第一个属性</li>
+<li>android:layout_<em>**</em> 属性在上边</li>
+<li>style 属性在底部</li>
+<li>关闭标签/&gt;单独起一行，有助于调整和添加新的属性。</li>
+</ul>
+<p>例如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></div><div class="line">    &gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/name"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_alignParentRight</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"@string/name"</span></div><div class="line">        <span class="attr">style</span>=<span class="string">"@style/FancyText"</span></div><div class="line">        /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">layout</span>=<span class="string">"@layout/reusable_part"</span> /&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="将一个大的style文件分割成多个文件"><a href="#将一个大的style文件分割成多个文件" class="headerlink" title="将一个大的style文件分割成多个文件"></a>将一个大的style文件分割成多个文件</h2><p>你可以有多个styles.xml 文件。Android SDK支持其它文件，styles这个文件名称并没有作用，起作用的是在文件里xml的style标签。因此你可以有多个style文件。styles.xml,style_home.xml,style_item_details.xml,styles_forms.xml。不用于资源文件路径需要为系统构建起的有意义，在res/values目录下的文件可以任意命名。</p>
+<h2 id="关于colors-xml"><a href="#关于colors-xml" class="headerlink" title="关于colors.xml"></a>关于colors.xml</h2><p>colors.xml是一个调色板 在你的colors.xml文件中应该只是映射颜色的名称一个RGBA值，而没有其它的。不要使用它为不同的按钮来定义RGBA值。<br>不要这样做<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"button_foreground"</span>&gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"button_background"</span>&gt;</span>#2A91BD<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_background_inactive"</span>&gt;</span>#5F5F5F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_background_active"</span>&gt;</span>#939393<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_foreground"</span>&gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_foreground_important"</span>&gt;</span>#FF9D2F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    ...</div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_shadow"</span>&gt;</span>#323232<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>使用这种格式，你会非常容易的开始重复定义RGBA值，这使如果需要改变基本色变的很复杂。同时，这些定义是跟一些环境关联起来的，如button或者comment,应该放到一个按钮风格中，而不是在color.xml文件中。</p>
+<p>相反，这样做:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- grayscale --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"white"</span>     &gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray_light"</span>&gt;</span>#DBDBDB<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray"</span>      &gt;</span>#939393<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray_dark"</span> &gt;</span>#5F5F5F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"black"</span>     &gt;</span>#323232<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- basic colors --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"green"</span>&gt;</span>#27D34D<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"blue"</span>&gt;</span>#2A91BD<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"orange"</span>&gt;</span>#FF9D2F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"red"</span>&gt;</span>#FF432F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>像这样规范的颜色很容易修改或重构，会使应用一共使用了多少种不同的颜色变得非常清晰。</strong></p>
+<h2 id="小心关于WebViews的问题"><a href="#小心关于WebViews的问题" class="headerlink" title="小心关于WebViews的问题"></a>小心关于WebViews的问题</h2><p>如果你必须显示一个web视图，比如说对于一个新闻文章，避免做客户端处理HTML的工作，最好让后端工程师协助，让他返回一个 “纯” HTML。WebViews 也能导致内存泄露当保持引他们的Activity，而不是被绑定到ApplicationContext中的时候。当使用简单的文字或按钮时，避免使用WebView，这时使用TextView或Buttons更好。<br>// TODO 2016-3-2 2:57<br>参考文章：<a href="http://www.jianshu.com/p/4390f4fe19b3" target="_blank" rel="external">http://www.jianshu.com/p/4390f4fe19b3</a><br><a href="http://www.jianshu.com/p/d9e4ddd1c530" target="_blank" rel="external">http://www.jianshu.com/p/d9e4ddd1c530</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/11/在Activity中创建Handler发送消息以及接受消息过程浅析/" rel="next" title="在Activity中创建Handler发送消息以及接受消息过程浅析">
+                <i class="fa fa-chevron-left"></i> 在Activity中创建Handler发送消息以及接受消息过程浅析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/使用Python从jsp或者aspx这种动态页面获取图片并保存到本地/" rel="prev" title="使用Python从jsp或者aspx这种动态页面获取图片并保存到本地">
+                使用Python从jsp或者aspx这种动态页面获取图片并保存到本地 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cai Qiqi" />
+          <p class="site-author-name" itemprop="name">Cai Qiqi</p>
+          <p class="site-description motion-element" itemprop="description">陛下，您真是一位老太太</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://caiqiqi.github.io" target="_blank" title="Homepage">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Homepage
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2963784630" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/caiqiqi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-SDK存放路径"><span class="nav-number">2.</span> <span class="nav-text">Android SDK存放路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建系统"><span class="nav-number">3.</span> <span class="nav-text">构建系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工程结构"><span class="nav-number">4.</span> <span class="nav-text">工程结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activities与Fragments"><span class="nav-number">5.</span> <span class="nav-text">Activities与Fragments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-包结构"><span class="nav-number">6.</span> <span class="nav-text">Java 包结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源文件命名"><span class="nav-number">7.</span> <span class="nav-text">资源文件命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组织布局文件"><span class="nav-number">8.</span> <span class="nav-text">组织布局文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将一个大的style文件分割成多个文件"><span class="nav-number">9.</span> <span class="nav-text">将一个大的style文件分割成多个文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于colors-xml"><span class="nav-number">10.</span> <span class="nav-text">关于colors.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小心关于WebViews的问题"><span class="nav-number">11.</span> <span class="nav-text">小心关于WebViews的问题</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai Qiqi</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

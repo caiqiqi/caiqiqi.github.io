@@ -8,7 +8,7 @@ subtitle:
 description: "陛下，您真是一位老太太"
 author: "Cai Qiqi"
 language: "564933437@qq.com"
-timezone: "zh-CN"
+timezone: 
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
