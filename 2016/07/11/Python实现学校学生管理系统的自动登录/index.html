@@ -1,0 +1,609 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,web," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="主要是用于学校研究生管理系统的自动登录YouTube地址：https://www.youtube.com/watch?v=K4LTgzm9G3w 秒拍视频：http://weibo.com/p/230444427857313e89770690bec69367024c29 
+主页：https://github.com/caiqiqi/AutoLogin心路历程: 登录成功页面: 已登录的默认页面:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python实现学校学生管理系统的自动登录">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/Python实现学校学生管理系统的自动登录/index.html">
+<meta property="og:site_name" content="蔡奇奇的博客">
+<meta property="og:description" content="主要是用于学校研究生管理系统的自动登录YouTube地址：https://www.youtube.com/watch?v=K4LTgzm9G3w 秒拍视频：http://weibo.com/p/230444427857313e89770690bec69367024c29 
+主页：https://github.com/caiqiqi/AutoLogin心路历程: 登录成功页面: 已登录的默认页面:">
+<meta property="og:image" content="http://img.blog.csdn.net/20160619155906708">
+<meta property="og:image" content="http://img.blog.csdn.net/20160619155944100">
+<meta property="og:image" content="http://img.blog.csdn.net/20160619160025050">
+<meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python实现学校学生管理系统的自动登录">
+<meta name="twitter:description" content="主要是用于学校研究生管理系统的自动登录YouTube地址：https://www.youtube.com/watch?v=K4LTgzm9G3w 秒拍视频：http://weibo.com/p/230444427857313e89770690bec69367024c29 
+主页：https://github.com/caiqiqi/AutoLogin心路历程: 登录成功页面: 已登录的默认页面:">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160619155906708">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/Python实现学校学生管理系统的自动登录/"/>
+
+  <title> Python实现学校学生管理系统的自动登录 | 蔡奇奇的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡奇奇的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python实现学校学生管理系统的自动登录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-11T03:11:25+08:00" content="2016-07-11">
+              2016-07-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="主要是用于学校研究生管理系统的自动登录"><a href="#主要是用于学校研究生管理系统的自动登录" class="headerlink" title="主要是用于学校研究生管理系统的自动登录"></a>主要是用于学校研究生管理系统的自动登录</h1><p>YouTube地址：<br><br><a href="https://www.youtube.com/watch?v=K4LTgzm9G3w" target="_blank" rel="external">https://www.youtube.com/watch?v=K4LTgzm9G3w</a> <br><br><div class="video-container"><iframe src="//www.youtube.com/embed/K4LTgzm9G3w" frameborder="0" allowfullscreen></iframe></div><br><br>秒拍视频：<a href="http://weibo.com/p/230444427857313e89770690bec69367024c29" target="_blank" rel="external">http://weibo.com/p/230444427857313e89770690bec69367024c29</a> <br></p>
+<p><embed type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="transparent" quality="high" height="480" width="480" src="http://video.weibo.com/player/1034:427857313e89770690bec69367024c29/v.swf"><br>主页：<br><br><a href="https://github.com/caiqiqi/AutoLogin">https://github.com/caiqiqi/AutoLogin</a><br>心路历程: <img src="http://img.blog.csdn.net/20160619155906708" alt="这里写图片描述"><br><br>登录成功页面: <img src="http://img.blog.csdn.net/20160619155944100" alt="这里写图片描述"><br>已登录的默认页面: <img src="http://img.blog.csdn.net/20160619160025050" alt="这里写图片描述"></p>
+<h2 id="student-login-final-py"><a href="#student-login-final-py" class="headerlink" title="student-login-final.py"></a>student-login-final.py</h2><p></p><p>通过Chrome/Firefox的开发者工具以及Burp Suite分析登录过程的HTTP通信细节，然后用python实现对目标网站在给定学号密码情况下的自<br>动登录。<br> </p><p></p>
+<h2 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h2><p>分析整个HTTP通信过程。实际用浏览器登录时由于有各种css/js/png文件，还有像WebResource.axd，ScriptResource.axd这种让你迷惑不知重不重要的文件。通过分析和实验，发现主要有三个HTTP请求。</p>
+<p></p><p>1. 先请求登录页面 <code>http://gs.cqupt.edu.cn:8080/gstudent/loging.aspx?undefined</code> <br>如果已登录未退出这个session还是已登录&gt;的状态，或者登录过期这个session虽然已失效但是sessionId还在，这种情况下不会新建session，而是沿用之前的session，服务器端返回的&gt;请求中不会『Set-cookie』。如果不是以上情况，则会在这第一次请求之后服务器在返回的响应中通过『Set-cookie』发给客户端一个cookie&gt;，这个cookie的内容就是这次session的sessionId。如果直接用requests库的get/post方法，则会在headers(HTTP的请求头)中将connection字<br>段设置为closed，这样不利用之后的请求沿用之前的cookie以保持同一次session，导致服务器在登录认证的过程中不能将之后的请求与之前的<br>请求联系起来，最终返回302重定向到这个页面 <code>http://gs.cqupt.edu.cn:8080/gstudent/ReLogin.aspx?ReturnUrl=/gstudent/loging.aspx?undefined</code> <br> 让用户重新登录从而登录失败。<br><br>在第一次发出的get请求后还要从返回的html页面中找出三个重要参数供后续的请求中用到。这三个参数是：登录的最后一步提交post请求时的<br>表单里的数据’__VIEWSTATE’和’EVENTVALIDATION’字段；以及第二次get请求图片验证码时用到的<code>?image=124685645</code>类似这样的参数。</p><p></p>
+<p></p><p>2. 然后请求验证码页面，即访问一个.aspx页面并带一个随机参数(这个参数并不是像有些网站一样通过前端的js文件中的Math.random()随<br>机产生)。由于我并不知道服务器端生成这个随机参数的逻辑，于是我只能通过分析返回的html页面中找出下一步要请求的验证码页面。然后通<br>过requests.Session.get发出请求，将得到的图片存入本地文件，然后打开这个文件用<code>pytesseract</code>这个库来将图片内容解析成文字。<br></p><p></p>
+<p></p><p>3. 登录的最后一步就是将之前搜集的几个重要参数加上用户名，密码，验证码post到指定的url <code>http://gs.cqupt.edu.cn:8080/gstudent/ReLogin.aspx?ReturnUrl=/gstudent/loging.aspx?undefined</code> <br>注意这里不是提交到这里<code>http://gs.cqupt.edu.cn:8080/gstudent/loging.aspx?undefined</code> <br>(这里碰到过坑所以提一下)<br></p><br>然后通过打印出当前页面的url可以看出是否已经登录了。然后就可以做任意已登录的操作了。<p></p>
+<ul>
+<li>ConfigParser:  用于从.ini文件中读取用户名和密码</li>
+<li>requests: 关键库。用于进行HTTP请求(GET/POST)。可带headers(HTTP请求头)，data(POST时带的表单信息)。</li>
+<li>pytesseract: 开源图像识别库。它的image_to_string()可以将一个PIL.Image包装的图片文件识别出其中的文字信息，并返回该字符串。</li>
+<li>bs4.BeautifulSoup: 解析xml/html的库。这里用于查找hidden的’__VIEWSTATE’ 和 ‘EVENTVALIDATION’。也可用lxml或者正则re。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+            <a href="/tags/web/" rel="tag">#web</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/11/ns3笔记/" rel="next" title="ns3笔记">
+                <i class="fa fa-chevron-left"></i> ns3笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/windows平台的route命令/" rel="prev" title="windows平台的route命令 ">
+                windows平台的route命令  <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cai Qiqi" />
+          <p class="site-author-name" itemprop="name">Cai Qiqi</p>
+          <p class="site-description motion-element" itemprop="description">陛下，您真是一位老太太</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://caiqiqi.github.io" target="_blank" title="Homepage">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Homepage
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2963784630" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/caiqiqi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主要是用于学校研究生管理系统的自动登录"><span class="nav-number">1.</span> <span class="nav-text">主要是用于学校研究生管理系统的自动登录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#student-login-final-py"><span class="nav-number">1.1.</span> <span class="nav-text">student-login-final.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#难点"><span class="nav-number">1.2.</span> <span class="nav-text">难点</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai Qiqi</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

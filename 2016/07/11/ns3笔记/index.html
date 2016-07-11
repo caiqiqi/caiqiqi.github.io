@@ -1,0 +1,612 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="SDN,ns3,C++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="##Linksns-3的API：https://www.nsnam.org/docs/release/3.17/doxygen/一些学习的视频：ns3 overview
+ns3share’s channeltutorial-ns3 Building Simple Network Topologies p2 
+##Main——————7月8日更新———————————–我拿着这个bug在网上半天找不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ns3笔记">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/ns3笔记/index.html">
+<meta property="og:site_name" content="蔡奇奇的博客">
+<meta property="og:description" content="##Linksns-3的API：https://www.nsnam.org/docs/release/3.17/doxygen/一些学习的视频：ns3 overview
+ns3share’s channeltutorial-ns3 Building Simple Network Topologies p2 
+##Main——————7月8日更新———————————–我拿着这个bug在网上半天找不">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708161817935">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708161313568">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708161329148">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708163046328">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703030536433">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703030709762">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703030854602">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703031135826">
+<meta property="og:image" content="http://img.blog.csdn.net/20160703031336717">
+<meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ns3笔记">
+<meta name="twitter:description" content="##Linksns-3的API：https://www.nsnam.org/docs/release/3.17/doxygen/一些学习的视频：ns3 overview
+ns3share’s channeltutorial-ns3 Building Simple Network Topologies p2 
+##Main——————7月8日更新———————————–我拿着这个bug在网上半天找不">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160708161817935">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/ns3笔记/"/>
+
+  <title> ns3笔记 | 蔡奇奇的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡奇奇的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ns3笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-11T03:04:37+08:00" content="2016-07-11">
+              2016-07-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##Links<br>ns-3的API：<br><br><a href="https://www.nsnam.org/docs/release/3.17/doxygen/" target="_blank" rel="external">https://www.nsnam.org/docs/release/3.17/doxygen/</a><br>一些学习的视频：<br><br><a href="https://www.youtube.com/watch?v=FFNvFzSmgIg" target="_blank" rel="external">ns3 overview</a><br></p>
+<p><a href="https://www.youtube.com/user/ns3share/videos" target="_blank" rel="external">ns3share’s channel</a><br><br><a href="https://www.youtube.com/watch?v=AU7ZjBvQaBk" target="_blank" rel="external">tutorial-ns3</a><br><br><div class="video-container"><iframe src="//www.youtube.com/embed/AU7ZjBvQaBk" frameborder="0" allowfullscreen></iframe></div> <br><br><a href="https://www.youtube.com/watch?v=dZKz1J1ZZRU&amp;list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&amp;index=1" target="_blank" rel="external">Building Simple Network Topologies p2</a> <br><br><div class="video-container"><iframe src="//www.youtube.com/embed/dZKz1J1ZZRU&list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&index=1" frameborder="0" allowfullscreen></iframe></div><br><br></p>
+<p>##Main<br>——————7月8日更新———————————–<br>我拿着这个bug在网上半天找不到答案，突然找到一个Google Group里面的回答，发现跟我之前装ns3的方式不一样。于是在之前ns3的兄弟目录装了一个他们说的那种版本的ns3.<br><a href="http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html" target="_blank" rel="external">http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html</a><br><br>并按照这里面的内容改了一下几个文件(其实就是在一个.cc文件里面include了某个头文件，而在另一个文件.h里取消了include那个头文件，然后改了一下wscript)。<br><img src="http://img.blog.csdn.net/20160708161817935" alt="这里写图片描述"><br>编译这两千个.cc文件也是不简单给ubuntu的2.2G内存用完了，结果还碰到一个g++编译器的问题，得用swap，于是在本来就不多的硬盘上给了1G用作swap，<code>sudo dd if=/dev/zero of=/swapfile bs=64M count=16</code> ，<code>sudo mkswap /swapfile
+sudo swapon /swapfile</code> 。编译完成之后删除<code>sudo swapoff /swapfile
+sudo rm /swapfile</code>。其实就是在『bindings/ns3module.cc』这个文件编译的时候超级吃内存(感觉得要2G)，这种文件编译完了立马内存就释放了。<br><a href="http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/" target="_blank" rel="external">http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/</a><br><img src="http://img.blog.csdn.net/20160708161313568" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160708161329148" alt="这里写图片描述"><br><br>OK,在这种下载ns3的方式下，编译成功了。<br><br><img src="http://img.blog.csdn.net/20160708163046328" alt="这里写图片描述"><br>————————-我是分割线——————————–<br>最近准备建一些混杂的拓扑(有WIFI，有点对点，有CSMA以太网)，但是OpenNet这个库是刚出来的，有一些小bug，不太好用，于是跟Gilani交流后，他说ns-3可以做，于是我上网找了一些视频开始学习。<br>看视频里面的代码的一个示例：tutorial4.cc <br><br><img src="http://img.blog.csdn.net/20160703030536433" alt="这里写图片描述"><br>这里是要建立的拓扑：<br><br><img src="http://img.blog.csdn.net/20160703030709762" alt="这里写图片描述"><br>实际上每个节点(由<code>NodeDeviceContainer</code>建立的)是按照创建顺序然后依次排入一个<code>NodeList</code>中，用来为没个节点建立数字索引。<br><br><img src="http://img.blog.csdn.net/20160703030854602" alt="这里写图片描述"><br>每个网卡(API里面叫<code>NetDevice</code>，比如回环网卡<code>LoopbackNetDevice</code>, 点对点网卡<code>PointToPointNetDevice</code>等)<br><br><br><img src="http://img.blog.csdn.net/20160703031135826" alt="这里写图片描述"><br>一个物理的网络设备可以有安装多个网卡<br><br><img src="http://img.blog.csdn.net/20160703031336717" alt="这里写图片描述"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SDN/" rel="tag">#SDN</a>
+          
+            <a href="/tags/ns3/" rel="tag">#ns3</a>
+          
+            <a href="/tags/C/" rel="tag">#C++</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/11/mininet实战2/" rel="next" title="mininet实战2">
+                <i class="fa fa-chevron-left"></i> mininet实战2
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/Python实现学校学生管理系统的自动登录/" rel="prev" title="Python实现学校学生管理系统的自动登录">
+                Python实现学校学生管理系统的自动登录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cai Qiqi" />
+          <p class="site-author-name" itemprop="name">Cai Qiqi</p>
+          <p class="site-description motion-element" itemprop="description">陛下，您真是一位老太太</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://caiqiqi.github.io" target="_blank" title="Homepage">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Homepage
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2963784630" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/caiqiqi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai Qiqi</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

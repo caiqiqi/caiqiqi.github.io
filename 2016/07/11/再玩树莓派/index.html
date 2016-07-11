@@ -1,0 +1,600 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,树莓派," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="好久没玩树莓派了，想用一下kali，于是想起了树莓派。昨天晚上就那么任性地想立马开启树莓派，但是当时只有一根网线，然后这个Mac总是不能直接通过网线连接树莓派。Mac ping不通树莓派。而且用网线连上树莓派之后大概一分钟之内会产生一个172.18.124.1的默认网关，然而arp不到它的物理地址。按照网上的各种方法删默认路由又添加依然没有用。我觉得我缺一根网线，于是今天去买了一根两米的网线，然后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再玩树莓派">
+<meta property="og:url" content="https://github.com/caiqiqi/2016/07/11/再玩树莓派/index.html">
+<meta property="og:site_name" content="蔡奇奇的博客">
+<meta property="og:description" content="好久没玩树莓派了，想用一下kali，于是想起了树莓派。昨天晚上就那么任性地想立马开启树莓派，但是当时只有一根网线，然后这个Mac总是不能直接通过网线连接树莓派。Mac ping不通树莓派。而且用网线连上树莓派之后大概一分钟之内会产生一个172.18.124.1的默认网关，然而arp不到它的物理地址。按照网上的各种方法删默认路由又添加依然没有用。我觉得我缺一根网线，于是今天去买了一根两米的网线，然后">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419141515306">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419141535976">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419142620959">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419142805922">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419145757876">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419163337598">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419162748856">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419163405146">
+<meta property="og:image" content="http://img.blog.csdn.net/20160419170130744">
+<meta property="og:updated_time" content="2016-07-10T20:23:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="再玩树莓派">
+<meta name="twitter:description" content="好久没玩树莓派了，想用一下kali，于是想起了树莓派。昨天晚上就那么任性地想立马开启树莓派，但是当时只有一根网线，然后这个Mac总是不能直接通过网线连接树莓派。Mac ping不通树莓派。而且用网线连上树莓派之后大概一分钟之内会产生一个172.18.124.1的默认网关，然而arp不到它的物理地址。按照网上的各种方法删默认路由又添加依然没有用。我觉得我缺一根网线，于是今天去买了一根两米的网线，然后">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160419141515306">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/再玩树莓派/"/>
+
+  <title> 再玩树莓派 | 蔡奇奇的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="564933437@qq.com">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡奇奇的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                再玩树莓派
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-11T02:13:11+08:00" content="2016-07-11">
+              2016-07-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>好久没玩树莓派了，想用一下kali，于是想起了树莓派。昨天晚上就那么任性地想立马开启树莓派，但是当时只有一根网线，然后这个Mac总是不能直接通过网线连接树莓派。Mac ping不通树莓派。而且用网线连上树莓派之后大概一分钟之内会产生一个172.18.124.1的默认网关，然而arp不到它的物理地址。按照网上的各种方法删默认路由又添加依然没有用。我觉得我缺一根网线，于是今天去买了一根两米的网线，然后把Mac和树莓派作为两个LAN口连上路由器。不知道是不是没有设置DHCP的原因，树莓派一直得不到IP，然后我的Mac是设置的静态IP。好啦，不知道了，反正最后我把进宿舍的网线接到路由器的WAN口，然后就可以在浏览器访问路由器的192.168.0.1了。然后在DHCP客户端那一栏找到了我的树莓派的IP，是192.168.0.5。然后终于可以ssh到树莓派了，开始不知道是忘记了密码，还是输错了一直提示密码错误，后来费了老大劲终于找到了密码，原来还是那个密码并没有变。<br><img src="http://img.blog.csdn.net/20160419141515306" alt="这里写图片描述"><br><br>好啦，终于连上了，庆祝一下!<br><img src="http://img.blog.csdn.net/20160419141535976" alt="这里写图片描述"><br><br>然后用网线连上的Mac，但是树莓派不能上网啊，于是找到之前买的无线网卡，插在树莓派上。但是每次插的时候，只是开始亮了一会儿灯，然后就灭了，但是<code>ifconfig -a</code> 还是可以找到wlan0，说明树莓派是识别了这个网卡的。然后我看了一下网上的博客，说是在编辑好<code>sudo vi /etc/network/interfaces</code>之后，要重启一下，然后树莓派就可以根据你配置的热点的SSID和加密方式和密码去连那个热点了。OK，大功告成了，现在我的树莓派有两个IP了(分别对应着两个网卡)<br><img src="http://img.blog.csdn.net/20160419142620959" alt="这里写图片描述"><br><br>然后我通过两个网卡都ping一下树莓派，发现无线网的延迟和有线的延迟不是一个数量级的。。<br><br><img src="http://img.blog.csdn.net/20160419142805922" alt="这里写图片描述"><br><br>然后就是解决树莓派怎么上网了。虽然现在树莓派连上了我的Windows发出的热点，但是没有设置默认网关(它就不会自己找么)。好啦，那我自己来设置默认网关吧。<br><code>route add default gw 192.168.23.1</code><br><br>Linux下有<code>gw</code>，而OSX平台是直接<code>route add default 192.168.23.1</code>没有<code>gw</code>。这是它们的区别。<br>果然一添加默认路由就可以上网了！<br><img src="http://img.blog.csdn.net/20160419145757876" alt="这里写图片描述"><br><br>哈哈，终于可以上网了好激动，马上<code>apt-get update</code>一下。<br>这里我可是用的两个网卡分别ssh到树莓派哦~<br><br><img src="http://img.blog.csdn.net/20160419163337598" alt="这里写图片描述"><br>准备用一下<code>metasploit</code>结果发现metasploit和postgresql都没有装，于是<code>apt-get install postgresql metasploit-framework</code>一下，结果发现从墙内的IP访问<code>http.kali.org</code>时真的是龟速啊，好歹我是4M带宽诶，你就给30k/s给我下载，索性直接ss全局模式了，然后基本满速两分钟就搞定了。因为我的树莓派上并没有装ss，我是用的我的Mac下载的metasploit，于是我得把这个下载的文件传到树莓派上，得用<code>scp</code>这个命令。<br>开始我是在树莓派的终端里用<code>root@kali:~# scp 192.168.0.6:/Users/caiqiqi/Downloads/metasploit-framework_4.11.5-2016010401-0kali1~r1u1_armhf.deb /root</code><br><br>结果呢？<br><img src="http://img.blog.csdn.net/20160419162748856" alt="这里写图片描述"><br><br>这是因为我的Mac没有开启ssh服务。<br>于是我在本机Mac的终端里用<br><code>scp /Users/caiqiqi/Downloads/metasploit-framework_4.11.5-2016010401-0kali1~r1u1_armhf.deb root@192.168.0.5:/root/</code> <br><br>OK！搞定了，速度超快，基本就是局域网的理论带宽了。<br><img src="http://img.blog.csdn.net/20160419163405146" alt="这里写图片描述"><br><br>OK，通过<code>msfconsole</code>进入到metasploit的console了！<br><img src="http://img.blog.csdn.net/20160419170130744" alt="这里写图片描述"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/树莓派/" rel="tag">#树莓派</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/11/强大的网站测试工具viewDNS-info记/" rel="next" title="强大的网站测试工具viewDNS.info记">
+                <i class="fa fa-chevron-left"></i> 强大的网站测试工具viewDNS.info记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/虚拟机中新增磁盘空间并开机自动挂载/" rel="prev" title="虚拟机中新增磁盘空间并开机自动挂载">
+                虚拟机中新增磁盘空间并开机自动挂载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cai Qiqi" />
+          <p class="site-author-name" itemprop="name">Cai Qiqi</p>
+          <p class="site-description motion-element" itemprop="description">陛下，您真是一位老太太</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://caiqiqi.github.io" target="_blank" title="Homepage">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Homepage
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2963784630" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/caiqiqi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cai Qiqi</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
