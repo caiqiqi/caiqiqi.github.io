@@ -63,9 +63,18 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: hexo-theme-next
+# theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: "git@github.com:caiqiqi/caiqiqi.github.io.git"
+  branch: master
+
+# social links
+social:
+  Homepage: "https://caiqiqi.github.io"
+  Weibo: "http://weibo.com/u/2963784630"
+  GitHub: "https://github.com/caiqiqi"
