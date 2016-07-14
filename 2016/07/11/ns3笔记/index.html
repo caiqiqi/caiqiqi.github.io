@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="陛下，您真是一位老太太">
+    <meta name="keyword"  content="undefined">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          ns3笔记 - undefined
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/ns3笔记/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">蔡奇奇的博客</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/undefined')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
+                        
+                          <a class="tag" href="/tags/#ns3" title="ns3">ns3</a>
+                        
+                          <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                        
+                    </div>
+                    <h1>ns3笔记</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Cai Qiqi on
+                        2016-07-11
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>##Links<br>ns-3的API：<br><br><a href="https://www.nsnam.org/docs/release/3.17/doxygen/" target="_blank" rel="external">https://www.nsnam.org/docs/release/3.17/doxygen/</a><br>一些学习的视频：<br><br><a href="https://www.youtube.com/watch?v=FFNvFzSmgIg" target="_blank" rel="external">ns3 overview</a><br></p>
+<p><a href="https://www.youtube.com/user/ns3share/videos" target="_blank" rel="external">ns3share’s channel</a><br><br><a href="https://www.youtube.com/watch?v=AU7ZjBvQaBk" target="_blank" rel="external">tutorial-ns3</a><br><br><div class="video-container"><iframe src="//www.youtube.com/embed/AU7ZjBvQaBk" frameborder="0" allowfullscreen></iframe></div> <br><br><a href="https://www.youtube.com/watch?v=dZKz1J1ZZRU&amp;list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&amp;index=1" target="_blank" rel="external">Building Simple Network Topologies p2</a> <br><br><div class="video-container"><iframe src="//www.youtube.com/embed/dZKz1J1ZZRU&list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&index=1" frameborder="0" allowfullscreen></iframe></div><br><br></p>
+<p>##Main<br>——————7月8日更新———————————–<br>我拿着这个bug在网上半天找不到答案，突然找到一个Google Group里面的回答，发现跟我之前装ns3的方式不一样。于是在之前ns3的兄弟目录装了一个他们说的那种版本的ns3.<br><a href="http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html" target="_blank" rel="external">http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html</a><br><br>并按照这里面的内容改了一下几个文件(其实就是在一个.cc文件里面include了某个头文件，而在另一个文件.h里取消了include那个头文件，然后改了一下wscript)。<br><img src="http://img.blog.csdn.net/20160708161817935" alt="这里写图片描述"><br>编译这两千个.cc文件也是不简单给ubuntu的2.2G内存用完了，结果还碰到一个g++编译器的问题，得用swap，于是在本来就不多的硬盘上给了1G用作swap，<code>sudo dd if=/dev/zero of=/swapfile bs=64M count=16</code> ，<code>sudo mkswap /swapfile
+sudo swapon /swapfile</code> 。编译完成之后删除<code>sudo swapoff /swapfile
+sudo rm /swapfile</code>。其实就是在『bindings/ns3module.cc』这个文件编译的时候超级吃内存(感觉得要2G)，这种文件编译完了立马内存就释放了。<br><a href="http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/" target="_blank" rel="external">http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/</a><br><img src="http://img.blog.csdn.net/20160708161313568" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160708161329148" alt="这里写图片描述"><br><br>OK,在这种下载ns3的方式下，编译成功了。<br><br><img src="http://img.blog.csdn.net/20160708163046328" alt="这里写图片描述"><br>————————-我是分割线——————————–<br>最近准备建一些混杂的拓扑(有WIFI，有点对点，有CSMA以太网)，但是OpenNet这个库是刚出来的，有一些小bug，不太好用，于是跟Gilani交流后，他说ns-3可以做，于是我上网找了一些视频开始学习。<br>看视频里面的代码的一个示例：tutorial4.cc <br><br><img src="http://img.blog.csdn.net/20160703030536433" alt="这里写图片描述"><br>这里是要建立的拓扑：<br><br><img src="http://img.blog.csdn.net/20160703030709762" alt="这里写图片描述"><br>实际上每个节点(由<code>NodeDeviceContainer</code>建立的)是按照创建顺序然后依次排入一个<code>NodeList</code>中，用来为没个节点建立数字索引。<br><br><img src="http://img.blog.csdn.net/20160703030854602" alt="这里写图片描述"><br>每个网卡(API里面叫<code>NetDevice</code>，比如回环网卡<code>LoopbackNetDevice</code>, 点对点网卡<code>PointToPointNetDevice</code>等)<br><br><br><img src="http://img.blog.csdn.net/20160703031135826" alt="这里写图片描述"><br>一个物理的网络设备可以有安装多个网卡<br><br><img src="http://img.blog.csdn.net/20160703031336717" alt="这里写图片描述"></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/07/11/Python实现学校学生管理系统的自动登录/" data-toggle="tooltip" data-placement="top" title="Python实现学校学生管理系统的自动登录">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/07/11/mininet实战2/" data-toggle="tooltip" data-placement="top" title="mininet实战2">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
+                        
+                          <a class="tag" href="/tags/#ns3" title="ns3">ns3</a>
+                        
+                          <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2963784630">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/caiqiqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 蔡奇奇的博客 2016 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://github.com/caiqiqi/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

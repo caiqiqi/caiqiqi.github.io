@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="陛下，您真是一位老太太">
+    <meta name="keyword"  content="undefined">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          [译]Android开发规范与架构 - undefined
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/译-Android开发规范与架构/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">蔡奇奇的博客</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/undefined')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                    <h1>[译]Android开发规范与架构</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Cai Qiqi on
+                        2016-07-11
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><ul>
+<li>使用Gradle和它推荐的工程目录</li>
+<li>使用 Maven依赖而不是导入jar包</li>
+<li>把密码和敏感数据放在<code>gradle.properties</code></li>
+<li>使用<code>Fragment</code>来呈现UI视图</li>
+<li>使用<code>Activity</code>只是用来管理<code>Fragment</code>的</li>
+<li>使用多个<code>style</code>文件以避免单一的大style文件</li>
+<li>使用<code>WebView</code>时避免在客户端做处理HTML工作，当心内存泄露</li>
+<li>总是用ProGuard和DexGuard来混淆项目</li>
+<li>不要自己写HTTP客户端，使用Volley或者OKHttp库</li>
+</ul>
+<h2 id="Android-SDK存放路径"><a href="#Android-SDK存放路径" class="headerlink" title="Android SDK存放路径"></a>Android SDK存放路径</h2><p>将你的Android SDK放在你的home目录或其他应用程序无关的位置。当安装有些包含SDK的IDE的时候，可能会将SDK放在IDE同一目录下，当你需要升级（或重新安装）IDE或更换的IDE时，会非常麻烦。</p>
+<h2 id="构建系统"><a href="#构建系统" class="headerlink" title="构建系统"></a>构建系统</h2><p>你的默认编译环境应该是Gradle。因为Ant 有很多限制，也很冗余。<a href="http://tools.android.com/tech-docs/new-build-system/user-guide" target="_blank" rel="external">使用Gradle</a>，<strong>管理和下载依赖很方便</strong>。</p>
+<h2 id="工程结构"><a href="#工程结构" class="headerlink" title="工程结构"></a>工程结构</h2><p>不要用老的<code>Ant&amp; Eclipse ADT</code>工程结构：<br>├─ assets<br>├─ libs<br>├─ res<br>├─ src<br>│  └─ com/futurice/project<br>├─ AndroidManifest.xml<br>├─ build.gradle<br>├─ project.properties<br>└─ proguard-rules.pro</p>
+<p>而用新的<code>Gradle&amp; Android Studio</code>工程结构：<br>├─ library-foobar<br>├─ app<br>│  ├─ libs<br>│  ├─ src<br>│  │  ├─ androidTest<br>│  │  │  └─ java<br>│  │  │     └─ com/futurice/project<br>│  │  └─ main<br>│  │     ├─ java<br>│  │     │  └─ com/futurice/project<br>│  │     ├─ res<br>│  │     └─ AndroidManifest.xml<br>│  ├─ build.gradle<br>│  └─ proguard-rules.pro<br>├─ build.gradle<br>└─ settings.gradle</p>
+<p>你的项目引用第三方项目库时（例如，library-foobar），拥有一个顶级包名app从第三方库项目区分你的应用程序是非常有用的。</p>
+<p>下载jar包，然后更新它们是很繁琐的，这个问题Maven很好的解决了，这在Android Gradle构建中也是推荐的方法。你可以指定版本的一个范围，如2.1.+,然后Maven会自动升级到制定的最新版本，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile &apos;com.netflix.rxjava:rxjava-core:0.19.+&apos;</div><div class="line">    compile &apos;com.netflix.rxjava:rxjava-android:0.19.+&apos;</div><div class="line">    compile &apos;com.fasterxml.jackson.core:jackson-databind:2.4.+&apos;</div><div class="line">    compile &apos;com.fasterxml.jackson.core:jackson-core:2.4.+&apos;</div><div class="line">    compile &apos;com.fasterxml.jackson.core:jackson-annotations:2.4.+&apos;</div><div class="line">    compile &apos;com.squareup.okhttp:okhttp:2.0.+&apos;</div><div class="line">    compile &apos;com.squareup.okhttp:okhttp-urlconnection:2.0.+&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Activities与Fragments"><a href="#Activities与Fragments" class="headerlink" title="Activities与Fragments"></a>Activities与Fragments</h2><p>Fragments应该作为你实现UI界面默认选择。你可以重复使用Fragments来组合成你的应用。我们强烈推荐使用Fragments而不是Activity来呈现UI界面，理由如下：</p>
+<ul>
+<li><strong>屏幕间数据通信</strong>  从一个Activity发送复杂数据(例如Java对象)到另外一个Activity时，Android的API并没有提供合适的方法。不过使用Fragment，你可以使用一个Activity实例作为这个Activity的子Fragments之间的通信通道。这样比Activity与Activity间的通信好。</li>
+<li><strong>提供多窗格布局解决方案</strong>  Fragments 的引入主要是为了将手机应用延伸到平板电脑，所以在平板电脑上你可能有A、B两个窗格，但是在手机应用上A、B可能分别充满整个屏幕。如果你的应用在最初就使用了Fragments，那么以后将你的应用适配到其他不同尺寸屏幕就会非常简单。</li>
+<li>Fragments 一般通用的不只有UI 你可以有一个没有界面的fragment作为Activity提供后台工作。进一步你可以使用这个特性来创建一个<a href="http://stackoverflow.com/questions/12363790/how-many-activities-vs-fragments/12528434#12528434" target="_blank" rel="external">fragment 包含改变其它fragment的逻辑</a>，而不是把这个逻辑放在Activity中。</li>
+</ul>
+<h2 id="Java-包结构"><a href="#Java-包结构" class="headerlink" title="Java 包结构"></a>Java 包结构</h2><p>Android 应用程序在架构上大致是Java中的Model-View-Controller结构。在Android 中 Fragment和Activity通常上是控制器类(<a href="http://www.informit.com/articles/article.aspx?p=2126865).换句话说，他们是用户接口的部分，同样也是Views视图的部分。" target="_blank" rel="external">http://www.informit.com/articles/article.aspx?p=2126865).换句话说，他们是用户接口的部分，同样也是Views视图的部分。</a><br>正是因为如此，才很难严格的将fragments (或者 activities) 严格的划分成 控制器controlloers还是视图 views。最还是将它们放在自己单独的 fragments 包中。只要你遵循之前提到的建议，Activities 则可以放在顶级目录下。如果你规划有2到3个以上的activity，那么还是同样新建一个activities包吧。<br>然而，这种架构可以看做是另一种形式的MVC，包含要被解析API响应的JSON数据，来填充的POJO的models包中。和一个views包来包含你的自定义视图、通知、导航视图，widgets等等。适配器Adapter是在数据和视图之间。然而他们通常需要通过getView()方法来导出一些视图，所以你可以将adapters包放在views包里面。<br>一些控制器角色的类是应用程序级别的，同时是接近系统的。这些类放在managers包下面。一些繁杂的数据处理类，比如说”DateUtils”,放在utils包下面。与后端交互负责网络处理类，放在network包下面。</p>
+<p>总而言之，以最接近用户而不是最接近后端去安排他们。<br>com.futurice.project<br>├─ network<br>├─ models<br>├─ managers<br>├─ utils<br>├─ fragments<br>└─ views<br>   ├─ adapters<br>   ├─ actionbar<br>   ├─ widgets<br>   └─ notifications</p>
+<h2 id="资源文件命名"><a href="#资源文件命名" class="headerlink" title="资源文件命名"></a>资源文件命名</h2><p>遵循<code>前缀表明类型</code>的习惯，形如type_foo_bar.xml。例如：<code>fragment_contact_details.xml</code>,<br><code>view_primary_button.xml</code><br>,<code>activity_main.xml</code><br>.</p>
+<h2 id="组织布局文件"><a href="#组织布局文件" class="headerlink" title="组织布局文件"></a>组织布局文件</h2><p>若果你不确定如何排版一个布局文件，遵循以下下规则可能会有帮助。</p>
+<ul>
+<li>每一个属性一行，缩进4个空格</li>
+<li>android:id 总是作为第一个属性</li>
+<li>android:layout_<em>**</em> 属性在上边</li>
+<li>style 属性在底部</li>
+<li>关闭标签/&gt;单独起一行，有助于调整和添加新的属性。</li>
+</ul>
+<p>例如：<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></div><div class="line">    &gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/name"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_alignParentRight</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"@string/name"</span></div><div class="line">        <span class="attr">style</span>=<span class="string">"@style/FancyText"</span></div><div class="line">        /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">layout</span>=<span class="string">"@layout/reusable_part"</span> /&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="将一个大的style文件分割成多个文件"><a href="#将一个大的style文件分割成多个文件" class="headerlink" title="将一个大的style文件分割成多个文件"></a>将一个大的style文件分割成多个文件</h2><p>你可以有多个styles.xml 文件。Android SDK支持其它文件，styles这个文件名称并没有作用，起作用的是在文件里xml的style标签。因此你可以有多个style文件。styles.xml,style_home.xml,style_item_details.xml,styles_forms.xml。不用于资源文件路径需要为系统构建起的有意义，在res/values目录下的文件可以任意命名。</p>
+<h2 id="关于colors-xml"><a href="#关于colors-xml" class="headerlink" title="关于colors.xml"></a>关于colors.xml</h2><p>colors.xml是一个调色板 在你的colors.xml文件中应该只是映射颜色的名称一个RGBA值，而没有其它的。不要使用它为不同的按钮来定义RGBA值。<br>不要这样做<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"button_foreground"</span>&gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"button_background"</span>&gt;</span>#2A91BD<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_background_inactive"</span>&gt;</span>#5F5F5F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_background_active"</span>&gt;</span>#939393<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_foreground"</span>&gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_foreground_important"</span>&gt;</span>#FF9D2F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    ...</div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"comment_shadow"</span>&gt;</span>#323232<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>使用这种格式，你会非常容易的开始重复定义RGBA值，这使如果需要改变基本色变的很复杂。同时，这些定义是跟一些环境关联起来的，如button或者comment,应该放到一个按钮风格中，而不是在color.xml文件中。</p>
+<p>相反，这样做:<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- grayscale --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"white"</span>     &gt;</span>#FFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray_light"</span>&gt;</span>#DBDBDB<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray"</span>      &gt;</span>#939393<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"gray_dark"</span> &gt;</span>#5F5F5F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"black"</span>     &gt;</span>#323232<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- basic colors --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"green"</span>&gt;</span>#27D34D<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"blue"</span>&gt;</span>#2A91BD<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"orange"</span>&gt;</span>#FF9D2F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"red"</span>&gt;</span>#FF432F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>像这样规范的颜色很容易修改或重构，会使应用一共使用了多少种不同的颜色变得非常清晰。</strong></p>
+<h2 id="小心关于WebViews的问题"><a href="#小心关于WebViews的问题" class="headerlink" title="小心关于WebViews的问题"></a>小心关于WebViews的问题</h2><p>如果你必须显示一个web视图，比如说对于一个新闻文章，避免做客户端处理HTML的工作，最好让后端工程师协助，让他返回一个 “纯” HTML。WebViews 也能导致内存泄露当保持引他们的Activity，而不是被绑定到ApplicationContext中的时候。当使用简单的文字或按钮时，避免使用WebView，这时使用TextView或Buttons更好。<br>// TODO 2016-3-2 2:57<br>参考文章：<a href="http://www.jianshu.com/p/4390f4fe19b3" target="_blank" rel="external">http://www.jianshu.com/p/4390f4fe19b3</a><br><a href="http://www.jianshu.com/p/d9e4ddd1c530" target="_blank" rel="external">http://www.jianshu.com/p/d9e4ddd1c530</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/07/11/使用Python从jsp或者aspx这种动态页面获取图片并保存到本地/" data-toggle="tooltip" data-placement="top" title="使用Python从jsp或者aspx这种动态页面获取图片并保存到本地">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/07/11/在Activity中创建Handler发送消息以及接受消息过程浅析/" data-toggle="tooltip" data-placement="top" title="在Activity中创建Handler发送消息以及接受消息过程浅析">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2963784630">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/caiqiqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 蔡奇奇的博客 2016 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://github.com/caiqiqi/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
