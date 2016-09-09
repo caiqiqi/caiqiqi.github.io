@@ -13,11 +13,11 @@
 
     <title>
         
-          蔡奇奇的博客 | CaiQiqi&#39;s Blog
+          开始Docker - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/page/2/">
+    <link rel="canonical" href="https://github.com/caiqiqi/2016/09/09/开始Docker/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -123,299 +123,117 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>蔡奇奇的博客</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading"></span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Docker" title="Docker">Docker</a>
+                        
+                    </div>
+                    <h1>开始Docker</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Cai Qiqi on
+                        2016-09-09
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <!-- Main Content -->
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>因为偶然在微博上看到分享的一个关于自己漏洞环境的项目，发现需要用到Docker，而且近期在InfoQ上也看到了Docker的作者之一演讲说Docker如何如何好，于是准备来体验一下。</p>
+<p>##在OSX上安装<br><a href="https://docs.docker.com/engine/installation/mac/" target="_blank" rel="external">https://docs.docker.com/engine/installation/mac/</a><br><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">https://docs.docker.com/docker-for-mac/</a><br>OSX上Docker安装很简单嘛。最早的需要『Boot2Docker』，然后这玩意儿被废弃，改用『Docker Toolbox』。现在只需要『Docker for Mac』就行 1.OS X 10.10.3及以上。2.至少4G的RAM。3.系统里不能有VirtualBox 4.3.30以前的版本(因为其与Docker for Mac不兼容)。<br><br>安装成功后：<br><img src="http://img.blog.csdn.net/20160906013550715" alt="这里写图片描述"><br>命令行：<br><img src="http://img.blog.csdn.net/20160906013656497" alt="这里写图片描述"></p>
+<p>##快速搭建各种漏洞环境<br>GitHub地址：<br><a href="https://github.com/Medicean/VulApps">https://github.com/Medicean/VulApps</a><br>Docker镜像地址：<br><a href="https://hub.docker.com/r/medicean/vulapps/" target="_blank" rel="external">https://hub.docker.com/r/medicean/vulapps/</a></p>
+<p>##源地址被墙<br><img src="http://img.blog.csdn.net/20160906013230123" alt="这里写图片描述"></p>
+<p>##使用国内的源<br><code>https://docker.mirrors.ustc.edu.cn</code><br><img src="http://img.blog.csdn.net/20160906013338871" alt="这里写图片描述"></p>
+<p>##对于国内源里没有的镜像对Docker进行代理<br><img src="http://img.blog.csdn.net/20160906012959135" alt="这里写图片描述"><br><a href="https://segmentfault.com/a/1190000006146697" target="_blank" rel="external">https://segmentfault.com/a/1190000006146697</a></p>
 
 
-<div class="post-preview">
+                <hr>
 
-    <a href="/2016/07/11/一个计算机网络的面试题/">
-        <h2 class="post-title">
-            一个计算机网络的面试题
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            来自林沛满的《WIreshark网络分析就这么简单》
-###问题
-###抓包与分析分析一下：A: 192.168.26.129/24 B: 192.168.26.3/27 
-那问题是：B能ping通A吗？咋一看都是192.168.26.*,好像应该能ping通，但是看看子网掩码呢？A的掩码：255.255.255.0，挺熟悉的，平常用的路由器或者从PC发出来的热点不就是这样的形式吗？然而B的......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Cai Qiqi on
-        2016-07-11
-    </p>
+                
 
-</div>
-<hr>
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/09/09/体验ImageMagick-命令执行漏洞-CVE-2016–3714-的PoC/" data-toggle="tooltip" data-placement="top" title="体验ImageMagick 命令执行漏洞(CVE-2016–3714)的PoC">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/07/11/逆向初体验之玩“英语趣配音”/" data-toggle="tooltip" data-placement="top" title="逆向初体验之玩“英语趣配音” ">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-<div class="post-preview">
+                
 
-    <a href="/2016/07/11/强大的网站测试工具viewDNS-info记/">
-        <h2 class="post-title">
-            强大的网站测试工具viewDNS.info记
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            今天偶然在微博上看到忘了谁转发的李开复的抗议GitHub被屏蔽的微博http://weibo.com/1197161814/zfGjQaBDB?type=comment#_rnd1462418248683，GitHub被屏蔽是之前的事，现在墙内是可以访问的，不过现在ping它依然不通畅。然后根据那张李开复贴出来的截图用google图片搜索出来原来这个网站是发现了一个好的网站测试工具`view......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Cai Qiqi on
-        2016-07-11
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/07/11/强大的Burp-Suite/">
-        <h2 class="post-title">
-            强大的Burp Suite
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Oh，my burp，认识你真是一个曲折的过程。之前用我那个Win8的电脑，由于屏幕太小了，而你的界面上的字又太小，导致对你的体验不太好，让我对你有一些排斥心理，现在好了，有Macbook Pro了，体验绝佳！屏幕大了，CPU快了，内存有保障了，再看你的时候就舒服多了。不过找你的professional的crack版也弄了半天。不过最后总算是把你这个jar文件加到环境变量中去了。然后给你来一......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Cai Qiqi on
-        2016-07-11
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/07/11/ubuntu下安装mininet，ns-3，和OpenNet/">
-        <h2 class="post-title">
-            ubuntu下安装mininet，ns-3，和OpenNet
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Mininet首先得有mininet的系统环境，到mininet的官方GitHub主页上说的 http://mininet.org/download/ 
-
-The easiest way to get started is to download a pre-packaged Mininet/Ubuntu VM. This VM includes Mininet itself, all Op......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Cai Qiqi on
-        2016-07-11
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2015/07/01/开始SDN/">
-        <h2 class="post-title">
-            开始SDN
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            老师说要我先把“仿真实验环境装好，好像是叫什么mininet”。在VirtualBox里装了ubuntu。今儿有心情来搞搞SDN。翻开先前收藏的装mininet的教程，按照那个步骤一步一步走。
-又看到 “sudo apt-get update”。怎么每次第一行都是这句话呢？于是google了一下，原来写这句话是有用处的。因为每次要安装一下新软件的时候，先得确保当前的软件是最新的，于是先更新一......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Cai Qiqi on
-        2015-07-01
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/">&larr; Newer Posts</a>
-        </li>
-    
-    
-</ul>
-
+                
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#Python" title="Python" rel="3">Python</a>
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#web" title="web" rel="4">web</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#linux" title="linux" rel="4">linux</a>
-                            
-                        
-                            
-                            <a href="/tags/#SDN" title="SDN" rel="6">SDN</a>
-                            
-                        
-                            
-                            <a href="/tags/#mininet" title="mininet" rel="3">mininet</a>
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#Android" title="Android" rel="3">Android</a>
-                            
-                        
-                            
-                        
-                            
-                        
-                            
+                       
+                          <a class="tag" href="/tags/#Docker" title="Docker">Docker</a>
                         
                     </div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/avatar.jpg" />
-                        
-
-                        
-                            <p>陛下，您真是一位老太太</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-
-                            
-                                <li>
-                                    <a target="_blank" href="http://weibo.com/2963784630">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/caiqiqi">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
                 <!-- Friends Blog -->
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+
+
+
 
 
     <!-- Footer -->
