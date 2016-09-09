@@ -13,11 +13,11 @@
 
     <title>
         
-          ubuntu下安装mininet，ns-3，和OpenNet - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
+          ns3--Making Plots using the Gnuplot Class - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/ubuntu下安装mininet，ns-3，和OpenNet/">
+    <link rel="canonical" href="https://github.com/caiqiqi/2016/09/09/ns3-Making-Plots-using-the-Gnuplot-Class/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,16 +141,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                          <a class="tag" href="/tags/#ns3" title="ns3">ns3</a>
                         
                     </div>
-                    <h1>ubuntu下安装mininet，ns-3，和OpenNet</h1>
+                    <h1>ns3--Making Plots using the Gnuplot Class</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Cai Qiqi on
-                        2016-07-11
+                        2016-09-09
                     </span>
                 </div>
             </div>
@@ -169,17 +167,13 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="Mininet"><a href="#Mininet" class="headerlink" title="Mininet"></a>Mininet</h2><p>首先得有mininet的系统环境，到mininet的官方GitHub主页上说的 <a href="http://mininet.org/download/" target="_blank" rel="external">http://mininet.org/download/</a> </p>
-<blockquote>
-<p>The easiest way to get started is to download a pre-packaged Mininet/Ubuntu VM. This VM includes Mininet itself, all OpenFlow binaries and tools pre-installed, and tweaks to the kernel configuration to support larger Mininet networks.</p>
-</blockquote>
-<p>虚拟机文件地址<br><br><a href="https://github.com/mininet/mininet/wiki/Mininet-VM-Images">https://github.com/mininet/mininet/wiki/Mininet-VM-Images</a> <br><br>我选的是这个版本的<br><br><a href="http://downloads.mininet.org/mininet-2.2.1-150420-ubuntu-14.04-server-amd64.zip" target="_blank" rel="external">http://downloads.mininet.org/mininet-2.2.1-150420-ubuntu-14.04-server-amd64.zip</a> <br><br>然后在VMware player(Windows) 或者VMware Fusion(OSX)里运行。<br>系统里设置好了默认用户是<code>mininet</code>，密码也是<code>mininet</code>。<br><br>Tips：可以改一下root的密码<code>sudo passwd root</code>。<br>这里提一下如果根目录太小了，可以清理一下apt-get的默认下载路径<code>/var/cache/apt/archives</code>里面的已经安装过的.deb文件。</p>
-<h2 id="Ubuntu-server版本图形界面"><a href="#Ubuntu-server版本图形界面" class="headerlink" title="Ubuntu server版本图形界面"></a>Ubuntu server版本图形界面</h2><p>默认ubuntu server是没有图形界面的，有这样的理由：<br>1 有更过依赖的服务，更有可能down机，也引入了更多的缺陷。<br>2 资源(CPU，硬盘，内存)会耗费。<br>可以在ubuntu上安装 X11服务端<br><br><code>sudo apt-get install xorg</code><br><code>sudo apt-get install openbox</code><br>然后在宿主机上安装X11客户端<br><br><code>sudo apt-get install xauth</code><br><br>附链接：<br><br><a href="http://www.techotopia.com/index.php/Displaying_Ubuntu_Linux_Applications_Remotely_(X11_Forwarding" target="_blank" rel="external">Displaying Ubuntu Linux Applications Remotely (X11 Forwarding)</a>)</p>
-<h2 id="ns-3"><a href="#ns-3" class="headerlink" title="ns-3"></a>ns-3</h2><p>官方提供的安装姿势：<br><br>链接是 <a href="https://www.nsnam.org/wiki/Installation" target="_blank" rel="external">https://www.nsnam.org/wiki/Installation</a> <br><br>安装ns-3之前有很多依赖包要安装，这里根据官网的wiki列出来一下</p>
-<pre><code class="bash">sudo apt-get install gcc g++ python python-dev qt4-dev-tools libqt4-dev mercurial bzr cmake libc6-dev libc6-dev-i386 g++-multilib gdb valgrind gsl-bin libgsl0-dev libgsl0ldbl flex bison libfl-dev sqlite sqlite3 libsqlite3-dev libxml2 libxml2-dev libgtk2.0-0 libgtk2.0-dev vtun lxc uncrustify doxygen graphviz imagemagick texlive texlive-extra-utils texlive-latex-extra texlive-font-utils texlive-lang-portuguese dvipng python-sphinx dia python-pygraphviz python-kiwi python-pygoocanvas libgoocanvas-dev libboost-signals-dev libboost-filesystem-dev openmpi-bin openmpi-common openmpi-doc libopenmpi-dev
-</code></pre>
-<p><br></p>
-<p>参考：<br><br><a href="http://blog.csdn.net/roger__king/article/details/9272141" target="_blank" rel="external">http://blog.csdn.net/roger__king/article/details/9272141</a><br><a href="http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/" target="_blank" rel="external">http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/</a><br><a href="http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html" target="_blank" rel="external">http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html</a></p>
+                <p>原文链接：<br><a href="https://www.nsnam.org/docs/manual/html/gnuplot.html" target="_blank" rel="external">https://www.nsnam.org/docs/manual/html/gnuplot.html</a> <br></p>
+<p><img src="http://img.blog.csdn.net/20160901155929546" alt="这里写图片描述"><br>was created using the following code from gnuplot-example.cc:<br><br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">using namespace std;</div><div class="line"></div><div class="line">string fileNameWithNoExtension = "plot-2d";</div><div class="line">string graphicsFileName        = fileNameWithNoExtension + ".png";</div><div class="line">string plotFileName            = fileNameWithNoExtension + ".plt";</div><div class="line">string plotTitle               = "2-D Plot";</div><div class="line">string dataTitle               = "2-D Data";</div><div class="line"></div><div class="line">// Instantiate the plot and set its title.</div><div class="line">Gnuplot plot (graphicsFileName);</div><div class="line">plot.SetTitle (plotTitle);</div><div class="line"></div><div class="line">// Make the graphics file, which the plot file will create when it</div><div class="line">// is used with Gnuplot, be a PNG file.</div><div class="line">plot.SetTerminal ("png");</div><div class="line"></div><div class="line">// Set the labels for each axis.</div><div class="line">plot.SetLegend ("X Values", "Y Values");</div><div class="line"></div><div class="line">// Set the range for the x axis.</div><div class="line">plot.AppendExtra ("set xrange [-6:+6]");</div><div class="line"></div><div class="line">// Instantiate the dataset, set its title, and make the points be</div><div class="line">// plotted along with connecting lines.</div><div class="line">Gnuplot2dDataset dataset;</div><div class="line">dataset.SetTitle (dataTitle);</div><div class="line">dataset.SetStyle (Gnuplot2dDataset::LINES_POINTS);</div><div class="line"></div><div class="line">double x;</div><div class="line">double y;</div><div class="line"></div><div class="line">// Create the 2-D dataset.</div><div class="line">for (x = -5.0; x &lt;= +5.0; x += 1.0)</div><div class="line">  &#123;</div><div class="line">    // Calculate the 2-D curve</div><div class="line">    //</div><div class="line">    //            2</div><div class="line">    //     y  =  x   .</div><div class="line">    //</div><div class="line">    y = x * x;</div><div class="line"></div><div class="line">    // Add this point.</div><div class="line">    dataset.Add (x, y);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">// Add the dataset to the plot.</div><div class="line">plot.AddDataset (dataset);</div><div class="line"></div><div class="line">// Open the plot file.</div><div class="line">ofstream plotFile (plotFileName.c_str());</div><div class="line"></div><div class="line">// Write the plot file.</div><div class="line">plot.GenerateOutput (plotFile);</div><div class="line"></div><div class="line">// Close the plot file.</div><div class="line">plotFile.close ();</div></pre></td></tr></table></figure></p>
+<p>示例代码：<br><code>src/stats/examples/gnuplot-example.cc</code><br>会产生这些文件：<br><br>plot-2d.plt<br>plot-2d-with-error-bars.plt<br>plot-3d.plt<br>要处理这些文件，则：<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ gnuplot plot-2d.plt</div><div class="line">$ gnuplot plot-2d-with-error-bars.plt</div><div class="line">$ gnuplot plot-3d.pt</div></pre></td></tr></table></figure></p>
+<p>会产生这些图像文件：<br>plot-2d.png<br>plot-2d-with-error-bars.png<br>plot-3d.png</p>
+<p>——————————分割线 9.8, 2016————————-<br>上次只是从官网上看了下怎么在.cpp文件里写跟gnuplot相关的代码。这次实际演练了一下。用官方提供了示例文件。<br><br><code>ns-3-allinone/ns-3-dev/examples/tutorial/fifh.cc</code><br><br><img src="http://img.blog.csdn.net/20160908214025110" alt="这里写图片描述"><br>我在命令行里的过程如下。<br>在<code>/home/cqq/repos/ns-3-allinone/ns-3-dev</code>目录下运行：<br><br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ ./waf --run fifth &gt; cwnd.dat 2&gt;&amp;1</div></pre></td></tr></table></figure></p>
+<p>这样就将运行<code>fifth.cc</code>之后的结果重定向到cwnd.dat里面了，然后接下来，用<code>gnuplot</code>的交互式环境来生成.png图片文件。<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">gnuplot&gt; <span class="built_in">set</span> terminal png size 640,480 </div><div class="line">gnuplot&gt; <span class="built_in">set</span> output <span class="string">"condo.png"</span></div><div class="line">gnuplot&gt; plot <span class="string">"cwnd.dat"</span> using 1:2 title <span class="string">'Congestion Window'</span> with linespoints</div><div class="line">gnuplot&gt; <span class="built_in">exit</span></div></pre></td></tr></table></figure></p>
+<p>然后就可以发现目录下已经有了一个<code>cwnd.png</code>图片文件了。<br><img src="http://img.blog.csdn.net/20160908214111783" alt="这里写图片描述"><br>最后将<code>mininet</code>系统里的<code>cwnd.png</code>复制到宿主机OSX上查看图片。<br><img src="http://img.blog.csdn.net/20160908215923526" alt="这里写图片描述"></p>
 
 
                 <hr>
@@ -189,12 +183,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2016/07/11/强大的Burp-Suite/" data-toggle="tooltip" data-placement="top" title="强大的Burp Suite">&larr; Previous Post</a>
+                            <a href="/2016/09/09/应用层以下的网络神器——scapy学习/" data-toggle="tooltip" data-placement="top" title="应用层以下的网络神器——scapy学习">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2015/07/01/开始SDN/" data-toggle="tooltip" data-placement="top" title="开始SDN">Next Post &rarr;</a>
+                            <a href="/2016/09/09/ns3-HOWTO-understand-and-find-cause-of-terminated-with-signal-errors/" data-toggle="tooltip" data-placement="top" title="ns3--HOWTO understand and find cause of terminated with signal errors">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -221,9 +215,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                          <a class="tag" href="/tags/#ns3" title="ns3">ns3</a>
                         
                     </div>
                 </section>
