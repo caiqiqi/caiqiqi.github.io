@@ -13,11 +13,11 @@
 
     <title>
         
-          一个计算机网络的面试题 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
+          linux常用命令 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/一个计算机网络的面试题/">
+    <link rel="canonical" href="https://github.com/caiqiqi/2016/09/09/linux常用命令/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,14 +141,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#network" title="network">network</a>
+                          <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
                         
                     </div>
-                    <h1>一个计算机网络的面试题</h1>
+                    <h1>linux常用命令</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Cai Qiqi on
-                        2016-07-11
+                        2016-09-09
                     </span>
                 </div>
             </div>
@@ -167,10 +167,18 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>来自林沛满的《WIreshark网络分析就这么简单》</p>
-<p>###问题<br><img src="http://ww4.sinaimg.cn/mw690/b0a7c3b6gw1f2t4h26er3j21301mhn8a.jpg" alt="这里写图片描述"></p>
-<p>###抓包与分析<br><img src="http://ww3.sinaimg.cn/mw690/b0a7c3b6gw1f2t6wbut7aj210u469hce.jpg" alt="这里写图片描述"><br>分析一下：<br><br>A: <code>192.168.26.129/24</code> <br><br>B: <code>192.168.26.3/27</code> <br></p>
-<p>那问题是：B能ping通A吗？咋一看都是<code>192.168.26.*</code>,好像应该能ping通，但是看看子网掩码呢？A的掩码：255.255.255.0，挺熟悉的，平常用的路由器或者从PC发出来的热点不就是这样的形式吗？然而B的掩码跟A不一样！蒙逼了！好啦，认真分析一下，是谁ping谁？B要ping A。作为B来说，由B的掩码可看出B所在的网络是192.168.26.0/27。前27位是网络号，后面的位可分配给主机号，即<code>2的(32-27)次方-1=31</code>个主机号(<strong>192.168.26.1~31</strong>)，显然A的IP ：192.168.26.129不在其列，即对B来说，A不属于B所在的子网，于是B想出本子网去找A就得交给B所在子网的网关(192.168.26.2)来处理。而要跟网关通信，就得先知道网关的MAC地址，也就是要ARP一下。于是网关向B回复了网关的MAC地址，这样B就可以跟网关通信了。于是B向A发出一个ping包，这里说向A发出ping包的意思是A发出的网络层的包的包头指定目标IP为A的IP。而其数据链路层的帧的目标MAC地址是网关的MAC地址。于是网关收到这个帧之后，发现网络层包中的目标IP为A的IP，于是转发这个包给A。A收到这个包之后，发现源IP是B(192.168.26.3)。而对A来说，B属于A的子网，因为A属于192.168.26.0/24这个网段，即<strong>192.168.26.1~255</strong>，包含B的IP(192.168.26.129)。于是A回复B的ARP请求，将自己的MAC地址告诉A，而不用经过网关的转发了。</p>
+                <p>参考：<br><a href="http://blog.sina.com.cn/s/blog_4b4cb06901009hz0.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_4b4cb06901009hz0.html</a></p>
+<h1 id="查看默认网关"><a href="#查看默认网关" class="headerlink" title="查看默认网关"></a>查看默认网关</h1><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ netstat -r</div></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ route</div></pre></td></tr></table></figure></p>
+<p>发现无法ping通百度，<br><img src="http://img.blog.csdn.net/20160902165732852" alt="这里写图片描述"><br>发现默认网关是内网网关，<br><img src="http://img.blog.csdn.net/20160902165118298" alt="这里写图片描述"><br>于是应该修改默认网关，使其为连接的可上外网的WIFI网络。</p>
+<h1 id="修改-删除默认网关"><a href="#修改-删除默认网关" class="headerlink" title="修改/删除默认网关"></a>修改/删除默认网关</h1><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ route add/del default gw 192.168.2.1</div></pre></td></tr></table></figure>
+<p>或者添加/删除 某个设备地址 为默认网关</p>
+<pre><code class="sh">$ route add/del default dev wlan0
+</code></pre>
+<p>然后就可以上网了。(虽然当时卡顿了那么几秒，那几秒我有点不相信生活了：) )<br><img src="http://img.blog.csdn.net/20160902165450956" alt="这里写图片描述"></p>
+<p>用无线网ssh，总是感觉会有一些卡顿，于是先退出，然后找到carli的有线网卡，然后ssh到carli的有线网卡上。<br><img src="http://img.blog.csdn.net/20160902170321344" alt="这里写图片描述"></p>
+<hr>
+<p>在arm版的carli下没有发现<code>arpspoof</code>命令，于是在google下搜arpspoof，结果给我一个github的地址，我找了一下，原来这只是用python实现的另一个版本。后来又发现原来<code>arpspoof</code>命令是属于<br><code>dsniff</code>的。<br><img src="http://img.blog.csdn.net/20160902211119352" alt="这里写图片描述"><br>于是安装dsniff就行了。<br><img src="http://img.blog.csdn.net/20160902211144165" alt="这里写图片描述"><br><a href="http://www.btfw.org/linux/127.html" target="_blank" rel="external">http://www.btfw.org/linux/127.html</a></p>
 
 
                 <hr>
@@ -179,13 +187,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2016/07/11/再玩树莓派/" data-toggle="tooltip" data-placement="top" title="再玩树莓派">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2016/07/11/强大的网站测试工具viewDNS-info记/" data-toggle="tooltip" data-placement="top" title="强大的网站测试工具viewDNS.info记">Next Post &rarr;</a>
+                            <a href="/2016/09/09/使用zsh插件zsh-syntax-highlighting高亮你的zsh可用命令/" data-toggle="tooltip" data-placement="top" title="使用zsh插件zsh-syntax-highlighting高亮你的zsh可用命令">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -212,7 +216,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#network" title="network">network</a>
+                          <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
                         
                     </div>
                 </section>
