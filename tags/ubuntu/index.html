@@ -13,11 +13,11 @@
 
     <title>
         
-          mininet实战 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
+          蔡奇奇的博客 | CaiQiqi&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/mininet实战/">
+    <link rel="canonical" href="https://github.com/caiqiqi/tags/ubuntu/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -124,118 +124,6 @@
 
     <!-- Main Content -->
     
-<!-- Image to hack wechat -->
-<!-- <img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/home-bg.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#mininet" title="mininet">mininet</a>
-                        
-                    </div>
-                    <h1>mininet实战</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by Cai Qiqi on
-                        2016-07-11
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <p>先来一个图。<br><br><img src="http://img.blog.csdn.net/20160512021644309" alt="这里写图片描述"><br>先<code>sudo mn</code>模拟默认的环境。一个Controller c0; 一个OVSSwitch s1; 然后两个Host h1,h2。<br><br>在dump中可以看到其实s1就是本机(ubuntu虚拟机系统)；c0是占用本机的某个端口，在某进程运行；而h1和h2是用两个进程来实现的。<br>不要试图去抓s1的包，因为它这会捕获本机的各种流量。<br><img src="http://img.blog.csdn.net/20160512022104435" alt="这里写图片描述"><br>而应该在h1或者h2监听流量。<br>先在h1上<code>tcpdump -n</code>来监听通过h1的流量。<br>然后在mininet命令行里<code>h1 ping h2</code>来产生通信流量。<br>抓包结果如下：<br><br><img src="http://img.blog.csdn.net/20160512022537843" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160512022511075" alt="这里写图片描述"><br>这个用XQuartz打开的窗口不能拉伸，所以不得不截两张图。</p>
-<p>然后用<code>iperf</code> 测h1与h2之间的TCP带宽和<code>iperfudp</code>测UDP带宽。哇，我的TCP带宽居然这么高『17.1 Gbits/sec』，跟CPU有关吗<br><img src="http://img.blog.csdn.net/20160512023448175" alt="这里写图片描述"></p>
-<p>Edited on 5/14 03:13——————————–<br><br><img src="http://img.blog.csdn.net/20160514031526782" alt="这里写图片描述"><br>创建单OpenvSwitch然后四个主机的网络，h4作为http服务器，h1通过wget访问h4  PS：<img src="https://www.youtube.com/watch?v=l25Ukkmk6Sk" alt="视频教程">讲得好！<br><img src="http://img.blog.csdn.net/20160514031613377" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160514031636221" alt="这里写图片描述"></p>
-
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2016/07/11/mininet实战3/" data-toggle="tooltip" data-placement="top" title="mininet实战3">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2016/07/11/OSX上开启X11/" data-toggle="tooltip" data-placement="top" title="OSX上开启X11">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                
-
-                
-
-            </div>
-    <!-- Side Catalog Container -->
-        
-
-    <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                       
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#mininet" title="mininet">mininet</a>
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Friends Blog -->
-                
-            </div>
-
-        </div>
-    </div>
-</article>
-
-
-
-
-
-
-
-
 
     <!-- Footer -->
     <!-- Footer -->
