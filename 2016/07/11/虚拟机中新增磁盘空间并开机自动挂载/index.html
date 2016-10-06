@@ -174,7 +174,7 @@
 <h2 id="选择文件系统格式化分区"><a href="#选择文件系统格式化分区" class="headerlink" title="选择文件系统格式化分区"></a>选择文件系统格式化分区</h2><p><code>sudo mkfs -t ext4 /dev/sda2</code><br><br>或者<br><br><code>sudo mkfs.ext4 /dev/sda2</code></p>
 <h2 id="创建挂载点-挂载路径"><a href="#创建挂载点-挂载路径" class="headerlink" title="创建挂载点(挂载路径)"></a>创建挂载点(挂载路径)</h2><p>一般不会直接在根目录上挂载，因为根目录之前已经被挂载了，而且卸载不了，所以一般还是挂载到比如说 <code>/home/cqq</code>这样的路径。<br><code>sudo mkdir /home/cqq</code>。<br><code>sudo mount /dev/sda2 /home/cqq</code></p>
 <h2 id="设置开机自动挂载"><a href="#设置开机自动挂载" class="headerlink" title="设置开机自动挂载"></a>设置开机自动挂载</h2><p>编辑文件 <code>sudo vi /etc/fstab</code> <br><br>加入<br><code>/dev/sda2  /home/cqq ext4      defaults         0       2</code> <br></p>
-<p>###参考：<br><br><a href="http://blog.csdn.net/luckymelina/article/details/16797519" target="_blank" rel="external">http://blog.csdn.net/luckymelina/article/details/16797519</a></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：<br></h2><p><a href="http://blog.csdn.net/luckymelina/article/details/16797519" target="_blank" rel="external">http://blog.csdn.net/luckymelina/article/details/16797519</a></p>
 
 
                 <hr>
