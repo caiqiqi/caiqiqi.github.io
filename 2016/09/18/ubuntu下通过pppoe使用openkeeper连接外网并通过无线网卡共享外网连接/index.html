@@ -171,7 +171,9 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>———————9月16日更————————–<br>今天发现坑的那个连接学校某台内网VPN服务器上外网的内网VPN服务器down了，于是回宿舍就自己断开了实验室的OpenKeeper。<br><img src="http://img.blog.csdn.net/20160916174431128" alt="这里写图片描述"><br>好处就是，不管在实验室还是寝室，完全可以自己控制每一边的NetKeeper帐号的连接和断开操作。</p>
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="http://music.163.com/outchain/player?type=2&amp;id=779563&amp;auto=1&amp;height=32"> </iframe>
+
+<p>———————9月16日更————————–<br>今天发现坑的那个连接学校某台内网VPN服务器上外网的内网VPN服务器down了，于是回宿舍就自己断开了实验室的OpenKeeper。<br><img src="http://img.blog.csdn.net/20160916174431128" alt="这里写图片描述"><br>好处就是，不管在实验室还是寝室，完全可以自己控制每一边的NetKeeper帐号的连接和断开操作。</p>
 <h1 id="断开的操作"><a href="#断开的操作" class="headerlink" title="断开的操作"></a>断开的操作</h1><p>先查看<code>hostapd</code>的状态，发现是正在运行的，则先断开<code>hostapd</code>关闭无线分享。<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ service hostapd status</div><div class="line">$ service hostapd stop</div></pre></td></tr></table></figure></p>
 <p>———–9月18日 更——-<br>哦不行，像上面那样停止hostapd是不行的。用<code>ps aux|grep hostapd</code>之后发现<code>hostapd</code> 依然在运行。要结束它所在的进程才行。<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ sudo <span class="built_in">kill</span> hostapd</div></pre></td></tr></table></figure></p>
 <p>就像<code>/usr/sbin/myap</code>里面写的一样，得结束掉<code>hostapd</code>所在的进程。</p>
