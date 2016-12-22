@@ -167,7 +167,8 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="交换机与控制器通过OpenFlow-1-0-协议通信过程"><a href="#交换机与控制器通过OpenFlow-1-0-协议通信过程" class="headerlink" title="交换机与控制器通过OpenFlow(1.0)协议通信过程"></a>交换机与控制器通过OpenFlow(1.0)协议通信过程</h1><h2 id="建立OpenFlow连接-Controller-lt-gt-Switch"><a href="#建立OpenFlow连接-Controller-lt-gt-Switch" class="headerlink" title="建立OpenFlow连接 ( Controller &lt;-&gt; Switch )"></a>建立OpenFlow连接 ( Controller &lt;-&gt; Switch )</h2><p>控制器与交换机互相发送<code>Hello消息</code>(Hello消息值包含OpenFlow Header，其中version字段为发送放所支持的最高版本的OpenFlow协议)<br>双方选取Hello消息中最低版本的协议作为通信协议。若双方OpenFlow版本可兼容，则OpenFlow连接建立成功。</p>
+                <h1 id="交换机与控制器通过OpenFlow-1-0-协议通信过程"><a href="#交换机与控制器通过OpenFlow-1-0-协议通信过程" class="headerlink" title="交换机与控制器通过OpenFlow(1.0)协议通信过程"></a>交换机与控制器通过OpenFlow(1.0)协议通信过程</h1><p>Reference : 《Openflow协议基础入门》 by 张健男</p>
+<h2 id="建立OpenFlow连接-Controller-lt-gt-Switch"><a href="#建立OpenFlow连接-Controller-lt-gt-Switch" class="headerlink" title="建立OpenFlow连接 ( Controller &lt;-&gt; Switch )"></a>建立OpenFlow连接 ( Controller &lt;-&gt; Switch )</h2><p>控制器与交换机互相发送<code>Hello消息</code>(Hello消息值包含OpenFlow Header，其中version字段为发送放所支持的最高版本的OpenFlow协议)<br>双方选取Hello消息中最低版本的协议作为通信协议。若双方OpenFlow版本可兼容，则OpenFlow连接建立成功。</p>
 <p>? OpenFlow连接建立后，控制器最关心什么事情呢？</p>
 <h2 id="获取交换机特性-Features-信息-Controller-lt-gt-Switch"><a href="#获取交换机特性-Features-信息-Controller-lt-gt-Switch" class="headerlink" title="获取交换机特性(Features)信息 ( Controller &lt;-&gt; Switch )"></a>获取交换机特性(Features)信息 ( Controller &lt;-&gt; Switch )</h2><p>OpenFlow连接建立后，控制器最需要获得交换机的<code>Features信息</code>(包括交换机的ID, 即DPID)，交换机的缓冲区数量，交换机端口已经端口属性等。</p>
 <p>控制器向交换机发送 <code>Features Request消息</code>(Features消息只包含OpenFlow Header)查询交换机的特性。<br>交换机在收到 <code>Features Request消息</code>后返回<code>Features Reply消息</code>(包括OpenFlow Header和 <code>Features Reply Message</code>)</p>
