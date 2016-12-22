@@ -13,11 +13,11 @@
 
     <title>
         
-          mininet实战3 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
+          交换机与控制器通信过程 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/mininet实战3/">
+    <link rel="canonical" href="https://github.com/caiqiqi/2016/12/22/交换机与控制器通信过程/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -143,14 +143,12 @@
                         
                           <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
                         
-                          <a class="tag" href="/tags/#mininet" title="mininet">mininet</a>
-                        
                     </div>
-                    <h1>mininet实战3</h1>
+                    <h1>交换机与控制器通信过程</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Cai Qiqi on
-                        2016-07-11
+                        2016-12-22
                     </span>
                 </div>
             </div>
@@ -169,9 +167,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>在<code>/home/cqq/repos/mininet-wifi/examples</code>目录<br><code>sudo python wifiMobility.py</code><br>PS: 就运行这个脚本，导致ubuntu经常死机，于是我只得给ubuntu加到2G内存，两个核处理器了。<br><img src="http://img.blog.csdn.net/20160516193441073" alt="这里写图片描述"><br>运行之后，发现sta1和sta2之间ping的时候，延迟是先最大，然后从一个小的值慢慢增大，然后稳定到180ms。应该画出图到图上瞧瞧。<br><img src="http://img.blog.csdn.net/20160516193553917" alt="这里写图片描述"><br>PS：原来就这样就可以画图了啊<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> mininet.net <span class="keyword">import</span> Mininet</div><div class="line"><span class="string">"Create a network."</span></div><div class="line">et = Mininet( controller=Controller, link=TCLink, switch=OVSKernelSwitch )</div><div class="line">net.plotGraph(max_x=<span class="number">60</span>, max_y=<span class="number">60</span>)</div></pre></td></tr></table></figure></p>
-<p>Edit on 5/18 00:21——————————————-<br>找到了PACKT_IN 和PACKET_OUT的包<br><img src="http://img.blog.csdn.net/20160518002235827" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160518002256015" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160518002330687" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160518002346281" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160518002403495" alt="这里写图片描述"></p>
-
+                <h1 id="交换机与控制器通过OpenFlow-1-0-协议通信过程"><a href="#交换机与控制器通过OpenFlow-1-0-协议通信过程" class="headerlink" title="交换机与控制器通过OpenFlow(1.0)协议通信过程"></a>交换机与控制器通过OpenFlow(1.0)协议通信过程</h1><h2 id="建立OpenFlow连接-Controller-lt-gt-Switch"><a href="#建立OpenFlow连接-Controller-lt-gt-Switch" class="headerlink" title="建立OpenFlow连接 ( Controller &lt;-&gt; Switch )"></a>建立OpenFlow连接 ( Controller &lt;-&gt; Switch )</h2><p>控制器与交换机互相发送<code>Hello消息</code>(Hello消息值包含OpenFlow Header，其中version字段为发送放所支持的最高版本的OpenFlow协议)<br>双方选取Hello消息中最低版本的协议作为通信协议。若双方OpenFlow版本可兼容，则OpenFlow连接建立成功。</p>
+<p>? OpenFlow连接建立后，控制器最关心什么事情呢？</p>
+<h2 id="获取交换机特性-Features-信息-Controller-lt-gt-Switch"><a href="#获取交换机特性-Features-信息-Controller-lt-gt-Switch" class="headerlink" title="获取交换机特性(Features)信息 ( Controller &lt;-&gt; Switch )"></a>获取交换机特性(Features)信息 ( Controller &lt;-&gt; Switch )</h2><p>OpenFlow连接建立后，控制器最需要获得交换机的<code>Features信息</code>(包括交换机的ID, 即DPID)，交换机的缓冲区数量，交换机端口已经端口属性等。</p>
+<p>控制器向交换机发送 <code>Features Request消息</code>(Features消息只包含OpenFlow Header)查询交换机的特性。<br>交换机在收到 <code>Features Request消息</code>后返回<code>Features Reply消息</code>(包括OpenFlow Header和 <code>Features Reply Message</code>)</p>
+<h2 id="Features-Reply-Message结构"><a href="#Features-Reply-Message结构" class="headerlink" title="Features Reply Message结构"></a>Features Reply Message结构</h2><figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="keyword">struct</span> ofp_switch_features &#123;</div><div class="line">	<span class="keyword">uint64_t</span>   datapath_id     <span class="comment">// 为交换机独一无二的ID号</span></div><div class="line">	<span class="keyword">uint32_t</span>   n_buffers       <span class="comment">// 为交换机可以同时缓存的最大数据包个数</span></div><div class="line">	<span class="keyword">uint8_t</span>    n_tables        <span class="comment">// 为交换机的流表数量</span></div><div class="line">	<span class="comment">/* Features */</span></div><div class="line">	<span class="keyword">uint32_t</span>   capabilities    <span class="comment">// 为交换机支持的特殊功能</span></div><div class="line">	<span class="keyword">uint32_t</span>   actions         <span class="comment">// 表示交换机支持的动作 (见 ofp_action_type)</span></div><div class="line">	<span class="comment">/* Port Info */</span></div><div class="line">	<span class="keyword">struct</span>     ofp_phy_port    <span class="comment">// 为交换机的物理端口描述列表</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="配置交换机OpenFlow属性-Controller-gt-Switch"><a href="#配置交换机OpenFlow属性-Controller-gt-Switch" class="headerlink" title="配置交换机OpenFlow属性 ( Controller -&gt; Switch )"></a>配置交换机OpenFlow属性 ( Controller -&gt; Switch )</h2><p>OpenFlow交换机只有两个属性需要控制器配置</p>
+<ul>
+<li>flags:          用来指示交换机如何处理IP分片数据包</li>
+<li>miss_send_len:  用来指示当一个交换机无法处理的数据包达到时，将数据包发给控制器的最大字节数。</li>
+</ul>
+<h2 id="Packet-in事件-交换机接收数据包-Switch-gt-Controller"><a href="#Packet-in事件-交换机接收数据包-Switch-gt-Controller" class="headerlink" title="Packet-in事件 (交换机接收数据包) ( Switch -&gt; Controller )"></a>Packet-in事件 (交换机接收数据包) ( Switch -&gt; Controller )</h2><p><code>Pakcet-in</code>消息触发情况1：<br>当交换机收到一个数据包后，会查找流表(Flow table)，找出与数据包包头匹配的条目(Entry)。<br>如果流表中有匹配条目，则交换机按照流表所指示的action列表处理数据包(也就没有<code>Packet-in</code>消息了)；<br>如果流表中没有匹配条目，则交换机会将数据包封装在<code>Packet-in</code>消息中发送给控制器处理。此时数据包会缓存在交换机中等待处理。</p>
+<p><code>Packet-in</code>消息触发情况2：<br>交换机流表所指示的action列表中包含转发给控制器的动作(<strong>Output=CONTROLLER</strong>)。此时数据包不会被缓存在交换机中。</p>
+<h2 id="Packet-in消息格式"><a href="#Packet-in消息格式" class="headerlink" title="Packet-in消息格式"></a>Packet-in消息格式</h2><figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="keyword">struct</span> ofp_packet_in &#123;</div><div class="line">	<span class="keyword">struct</span> ofp_header</div><div class="line">	<span class="keyword">uint32_t</span> buffer_id       <span class="comment">// 为`Packet-in`事件所携带的数据包在交换机中的缓存区ID</span></div><div class="line">	<span class="keyword">uint16_t</span> total_len       <span class="comment">// 为data段的长度</span></div><div class="line">	<span class="keyword">uint16_t</span> in_port         <span class="comment">// 数据包进入交换机的端口号</span></div><div class="line">	<span class="keyword">uint8_t</span>  reason          <span class="comment">// 为`Packet-in`事件产生的原因</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">enum</span> ofp_packet_in_reason &#123;</div><div class="line">	OFPR_NO_MATCH,     <span class="comment">// 没有匹配到flow table entry(流表项)</span></div><div class="line">	OFPR_ACTION        <span class="comment">// 明确指定转发给控制器</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="控制器配置流表-Flow-Mod-消息-Controller-gt-Switch"><a href="#控制器配置流表-Flow-Mod-消息-Controller-gt-Switch" class="headerlink" title="控制器配置流表 (Flow-Mod 消息) ( Controller -&gt; Switch )"></a>控制器配置流表 (Flow-Mod 消息) ( Controller -&gt; Switch )</h2><p>Flow-Mod消息用来添加、删除、修改OpenFlow交换机的流表消息<br>Flow-Mod消息共有五种类型：<br><code>ADD, DELETE, DELETED-STRICT, MODIFY, MODIFY-STRICT</code><br>ADD:                 添加一条新的流表项<br>DELETE:              删除所有符合某种条件的流表项<br>DELETED-STRICT:      删除某一条指定的流表项<br>MODIFY:              修改所有符合某种条件的流表项<br>MODIFY-STRICT:       修改某一条指定的流表项</p>
+<h2 id="Flow-Mod-消息格式"><a href="#Flow-Mod-消息格式" class="headerlink" title="Flow-Mod 消息格式"></a>Flow-Mod 消息格式</h2><p>//TODO</p>
+<h2 id="用Flow-Mod消息响应Packet-in消息-Controller-gt-Switch"><a href="#用Flow-Mod消息响应Packet-in消息-Controller-gt-Switch" class="headerlink" title="用Flow-Mod消息响应Packet-in消息 ( Controller -&gt; Switch )"></a>用Flow-Mod消息响应<code>Packet-in</code>消息 ( Controller -&gt; Switch )</h2><p>当交换机收到一个数据包并且交换机中没有与该数据包匹配的流表项时，交换机将次数据包封装到<code>Packet-in</code>消息中发送给控制器，<br>并且交换机会将该数据包缓存。<br>控制器收到<code>Packet-in</code>消息后，可以发送<code>Flow-Mod</code>消息向交换机写一个流表项。并且将该<code>Flow-Mod</code>消息中的 <strong>buffer_id</strong> 字段设置为<code>Packet-in</code>消息中的 <strong>buffer_id</strong>值。<br>这样，控制器就成功向交换机写入了一条与数据包相关的流表项，并且指定该数据包按照此流表项的action列表处理。</p>
+<h2 id="交换机转发数据包-Packet-out-Controller-gt-Switch"><a href="#交换机转发数据包-Packet-out-Controller-gt-Switch" class="headerlink" title="交换机转发数据包 (Packet-out) ( Controller -&gt; Switch )"></a>交换机转发数据包 (<code>Packet-out</code>) ( Controller -&gt; Switch )</h2><p><em>并不是所有的数据包都需要向交换机中添加一条流表项来匹配处理，网络中还存在多种数据包，它出现的数量很少(如ARP、IGMP等)，以至于没有必要通过流表项来指定这一类数据包的处理方法。</em><br>此时，控制器可以使用<code>Packet-out</code>消息，告诉交换机某一个数据包如何处理。</p>
+<h2 id="Packet-out消息格式"><a href="#Packet-out消息格式" class="headerlink" title="Packet-out消息格式"></a><code>Packet-out</code>消息格式</h2><p>//TODO</p>
+<h2 id="Packet‐Out消息的应用场景"><a href="#Packet‐Out消息的应用场景" class="headerlink" title="Packet‐Out消息的应用场景"></a><code>Packet‐Out</code>消息的应用场景</h2><p>//TODO</p>
+<h2 id="基于OpenFlow的SDN工作流程"><a href="#基于OpenFlow的SDN工作流程" class="headerlink" title="基于OpenFlow的SDN工作流程"></a>基于OpenFlow的SDN工作流程</h2>
 
                 <hr>
 
@@ -179,13 +194,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2016/07/11/mininet实战2/" data-toggle="tooltip" data-placement="top" title="mininet实战2">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2016/07/11/mininet实战/" data-toggle="tooltip" data-placement="top" title="mininet实战">Next Post &rarr;</a>
+                            <a href="/2016/10/13/translation-Overflow-Trilogy/" data-toggle="tooltip" data-placement="top" title="[译]Overflow三部曲">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -213,8 +224,6 @@
                     <div class="tags">
                        
                           <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#mininet" title="mininet">mininet</a>
                         
                     </div>
                 </section>
