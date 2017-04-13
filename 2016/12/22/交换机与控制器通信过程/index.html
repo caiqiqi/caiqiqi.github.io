@@ -187,6 +187,10 @@
 <h2 id="交换机转发数据包-Packet-out-Controller-gt-Switch"><a href="#交换机转发数据包-Packet-out-Controller-gt-Switch" class="headerlink" title="交换机转发数据包 (Packet-out) ( Controller -&gt; Switch )"></a>交换机转发数据包 (<code>Packet-out</code>) ( Controller -&gt; Switch )</h2><p><em>并不是所有的数据包都需要向交换机中添加一条流表项来匹配处理，网络中还存在多种数据包，它出现的数量很少(如ARP、IGMP等)，以至于没有必要通过流表项来指定这一类数据包的处理方法。</em><br>此时，控制器可以使用<code>Packet-out</code>消息，告诉交换机某一个数据包如何处理。</p>
 <h2 id="Packet-out消息格式"><a href="#Packet-out消息格式" class="headerlink" title="Packet-out消息格式"></a><code>Packet-out</code>消息格式</h2><p>//TODO</p>
 <h2 id="Packet‐Out消息的应用场景"><a href="#Packet‐Out消息的应用场景" class="headerlink" title="Packet‐Out消息的应用场景"></a><code>Packet‐Out</code>消息的应用场景</h2><p>//TODO</p>
+<ol>
+<li>指定某一个数据包的处理方法</li>
+<li></li>
+</ol>
 <h2 id="基于OpenFlow的SDN工作流程"><a href="#基于OpenFlow的SDN工作流程" class="headerlink" title="基于OpenFlow的SDN工作流程"></a>基于OpenFlow的SDN工作流程</h2>
 
                 <hr>
@@ -194,6 +198,10 @@
                 
 
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/04/13/ubuntu-kali设置时间/" data-toggle="tooltip" data-placement="top" title="ubuntu/kali设置时间">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
@@ -285,7 +293,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 蔡奇奇的博客 2016 
+                    Copyright &copy; 蔡奇奇的博客 2017 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
