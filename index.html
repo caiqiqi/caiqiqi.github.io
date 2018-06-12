@@ -182,52 +182,6 @@
 
 <div class="post-preview">
 
-    <a href="/2017/06/11/IE的URL编码问题/">
-        <h2 class="post-title">
-            IE的URL编码问题
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            参考：http://blog.innerht.ml
-处理URL很容易搞错。有时候服务端对URL验证有一点点不准确都可能造成一些问题。这次呈现两个跟IE在处理URL重定向方面不当的问题。
-GitHub OAuth Code TheftURL编码，或者叫百分号编码，通常用在query string或者request body中。Hostname同样接收URL编码。然而当IE在重定URL编码过后的......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by nobody from nowhere on
-        2017-06-11
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/06/08/MySQL-宽字节注入/">
-        <h2 class="post-title">
-            MySQL 宽字节注入
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            参考：http://blog.csdn.net/jnbbwyth/article/details/6991425https://www.leavesongs.com/PENETRATION/mutibyte-sql-inject.html
-关于GBK编码和UTF-8编码这个文件原文只有ASCII字符，当我加上两个汉字之后就不得不变成了UTF-8字符。
-iconv这个工具(MacOS, ubu......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by nobody from nowhere on
-        2017-06-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2016/12/22/交换机与控制器通信过程/">
         <h2 class="post-title">
             交换机与控制器通信过程
@@ -358,31 +312,6 @@ HTTP响应头拆分造成的overflow这个问题清晰地展示了HTTP响应拆�
 会自动下载这个插件，并将source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 这一句加在你的~/.zshrc中。
 对于Oh-my-zsh用户git clone https://git......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by nobody from nowhere on
-        2016-09-09
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/09/09/应用层以下的网络神器——scapy学习/">
-        <h2 class="post-title">
-            应用层以下的网络神器——scapy学习
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            用scary构造ICMP包(在IP之上)
-在OSX上用scapy会碰到一些bug。然而在floodlight(ubuntu 14.04)上可以很好的运行。
-ping.show() 
-scapy的神奇之处在于它可以构造任意层协议任意内容的包，并且可以控制在收到响应之后回复什么包，可以完全模拟TCP三次握手的过程。
-...
         </div>
     </a>
     <p class="post-meta">
@@ -617,6 +546,77 @@ The w utility prints a summary of the ......
 </div>
 <hr>
 
+<div class="post-preview">
+
+    <a href="/2016/07/11/译-Android开发规范与架构/">
+        <h2 class="post-title">
+            [译]Android开发规范与架构
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            摘要
+使用Gradle和它推荐的工程目录
+使用 Maven依赖而不是导入jar包
+把密码和敏感数据放在gradle.properties
+使用Fragment来呈现UI视图
+使用Activity只是用来管理Fragment的
+使用多个style文件以避免单一的大style文件
+使用WebView时避免在客户端做处理HTML工作，当心内存泄露
+总是用ProGuard和DexGuard来混淆项目......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2016-07-11
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/07/11/在Activity中创建Handler发送消息以及接受消息过程浅析/">
+        <h2 class="post-title">
+            在Activity中创建Handler发送消息以及接受消息过程浅析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            在Github上：https://github.com/caiqiqi/Notes/blob/master/%E5%9C%A8Activity%E4%B8%AD%E5%88%9B%E5%BB%BAHandler%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E4%BB%A5%E5%8F%8A%E6%8E%A5%E5%8F%97%E6%B6%88%E6%81%AF%E......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2016-07-11
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/07/11/windows平台的route命令/">
+        <h2 class="post-title">
+            windows平台的route命令 
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            直接route print之后看到只有一条永久路由：说明：这是一条”默认路径“、表示，当该主机发送数据包时，如果在路由表内找不到其他可以用来发送此数据包的路径时，该数据包会通过这条”默认路径“来发送这是在输入route print -4 172*之后得到的路由信息说明：”在链路上“表示直接发送给目标，而不需要经过路由器（在应该指定网关地址的地方没有指定，说明这条路由不需要经过网关转发）说明：......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2016-07-11
+    </p>
+
+</div>
+<hr>
+
 
 
 <!-- Pager -->
@@ -660,7 +660,7 @@ The w utility prints a summary of the ......
                             
                         
                             
-                            <a href="/tags/#Python" title="Python" rel="4">Python</a>
+                            <a href="/tags/#Python" title="Python" rel="3">Python</a>
                             
                         
                             
@@ -668,7 +668,7 @@ The w utility prints a summary of the ......
                             
                         
                             
-                            <a href="/tags/#web" title="web" rel="3">web</a>
+                            <a href="/tags/#web" title="web" rel="2">web</a>
                             
                         
                             
@@ -678,11 +678,9 @@ The w utility prints a summary of the ......
                             
                         
                             
-                            <a href="/tags/#SDN" title="SDN" rel="7">SDN</a>
+                            <a href="/tags/#SDN" title="SDN" rel="4">SDN</a>
                             
                         
-                            
-                            <a href="/tags/#mininet" title="mininet" rel="3">mininet</a>
                             
                         
                             
