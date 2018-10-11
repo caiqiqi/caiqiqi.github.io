@@ -13,11 +13,11 @@
 
     <title>
         
-          ns3笔记 - ss-test
+          19_Everything敏感文件漏洞 - ss-test
         
     </title>
 
-    <link rel="canonical" href="https://github.com/caiqiqi/2016/07/11/ns3笔记/">
+    <link rel="canonical" href="https://github.com/caiqiqi/2018/10/11/19-Everything敏感文件漏洞/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -141,18 +141,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#ns3" title="ns3">ns3</a>
-                        
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                        
                     </div>
-                    <h1>ns3笔记</h1>
+                    <h1>19_Everything敏感文件漏洞</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by nobody from nowhere on
-                        2016-07-11
+                        2018-10-11
                     </span>
                 </div>
             </div>
@@ -171,11 +165,10 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h1><p>ns-3的API：<br><br><a href="https://www.nsnam.org/docs/release/3.17/doxygen/" target="_blank" rel="external">https://www.nsnam.org/docs/release/3.17/doxygen/</a><br>一些学习的视频：<br><br><a href="https://www.youtube.com/watch?v=FFNvFzSmgIg" target="_blank" rel="external">ns3 overview</a><br></p>
-<p><a href="https://www.youtube.com/user/ns3share/videos" target="_blank" rel="external">ns3share’s channel</a><br><br><a href="https://www.youtube.com/watch?v=AU7ZjBvQaBk" target="_blank" rel="external">tutorial-ns3</a><br><br><div class="video-container"><iframe src="//www.youtube.com/embed/AU7ZjBvQaBk" frameborder="0" allowfullscreen></iframe></div> <br><br><a href="https://www.youtube.com/watch?v=dZKz1J1ZZRU&amp;list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&amp;index=1" target="_blank" rel="external">Building Simple Network Topologies p2</a> <br><br><div class="video-container"><iframe src="//www.youtube.com/embed/dZKz1J1ZZRU&list=PLKa5I5RRha79V6FNCt2wghrbZaqkU1670&index=1" frameborder="0" allowfullscreen></iframe></div><br><br></p>
-<h1 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h1><p>——————7月8日更新———————————–<br>我拿着这个bug在网上半天找不到答案，突然找到一个Google Group里面的回答，发现跟我之前装ns3的方式不一样。于是在之前ns3的兄弟目录装了一个他们说的那种版本的ns3.<br><a href="http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html" target="_blank" rel="external">http://mailman.isi.edu/pipermail/ns-bugs/2015-February/011975.html</a><br><br>并按照这里面的内容改了一下几个文件(其实就是在一个.cc文件里面include了某个头文件，而在另一个文件.h里取消了include那个头文件，然后改了一下wscript)。<br><img src="http://img.blog.csdn.net/20160708161817935" alt="这里写图片描述"><br>编译这两千个.cc文件也是不简单给ubuntu的2.2G内存用完了，结果还碰到一个g++编译器的问题，得用swap，于是在本来就不多的硬盘上给了1G用作swap，<code>sudo dd if=/dev/zero of=/swapfile bs=64M count=16</code> ，<code>sudo mkswap /swapfile
-sudo swapon /swapfile</code> 。编译完成之后删除<code>sudo swapoff /swapfile
-sudo rm /swapfile</code>。其实就是在『bindings/ns3module.cc』这个文件编译的时候超级吃内存(感觉得要2G)，这种文件编译完了立马内存就释放了。<br><a href="http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/" target="_blank" rel="external">http://skypacer210.github.io/2014/12/26/building-ns-3-on-ubuntu/</a><br><img src="http://img.blog.csdn.net/20160708161313568" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20160708161329148" alt="这里写图片描述"><br><br>OK,在这种下载ns3的方式下，编译成功了。<br><br><img src="http://img.blog.csdn.net/20160708163046328" alt="这里写图片描述"><br>————————-我是分割线——————————–<br>最近准备建一些混杂的拓扑(有WIFI，有点对点，有CSMA以太网)，但是OpenNet这个库是刚出来的，有一些小bug，不太好用，于是跟Gilani交流后，他说ns-3可以做，于是我上网找了一些视频开始学习。<br>看视频里面的代码的一个示例：tutorial4.cc <br><br><img src="http://img.blog.csdn.net/20160703030536433" alt="这里写图片描述"><br>这里是要建立的拓扑：<br><br><img src="http://img.blog.csdn.net/20160703030709762" alt="这里写图片描述"><br>实际上每个节点(由<code>NodeDeviceContainer</code>建立的)是按照创建顺序然后依次排入一个<code>NodeList</code>中，用来为没个节点建立数字索引。<br><br><img src="http://img.blog.csdn.net/20160703030854602" alt="这里写图片描述"><br>每个网卡(API里面叫<code>NetDevice</code>，比如回环网卡<code>LoopbackNetDevice</code>, 点对点网卡<code>PointToPointNetDevice</code>等)<br><br><br><img src="http://img.blog.csdn.net/20160703031135826" alt="这里写图片描述"><br>一个物理的网络设备可以有安装多个网卡<br><br><img src="http://img.blog.csdn.net/20160703031336717" alt="这里写图片描述"></p>
+                <h2 id="漏洞来源"><a href="#漏洞来源" class="headerlink" title="漏洞来源"></a>漏洞来源</h2><p><a href="http://www.voidtools.com/" target="_blank" rel="external">http://www.voidtools.com/</a></p>
+<h2 id="漏洞利用条件"><a href="#漏洞利用条件" class="headerlink" title="漏洞利用条件"></a>漏洞利用条件</h2><p>None</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p><img src="everything信息泄露.gif" alt=""></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://jingyan.baidu.com/article/915fc414baf0be51384b206a.html" target="_blank" rel="external">https://jingyan.baidu.com/article/915fc414baf0be51384b206a.html</a></p>
 
 
                 <hr>
@@ -184,13 +177,9 @@ sudo rm /swapfile</code>。其实就是在『bindings/ns3module.cc』这个文�
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2016/07/11/Python实现学校学生管理系统的自动登录/" data-toggle="tooltip" data-placement="top" title="Python实现学校学生管理系统的自动登录">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2016/07/11/OSX上开启X11/" data-toggle="tooltip" data-placement="top" title="OSX上开启X11">Next Post &rarr;</a>
+                            <a href="/2018/10/11/redis未授权访问漏洞/" data-toggle="tooltip" data-placement="top" title="redis未授权访问漏洞">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -217,12 +206,6 @@ sudo rm /swapfile</code>。其实就是在『bindings/ns3module.cc』这个文�
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#ns3" title="ns3">ns3</a>
-                        
-                          <a class="tag" href="/tags/#SDN" title="SDN">SDN</a>
-                        
-                          <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                        
                     </div>
                 </section>
                 
